@@ -235,19 +235,13 @@ export default function Hero() {
           </div>
         </section>
 
-        {/* Bottom blur glow */}
-        <div
-          className="pointer-events-none absolute bottom-16 left-1/2 -translate-x-1/2 w-screen h-36 z-10"
-          style={{ background: 'radial-gradient(ellipse 70% 100% at 50% 100%, rgba(0,0,0,0.07) 0%, transparent 70%)' }}
-        />
-
         {/* Full-width divider */}
         <div className="relative h-px flex-shrink-0">
           <div className="absolute left-1/2 -translate-x-1/2 w-screen h-px bg-surface-border" />
         </div>
 
         {/* Bottom strip */}
-        <div className="flex items-stretch h-16 bg-surface relative z-20">
+        <div className="flex items-stretch h-24 bg-surface relative z-20">
 
           {/* Happy clients */}
           <div ref={clientRef} className="flex items-center gap-3 py-2 px-8 border-r border-surface-border flex-shrink-0">
@@ -257,7 +251,7 @@ export default function Hero() {
                   key={i}
                   src={src}
                   alt={`Client ${i + 1}`}
-                  className={`w-8 h-8 rounded-full border-2 border-surface object-cover flex-shrink-0 ${i !== 0 ? '-ml-2' : ''}`}
+                  className={`w-9 h-9 rounded-full border-2 border-surface object-cover flex-shrink-0 ${i !== 0 ? '-ml-2' : ''}`}
                 />
               ))}
             </div>
@@ -284,9 +278,17 @@ export default function Hero() {
               ))}
             </div>
           </div>
+          
 
         </div>
+
+         {/* Bottom full-width divider — closes the strip */}
+      <div className="relative h-px">
+        <div className="absolute left-1/2 -translate-x-1/2 w-screen h-px bg-surface-border" />
+      </div>
       </div>
     </div>
+
+    
   )
 }

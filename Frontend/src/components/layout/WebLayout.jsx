@@ -1,6 +1,8 @@
 import useLenis from '../../hooks/useLenis'
 import Navbar from './Navbar'
 import Footer from './Footer'
+import FloatingContact from '../FloatingContact'
+import BottomBlurFade from '../BottomBlurFade'
 
 export default function WebLayout({ children }) {
   useLenis()
@@ -12,6 +14,8 @@ export default function WebLayout({ children }) {
         {children}
       </main>
       <Footer />
+      <BottomBlurFade />
+      <FloatingContact />
     </div>
   )
 }
