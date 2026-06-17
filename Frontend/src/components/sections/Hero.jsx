@@ -1,145 +1,162 @@
-import { useRef, useEffect } from 'react'
-import { gsap } from 'gsap'
-import { ScrollTrigger } from 'gsap/ScrollTrigger'
-import { motion } from 'framer-motion'
-import { Link } from 'react-router-dom'
+import { useRef, useEffect } from "react";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
 
-import ProfileImg from '../../assets/images/Me.png'
+import ProfileImg from "../../assets/images/Me.png";
 
 // ─── Icons ───────────────────────────────────────────────
-import FigmaIcon      from '/icons/figma.svg'
-import ReactIcon      from '/icons/react.svg'
-import NodeIcon       from '/icons/nodedotjs.svg'
-import MongoIcon      from '/icons/mongodb.svg'
-import TailwindIcon   from '/icons/tailwindcss.svg'
-import TypeScriptIcon from '/icons/typescript.svg'
-import ExpressIcon    from '/icons/express.svg'
-import NineGagIcon    from '/icons/9gag.svg'
-import FirebaseIcon   from '/icons/firebase.svg'
-import GitHubIcon     from '/icons/github.svg'
+import FigmaIcon from "/icons/figma.svg";
+import ReactIcon from "/icons/react.svg";
+import NodeIcon from "/icons/nodedotjs.svg";
+import MongoIcon from "/icons/mongodb.svg";
+import TailwindIcon from "/icons/tailwindcss.svg";
+import TypeScriptIcon from "/icons/typescript.svg";
+import ExpressIcon from "/icons/express.svg";
+import NineGagIcon from "/icons/9gag.svg";
+import FirebaseIcon from "/icons/firebase.svg";
+import GitHubIcon from "/icons/github.svg";
 
 // ─── Project images ──────────────────────────────────────
-const IMG_1 = 'https://i.pinimg.com/736x/d2/d7/e0/d2d7e0a8bbf47c7b096d9bf48dbdcb0b.jpg'
-const IMG_2 = 'https://i.pinimg.com/736x/98/93/b0/9893b082ede71c7e17498398b2a57125.jpg'
-const IMG_3 = 'https://i.pinimg.com/1200x/22/01/fb/2201fbdaf413f2102e2326d3203ca0c6.jpg'
+const IMG_1 =
+  "https://i.pinimg.com/736x/d2/d7/e0/d2d7e0a8bbf47c7b096d9bf48dbdcb0b.jpg";
+const IMG_2 =
+  "https://i.pinimg.com/736x/98/93/b0/9893b082ede71c7e17498398b2a57125.jpg";
+const IMG_3 =
+  "https://i.pinimg.com/1200x/22/01/fb/2201fbdaf413f2102e2326d3203ca0c6.jpg";
 
 // ─── Client photos ───────────────────────────────────────
-const CLIENT_1 = 'https://i.pravatar.cc/150?img=32'
-const CLIENT_2 = 'https://i.pravatar.cc/150?img=47'
-const CLIENT_3 = 'https://i.pravatar.cc/150?img=12'
-const CLIENT_4 = 'https://i.pravatar.cc/150?img=68'
-const CLIENT_5 = 'https://i.pravatar.cc/150?img=11'
+const CLIENT_1 = "https://i.pravatar.cc/150?img=32";
+const CLIENT_2 = "https://i.pravatar.cc/150?img=47";
+const CLIENT_3 = "https://i.pravatar.cc/150?img=12";
+const CLIENT_4 = "https://i.pravatar.cc/150?img=68";
+const CLIENT_5 = "https://i.pravatar.cc/150?img=11";
 
-gsap.registerPlugin(ScrollTrigger)
+gsap.registerPlugin(ScrollTrigger);
 
 // ─── Data ─────────────────────────────────────────────────
-const NAV_LINKS = ['Work', 'Services', 'Pricing', 'Blog']
+const NAV_LINKS = ["Work", "Services", "Pricing", "Blog"];
 
 const LOGOS = [
-  { name: 'Figma',      icon: FigmaIcon      },
-  { name: 'React',      icon: ReactIcon      },
-  { name: 'Node.js',    icon: NodeIcon       },
-  { name: 'MongoDB',    icon: MongoIcon      },
-  { name: 'Tailwind',   icon: TailwindIcon   },
-  { name: 'TypeScript', icon: TypeScriptIcon },
-  { name: 'Express',    icon: ExpressIcon    },
-  { name: '9gag',       icon: NineGagIcon    },
-  { name: 'Firebase',   icon: FirebaseIcon   },
-  { name: 'GitHub',     icon: GitHubIcon     },
-]
+  { name: "Figma", icon: FigmaIcon },
+  { name: "React", icon: ReactIcon },
+  { name: "Node.js", icon: NodeIcon },
+  { name: "MongoDB", icon: MongoIcon },
+  { name: "Tailwind", icon: TailwindIcon },
+  { name: "TypeScript", icon: TypeScriptIcon },
+  { name: "Express", icon: ExpressIcon },
+  { name: "9gag", icon: NineGagIcon },
+  { name: "Firebase", icon: FirebaseIcon },
+  { name: "GitHub", icon: GitHubIcon },
+];
 
 const PROJECT_IMAGES = [
-  { src: IMG_1, alt: 'Project 1' },
-  { src: IMG_2, alt: 'Project 2' },
-  { src: IMG_3, alt: 'Project 3' },
-]
+  { src: IMG_1, alt: "Project 1" },
+  { src: IMG_2, alt: "Project 2" },
+  { src: IMG_3, alt: "Project 3" },
+];
 
-const CLIENT_PHOTOS = [CLIENT_1, CLIENT_2, CLIENT_3, CLIENT_4, CLIENT_5]
+const CLIENT_PHOTOS = [CLIENT_1, CLIENT_2, CLIENT_3, CLIENT_4, CLIENT_5];
 
 // ─── Animation helper ─────────────────────────────────────
 // Blur reveal: matches Framer's built-in "blur appear" effect
 function blurReveal(target, { delay = 0, duration = 0.9, y = 16 } = {}) {
   gsap.fromTo(
     target,
-    { filter: 'blur(12px)', opacity: 0, y },
-    { filter: 'blur(0px)',  opacity: 1, y: 0, duration, delay, ease: 'power2.out' }
-  )
+    { filter: "blur(12px)", opacity: 0, y },
+    {
+      filter: "blur(0px)",
+      opacity: 1,
+      y: 0,
+      duration,
+      delay,
+      ease: "power2.out",
+    },
+  );
 }
 
 // ─── Component ────────────────────────────────────────────
 export default function Hero() {
-  const sectionRef  = useRef(null)
-  const availRef    = useRef(null)
-  const headlineRef = useRef(null)
-  const sublineRef  = useRef(null)
-  const ctaRef      = useRef(null)
-  const clientRef   = useRef(null)
-  const stripRef    = useRef(null)
-  const card1Ref    = useRef(null)
-  const card2Ref    = useRef(null)
-  const card3Ref    = useRef(null)
+  const sectionRef = useRef(null);
+  const availRef = useRef(null);
+  const headlineRef = useRef(null);
+  const sublineRef = useRef(null);
+  const ctaRef = useRef(null);
+  const clientRef = useRef(null);
+  const stripRef = useRef(null);
+  const card1Ref = useRef(null);
+  const card2Ref = useRef(null);
+  const card3Ref = useRef(null);
 
   useEffect(() => {
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
     const ctx = gsap.context(() => {
-
       // Page load sequence
-      blurReveal(ctaRef.current,      { delay: 0.00, duration: 0.9, y: 10 })
-      blurReveal(availRef.current,    { delay: 0.15, duration: 0.7, y: 10 })
-      blurReveal(headlineRef.current, { delay: 0.25, duration: 1.1, y: 20 })
-      blurReveal(sublineRef.current,  { delay: 0.55, duration: 0.9, y: 16 })
+      blurReveal(ctaRef.current, { delay: 0.0, duration: 0.9, y: 10 });
+      blurReveal(availRef.current, { delay: 0.15, duration: 0.7, y: 10 });
+      blurReveal(headlineRef.current, { delay: 0.25, duration: 1.1, y: 20 });
+      blurReveal(sublineRef.current, { delay: 0.55, duration: 0.9, y: 16 });
 
-     // Image cards — come from bottom of screen
-gsap.fromTo(
-  [card1Ref.current, card2Ref.current, card3Ref.current],
-  {
-    filter: 'blur(14px)',
-    opacity: 0,
-    y: '70vh',
-    scale: 0.96,
-  },
-  {
-    filter: 'blur(0px)',
-    opacity: 1,
-    y: 0,
-    scale: 1,
-    duration: 1.25,
-    stagger: 0.14,
-    delay: 0.35,
-    ease: 'power3.out',
-  }
-)
+      // Image cards — come from bottom of screen
+      gsap.fromTo(
+        [card1Ref.current, card2Ref.current, card3Ref.current],
+        {
+          filter: "blur(14px)",
+          opacity: 0,
+          y: "70vh",
+          scale: 0.96,
+        },
+        {
+          filter: "blur(0px)",
+          opacity: 1,
+          y: 0,
+          scale: 1,
+          duration: 1.25,
+          stagger: 0.14,
+          delay: 0.35,
+          ease: "power3.out",
+        },
+      );
 
       // Happy clients — slide from right with blur
       gsap.fromTo(
         clientRef.current,
-        { filter: 'blur(12px)', opacity: 0, x: 40 },
-        { filter: 'blur(0px)',  opacity: 1, x: 0,  duration: 0.7, delay: 0.85, ease: 'power2.out' }
-      )
+        { filter: "blur(12px)", opacity: 0, x: 40 },
+        {
+          filter: "blur(0px)",
+          opacity: 1,
+          x: 0,
+          duration: 0.7,
+          delay: 0.85,
+          ease: "power2.out",
+        },
+      );
 
       // Tech stack strip — quick fade
       gsap.fromTo(
         stripRef.current,
         { opacity: 0, y: 12 },
-        { opacity: 1, y: 0,  duration: 0.5, delay: 0.95, ease: 'power2.out' }
-      )
+        { opacity: 1, y: 0, duration: 0.5, delay: 0.95, ease: "power2.out" },
+      );
+    }, sectionRef);
 
-    }, sectionRef)
-
-    return () => ctx.revert()
-  }, [])
+    return () => ctx.revert();
+  }, []);
 
   return (
     <div ref={sectionRef} className="w-full overflow-hidden bg-surface">
-      <div className="max-w-6xl mx-auto border-x border-surface-border min-h-screen bg-surface flex flex-col relative">
-
+      <div className="max-w-[68rem] mx-auto border-x border-surface-border min-h-[92vh] bg-surface flex flex-col relative">
         {/* Navbar */}
-        <nav className="flex justify-center px-6 py-7">
-          <div className="flex items-center bg-surface border border-black rounded-pill py-2 pr-2 pl-2">
-
+        <nav className="flex justify-center px-6 pt-6">
+          <div className="flex items-center bg-surface border border-surface-border rounded-pill py-2 pr-2 pl-2">
             <div className="flex items-center gap-3 pl-1 pr-16">
-              <img src={ProfileImg} alt="Ishara Udayanga" className="w-9 h-9 rounded-full object-cover" />
+              <img
+                src={ProfileImg}
+                alt="Ishara Udayanga"
+                className="w-9 h-9 rounded-full object-cover"
+              />
               <span className="font-display font-semibold text-sm text-text-secondary tracking-tight">
                 Ishara Udayanga
               </span>
@@ -164,18 +181,18 @@ gsap.fromTo(
                 Contact
               </Link>
             </div>
-
           </div>
         </nav>
 
         {/* Hero body */}
         <section className="flex-1 flex items-center px-10 pb-10 w-full">
-          <div className="w-full grid grid-cols-1 lg:grid-cols-2 items-center gap-2">
-
+          <div className="w-full grid grid-cols-1 lg:grid-cols-[0.92fr_1.08fr] items-center gap-0">
             {/* Left — content */}
             <div className="flex flex-col">
-
-              <div ref={availRef} className="inline-flex items-center gap-2 bg-surface border border-surface-border rounded-pill px-4 py-1.5 mb-7 w-fit">
+              <div
+                ref={availRef}
+                className="inline-flex items-center gap-2 bg-surface border border-surface-border rounded-pill px-4 py-1.5 mb-7 w-fit"
+              >
                 <span className="w-2 h-2 rounded-full bg-success flex-shrink-0 pulse-dot" />
                 <span className="font-display font-semibold text-sm text-text-secondary tracking-tight">
                   Available for August&apos;25
@@ -183,19 +200,37 @@ gsap.fromTo(
               </div>
 
               <h1 ref={headlineRef} className="mb-5">
-                <span className="block font-display font-medium tracking-tighter" style={{ fontSize: '72px', lineHeight: '68px', color: '#828282' }}>
+                <span
+                  className="block font-display font-medium tracking-tighter"
+                  style={{
+                    fontSize: "72px",
+                    lineHeight: "68px",
+                    color: "#828282",
+                  }}
+                >
                   Design that
                 </span>
-                <span className="block font-display font-medium tracking-tighter" style={{ fontSize: '72px', lineHeight: '78px', color: '#000000' }}>
+                <span
+                  className="block font-display font-medium tracking-tighter"
+                  style={{
+                    fontSize: "72px",
+                    lineHeight: "78px",
+                    color: "#000000",
+                  }}
+                >
                   delivers results.
                 </span>
               </h1>
 
-              <p ref={sublineRef} className="font-display text-lg text-text-body leading-snug max-w-md mb-8">
+              <p
+                ref={sublineRef}
+                className="font-display text-lg text-text-body leading-snug max-w-md mb-8"
+              >
                 <strong className="text-text-secondary font-semibold">
                   Strategic design that drives growth, not just looks good.
-                </strong>
-                {' '}I create everything your brand needs to attract customers and turn them into sales.
+                </strong>{" "}
+                I create everything your brand needs to attract customers and
+                turn them into sales.
               </p>
 
               <div ref={ctaRef}>
@@ -206,29 +241,54 @@ gsap.fromTo(
                     transition={{ duration: 0.2 }}
                     className="inline-flex items-center gap-3 bg-dark text-white rounded-pill font-display font-semibold text-sm pr-6 pl-1.5 py-1.5 cursor-pointer shadow-xl shadow-black/20 w-fit"
                   >
-                    <img src={ProfileImg} alt="Ishara" className="w-8 h-8 rounded-full object-cover flex-shrink-0" />
+                    <img
+                      src={ProfileImg}
+                      alt="Ishara"
+                      className="w-8 h-8 rounded-full object-cover flex-shrink-0"
+                    />
                     Book a call with me
                   </motion.div>
                 </Link>
               </div>
-
             </div>
 
             {/* Right — stacked project cards */}
-           <div className="hidden lg:flex relative h-[500px] items-start justify-end">
-  <div className="relative w-full h-full translate-y-[36px]">
-                <div ref={card1Ref} className="absolute right-4 top-15 w-80 h-56 rotate-6 z-10 rounded-xl overflow-hidden shadow-2xl">
-                  <img src={PROJECT_IMAGES[0].src} alt={PROJECT_IMAGES[0].alt} className="w-full h-full object-cover opacity-80" />
+            <div className="hidden lg:flex relative h-[500px] items-start justify-end">
+              <div className="relative w-full h-full translate-y-[36px]">
+                <div
+                  ref={card1Ref}
+                  className="absolute right-0 top-12 w-[370px] h-[260px] rotate-6 z-10 rounded-xl overflow-hidden shadow-2xl"
+                >
+                  <img
+                    src={PROJECT_IMAGES[0].src}
+                    alt={PROJECT_IMAGES[0].alt}
+                    className="w-full h-full object-cover opacity-80"
+                  />
                 </div>
-                <div ref={card2Ref} className="absolute right-32 top-17 w-80 h-56 -rotate-6 z-20 rounded-xl overflow-hidden shadow-2xl">
-                  <img src={PROJECT_IMAGES[1].src} alt={PROJECT_IMAGES[1].alt} className="w-full h-full object-cover opacity-90" />
+
+                <div
+                  ref={card2Ref}
+                  className="absolute right-28 top-16 w-[370px] h-[260px] -rotate-6 z-20 rounded-xl overflow-hidden shadow-2xl"
+                >
+                  <img
+                    src={PROJECT_IMAGES[1].src}
+                    alt={PROJECT_IMAGES[1].alt}
+                    className="w-full h-full object-cover opacity-90"
+                  />
                 </div>
-                <div ref={card3Ref} className="absolute right-10 top-25 w-80 h-56 rotate-2 z-30 rounded-xl overflow-hidden shadow-2xl border-4 border-surface">
-                  <img src={PROJECT_IMAGES[2].src} alt={PROJECT_IMAGES[2].alt} className="w-full h-full object-cover" />
+
+                <div
+                  ref={card3Ref}
+                  className="absolute right-6 top-28 w-[370px] h-[260px] rotate-2 z-30 rounded-xl overflow-hidden shadow-2xl border-4 border-surface"
+                >
+                  <img
+                    src={PROJECT_IMAGES[2].src}
+                    alt={PROJECT_IMAGES[2].alt}
+                    className="w-full h-full object-cover"
+                  />
                 </div>
               </div>
             </div>
-
           </div>
         </section>
 
@@ -239,34 +299,50 @@ gsap.fromTo(
 
         {/* Bottom strip */}
         <div className="flex items-stretch h-24 bg-surface relative z-20">
-
           {/* Happy clients */}
-          <div ref={clientRef} className="flex items-center gap-3 py-2 px-8 border-r border-surface-border flex-shrink-0">
+          <div
+            ref={clientRef}
+            className="flex items-center gap-3 py-2 px-8 border-r border-surface-border flex-shrink-0"
+          >
             <div className="flex items-center">
               {CLIENT_PHOTOS.map((src, i) => (
                 <img
                   key={i}
                   src={src}
                   alt={`Client ${i + 1}`}
-                  className={`w-9 h-9 rounded-full border-2 border-surface object-cover flex-shrink-0 ${i !== 0 ? '-ml-2' : ''}`}
+                  className={`w-9 h-9 rounded-full border-2 border-surface object-cover flex-shrink-0 ${i !== 0 ? "-ml-2" : ""}`}
                 />
               ))}
             </div>
             <div className="hidden sm:block">
-              <div className="text-warning text-sm leading-none tracking-widest">★★★★★</div>
+              <div className="text-warning text-sm leading-none tracking-widest">
+                ★★★★★
+              </div>
               <div className="font-display text-sm text-text-muted mt-0.5">
-                <strong className="text-text-secondary font-medium">99+ Happy clients</strong>
+                <strong className="text-text-secondary font-medium">
+                  99+ Happy clients
+                </strong>
               </div>
             </div>
           </div>
 
           {/* Tech stack marquee */}
-          <div ref={stripRef} className="flex-1 overflow-hidden marquee-container flex items-center">
+          <div
+            ref={stripRef}
+            className="flex-1 overflow-hidden marquee-container flex items-center"
+          >
             <div className="flex items-center w-max h-full animate-marquee">
               {[...LOGOS, ...LOGOS].map((logo, i) => (
-                <div key={`${logo.name}-${i}`} className="flex items-center gap-3 px-6 h-full flex-shrink-0">
+                <div
+                  key={`${logo.name}-${i}`}
+                  className="flex items-center gap-3 px-6 h-full flex-shrink-0"
+                >
                   <div className="w-9 h-9 bg-surface flex items-center justify-center flex-shrink-0">
-                    <img src={logo.icon} alt={logo.name} className="w-7 h-7 opacity-70" />
+                    <img
+                      src={logo.icon}
+                      alt={logo.name}
+                      className="w-7 h-7 opacity-70"
+                    />
                   </div>
                   <span className="font-display font-semibold text-md text-text-muted tracking-tight whitespace-nowrap">
                     {logo.name}
@@ -275,17 +351,13 @@ gsap.fromTo(
               ))}
             </div>
           </div>
-          
-
         </div>
 
-         {/* Bottom full-width divider — closes the strip */}
-      <div className="relative h-px">
-        <div className="absolute left-1/2 -translate-x-1/2 w-screen h-px bg-surface-border" />
-      </div>
+        {/* Bottom full-width divider — closes the strip */}
+        <div className="relative h-px">
+          <div className="absolute left-1/2 -translate-x-1/2 w-screen h-px bg-surface-border" />
+        </div>
       </div>
     </div>
-
-    
-  )
+  );
 }
