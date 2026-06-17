@@ -90,12 +90,26 @@ export default function Hero() {
       blurReveal(headlineRef.current, { delay: 0.25, duration: 1.1, y: 20 })
       blurReveal(sublineRef.current,  { delay: 0.55, duration: 0.9, y: 16 })
 
-      // Image cards — stagger blur reveal
-      gsap.fromTo(
-        [card1Ref.current, card2Ref.current, card3Ref.current],
-        { filter: 'blur(8px)', opacity: 0, y: 40 },
-        { filter: 'blur(0px)', opacity: 1, y: 0, duration: 1.0, stagger: 0.15, delay: 0.3, ease: 'power2.out' }
-      )
+     // Image cards — come from bottom of screen
+gsap.fromTo(
+  [card1Ref.current, card2Ref.current, card3Ref.current],
+  {
+    filter: 'blur(14px)',
+    opacity: 0,
+    y: '70vh',
+    scale: 0.96,
+  },
+  {
+    filter: 'blur(0px)',
+    opacity: 1,
+    y: 0,
+    scale: 1,
+    duration: 1.25,
+    stagger: 0.14,
+    delay: 0.35,
+    ease: 'power3.out',
+  }
+)
 
       // Happy clients — slide from right with blur
       gsap.fromTo(
@@ -110,23 +124,6 @@ export default function Hero() {
         { opacity: 0, y: 12 },
         { opacity: 1, y: 0,  duration: 0.5, delay: 0.95, ease: 'power2.out' }
       )
-
-      // Card scroll parallax
-      ;[
-        { ref: card1Ref, y: -20 },
-        { ref: card2Ref, y: -40 },
-        { ref: card3Ref, y: -60 },
-      ].forEach(({ ref, y }) => {
-        gsap.to(ref.current, {
-          y,
-          scrollTrigger: {
-            trigger: sectionRef.current,
-            start: 'top top',
-            end: 'bottom top',
-            scrub: 1,
-          },
-        })
-      })
 
     }, sectionRef)
 
@@ -194,7 +191,7 @@ export default function Hero() {
                 </span>
               </h1>
 
-              <p ref={sublineRef} className="font-display text-lg text-text-body leading-relaxed max-w-md mb-8">
+              <p ref={sublineRef} className="font-display text-lg text-text-body leading-snug max-w-md mb-8">
                 <strong className="text-text-secondary font-semibold">
                   Strategic design that drives growth, not just looks good.
                 </strong>
@@ -207,7 +204,7 @@ export default function Hero() {
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
                     transition={{ duration: 0.2 }}
-                    className="inline-flex items-center gap-3 bg-dark text-dark-text rounded-pill font-display font-semibold text-sm pr-6 pl-1.5 py-1.5 cursor-pointer shadow-xl shadow-black/20 w-fit"
+                    className="inline-flex items-center gap-3 bg-dark text-white rounded-pill font-display font-semibold text-sm pr-6 pl-1.5 py-1.5 cursor-pointer shadow-xl shadow-black/20 w-fit"
                   >
                     <img src={ProfileImg} alt="Ishara" className="w-8 h-8 rounded-full object-cover flex-shrink-0" />
                     Book a call with me
@@ -218,8 +215,8 @@ export default function Hero() {
             </div>
 
             {/* Right — stacked project cards */}
-            <div className="hidden lg:flex relative h-[500px] items-start justify-end">
-              <div className="relative w-full h-full">
+           <div className="hidden lg:flex relative h-[500px] items-start justify-end">
+  <div className="relative w-full h-full translate-y-[36px]">
                 <div ref={card1Ref} className="absolute right-4 top-15 w-80 h-56 rotate-6 z-10 rounded-xl overflow-hidden shadow-2xl">
                   <img src={PROJECT_IMAGES[0].src} alt={PROJECT_IMAGES[0].alt} className="w-full h-full object-cover opacity-80" />
                 </div>
