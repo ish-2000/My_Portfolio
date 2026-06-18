@@ -58,8 +58,8 @@ export default function Testimonial() {
         {/* Quote */}
         <blockquote
           ref={quoteRef}
-          className="font-display font-medium text-center text-text-ghost max-w-4xl mx-auto"
-          style={{ fontSize: "34px", lineHeight: "52px" }}
+          className="font-display text-text-primary font-medium text-center text-text-ghost max-w-3xl mx-auto"
+          style={{ fontSize: "28px", lineHeight: "38px" }}
         >
           &ldquo;Working with Ishara felt like having a seasoned design partner{" "}
           <span className="text-text-primary font-semibold">
@@ -76,7 +76,7 @@ export default function Testimonial() {
           <img
             src={AuthorImg}
             alt="Thomas Weber"
-            className="w-12 h-12 rounded-full object-cover"
+            className="w-10 h-10 rounded-full object-cover"
           />
           <div className="text-left">
             <div className="font-display font-semibold text-sm text-text-primary">

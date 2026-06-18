@@ -140,16 +140,16 @@ export default function Hero() {
 
       // 2. Content appears immediately after images stop
       tl.to(
-        [headlineRef.current, sublineRef.current],
+        contentItems,
         {
           opacity: 1,
           y: 0,
           filter: "blur(0px)",
-          duration: 1.05,
-          ease: "power3.out",
-          stagger: 0.16,
+          duration: 0.65,
+          ease: "power2.out",
+          stagger: 0.06,
         },
-        "-=0.12",
+        "-=0.18",
       );
 
       // 3. Bottom strip appears after main content
@@ -185,7 +185,7 @@ export default function Hero() {
       <div className="max-w-[68rem] mx-auto border-x border-surface-border min-h-[92vh] bg-surface flex flex-col relative">
         {/* Navbar */}
         <nav className="flex justify-center px-6 pt-6">
-          <div className="flex items-center bg-surface border border-surface-border rounded-pill py-2 pr-2 pl-2">
+          <div className="flex items-center bg-[#fdfdfd] border border-surface-border rounded-pill py-2 pr-2 pl-2">
             <div className="flex items-center gap-3 pl-1 pr-16">
               <img
                 src={ProfileImg}

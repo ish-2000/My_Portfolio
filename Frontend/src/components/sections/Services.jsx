@@ -119,13 +119,13 @@ export default function Services() {
             <h2 className="font-display font-medium tracking-tighter mb-8">
               <span
                 className="block text-text-ghost"
-                style={{ fontSize: "56px", lineHeight: "56px" }}
+                style={{ fontSize: "58px", lineHeight: "56px" }}
               >
                 Services that
               </span>
               <span
                 className="block text-text-primary"
-                style={{ fontSize: "56px", lineHeight: "56px" }}
+                style={{ fontSize: "58px", lineHeight: "56px" }}
               >
                 supercharge your business.
               </span>
