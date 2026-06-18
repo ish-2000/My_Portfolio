@@ -93,51 +93,87 @@ export default function Hero() {
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
     const ctx = gsap.context(() => {
-      // Page load sequence
-      blurReveal(ctaRef.current, { delay: 0.0, duration: 0.9, y: 10 });
-      blurReveal(availRef.current, { delay: 0.15, duration: 0.7, y: 10 });
-      blurReveal(headlineRef.current, { delay: 0.25, duration: 1.1, y: 20 });
-      blurReveal(sublineRef.current, { delay: 0.55, duration: 0.9, y: 16 });
+      const cards = [card1Ref.current, card2Ref.current, card3Ref.current];
+      const contentItems = [
+        availRef.current,
+        headlineRef.current,
+        sublineRef.current,
+        ctaRef.current,
+      ];
 
-      // Image cards — come from bottom of screen without blur/blue appear effect
-      gsap.fromTo(
-        [card1Ref.current, card2Ref.current, card3Ref.current],
-        {
-          opacity: 0,
-          y: "70vh",
-          scale: 0.98,
-        },
+      // Hide content first
+      gsap.set(contentItems, {
+        opacity: 0,
+        y: 16,
+        filter: "blur(12px)",
+      });
+
+      gsap.set(clientRef.current, {
+        opacity: 0,
+        x: 40,
+        filter: "blur(12px)",
+      });
+
+      gsap.set(stripRef.current, {
+        opacity: 0,
+        y: 12,
+      });
+
+      // Images start from bottom.
+      // No blur. No blue appear. No opacity fade.
+      gsap.set(cards, {
+        opacity: 1,
+        y: "70vh",
+        scale: 1,
+        filter: "none",
+      });
+
+      const tl = gsap.timeline();
+
+      // 1. All 3 images move together as one batch
+      tl.to(cards, {
+        y: 0,
+        duration: 0.75,
+        ease: "power3.out",
+        clearProps: "filter",
+      });
+
+      // 2. Content appears immediately after images stop
+      tl.to(
+        [headlineRef.current, sublineRef.current],
         {
           opacity: 1,
           y: 0,
-          scale: 1,
-          duration: 1.15,
-          stagger: 0.14,
-          delay: 0.35,
+          filter: "blur(0px)",
+          duration: 1.05,
           ease: "power3.out",
-          clearProps: "filter",
+          stagger: 0.16,
         },
+        "-=0.12",
       );
 
-      // Happy clients — slide from right with blur
-      gsap.fromTo(
+      // 3. Bottom strip appears after main content
+      tl.to(
         clientRef.current,
-        { filter: "blur(12px)", opacity: 0, x: 40 },
         {
-          filter: "blur(0px)",
           opacity: 1,
           x: 0,
-          duration: 0.7,
-          delay: 0.85,
+          filter: "blur(0px)",
+          duration: 0.6,
           ease: "power2.out",
         },
+        "-=0.3",
       );
 
-      // Tech stack strip — quick fade
-      gsap.fromTo(
+      tl.to(
         stripRef.current,
-        { opacity: 0, y: 12 },
-        { opacity: 1, y: 0, duration: 0.5, delay: 0.95, ease: "power2.out" },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.45,
+          ease: "power2.out",
+        },
+        "-=0.35",
       );
     }, sectionRef);
 
