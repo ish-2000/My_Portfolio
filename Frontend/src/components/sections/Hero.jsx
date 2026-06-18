@@ -94,15 +94,14 @@ export default function Hero() {
 
     const ctx = gsap.context(() => {
       const cards = [card1Ref.current, card2Ref.current, card3Ref.current];
-      const contentItems = [
+      const otherTextItems = [
         availRef.current,
         headlineRef.current,
         sublineRef.current,
-        ctaRef.current,
       ];
 
       // Hide content first
-      gsap.set(contentItems, {
+      gsap.set([...otherTextItems, ctaRef.current], {
         opacity: 0,
         y: 16,
         filter: "blur(12px)",
@@ -149,9 +148,25 @@ export default function Hero() {
         clearProps: "filter",
       });
 
-      // 2. Content appears immediately after images stop
+      // 2. CTA button appears first
       tl.to(
-        contentItems,
+        ctaRef.current,
+        {
+          opacity: 1,
+          y: 0,
+          filter: "blur(0px)",
+          duration: 0.8,
+          ease: "power2.out",
+        },
+        "-=0.35",
+      );
+
+      // Create a label for parallel text and client section entrance
+      tl.addLabel("contentStart", "-=0.45");
+
+      // 3. Other text content appears
+      tl.to(
+        otherTextItems,
         {
           opacity: 1,
           y: 0,
@@ -160,10 +175,10 @@ export default function Hero() {
           ease: "power2.out",
           stagger: 0.08,
         },
-        "-=0.35",
+        "contentStart",
       );
 
-      // 3. Client section appears: text and marquee first (simultaneously), then staggered avatars
+      // 4. Client section & marquee appear in parallel
       tl.to(
         textElement,
         {
@@ -173,7 +188,7 @@ export default function Hero() {
           duration: 0.5,
           ease: "power2.out",
         },
-        "-=0.4",
+        "contentStart",
       );
 
       tl.to(
@@ -184,7 +199,7 @@ export default function Hero() {
           duration: 0.5,
           ease: "power2.out",
         },
-        "<",
+        "contentStart",
       );
 
       tl.to(
@@ -201,7 +216,7 @@ export default function Hero() {
           },
           ease: "back.out(1.5)",
         },
-        "-=0.25",
+        "contentStart+=0.2",
       );
     }, sectionRef);
 
