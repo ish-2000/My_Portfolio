@@ -22,9 +22,9 @@ import GitHubIcon from "/icons/github.svg";
 const IMG_1 =
   "https://i.pinimg.com/736x/d2/d7/e0/d2d7e0a8bbf47c7b096d9bf48dbdcb0b.jpg";
 const IMG_2 =
-  "https://i.pinimg.com/736x/98/93/b0/9893b082ede71c7e17498398b2a57125.jpg";
+  "https://i.pinimg.com/736x/71/e5/04/71e5043347eacf3831f534d214fb916f.jpg";
 const IMG_3 =
-  "https://i.pinimg.com/1200x/22/01/fb/2201fbdaf413f2102e2326d3203ca0c6.jpg";
+  "https://i.pinimg.com/1200x/b0/3e/1f/b03e1fee04c9363c4432b83a97206c84.jpg";
 
 // ─── Client photos ───────────────────────────────────────
 const CLIENT_1 = "https://i.pravatar.cc/150?img=32";

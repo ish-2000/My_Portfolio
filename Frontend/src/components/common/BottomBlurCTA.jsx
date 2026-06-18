@@ -70,7 +70,7 @@ export default function BottomBlurCTA() {
             py-2 pl-6 pr-2
           "
           style={{
-            backdropFilter: 'blur(5px) saturate(1.4)',
+            backdropFilter: 'blur(6px) saturate(1.4)',
             WebkitBackdropFilter: 'blur(5px) saturate(1.4)',
             background: 'rgba(250, 250, 250, 0.22)',
             border: '1px solid #ededed',
