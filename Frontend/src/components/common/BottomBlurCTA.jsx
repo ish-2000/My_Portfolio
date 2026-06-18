@@ -15,12 +15,12 @@ export default function BottomBlurCTA() {
 
     const handleScroll = () => {
       if (!trigger) {
-        setIsVisible(window.scrollY > window.innerHeight * 0.7)
+        setIsVisible(window.scrollY > window.innerHeight * 0.85)
         return
       }
 
       const triggerTop = trigger.getBoundingClientRect().top + window.scrollY
-      const showPoint = triggerTop - window.innerHeight * 0.65
+      const showPoint = triggerTop - window.innerHeight * 0.45
       setIsVisible(window.scrollY >= showPoint)
     }
 
@@ -56,11 +56,11 @@ export default function BottomBlurCTA() {
       {/* Floating CTA pill */}
       <div
         className={`
-          fixed bottom-8 left-1/2 z-50 -translate-x-1/2
-          transition-all duration-500 ease-out
+          fixed bottom-2 left-1/2 z-50 -translate-x-1/2
+          transition-all duration-700 ease-[cubic-bezier(0.175,0.885,0.32,1.275)]
           ${isVisible
             ? 'translate-y-0 opacity-100 pointer-events-auto'
-            : 'translate-y-8 opacity-0 pointer-events-none'
+            : 'translate-y-[150px] opacity-0 pointer-events-none'
           }
         `}
       >

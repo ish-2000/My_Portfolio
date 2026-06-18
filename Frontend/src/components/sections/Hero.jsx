@@ -108,10 +108,21 @@ export default function Hero() {
         filter: "blur(12px)",
       });
 
-      gsap.set(clientRef.current, {
+      const avatars = clientRef.current.querySelectorAll(".client-avatar");
+      const textElement = clientRef.current.querySelector(".client-text");
+
+      // Hide client components first
+      gsap.set(textElement, {
         opacity: 0,
-        x: 40,
-        filter: "blur(12px)",
+        x: -20,
+        filter: "blur(6px)",
+      });
+
+      gsap.set(avatars, {
+        opacity: 0,
+        scale: 0.3,
+        x: -15,
+        filter: "blur(6px)",
       });
 
       gsap.set(stripRef.current, {
@@ -145,24 +156,24 @@ export default function Hero() {
           opacity: 1,
           y: 0,
           filter: "blur(0px)",
-          duration: 0.65,
+          duration: 0.95,
           ease: "power2.out",
-          stagger: 0.06,
+          stagger: 0.08,
         },
-        "-=0.18",
+        "-=0.35",
       );
 
-      // 3. Bottom strip appears after main content
+      // 3. Client section appears: text and marquee first (simultaneously), then staggered avatars
       tl.to(
-        clientRef.current,
+        textElement,
         {
           opacity: 1,
           x: 0,
           filter: "blur(0px)",
-          duration: 0.6,
+          duration: 0.5,
           ease: "power2.out",
         },
-        "-=0.3",
+        "-=0.4",
       );
 
       tl.to(
@@ -170,10 +181,27 @@ export default function Hero() {
         {
           opacity: 1,
           y: 0,
-          duration: 0.45,
+          duration: 0.5,
           ease: "power2.out",
         },
-        "-=0.35",
+        "<",
+      );
+
+      tl.to(
+        avatars,
+        {
+          opacity: 1,
+          scale: 1,
+          x: 0,
+          filter: "blur(0px)",
+          duration: 0.5,
+          stagger: {
+            each: 0.05,
+            from: "end",
+          },
+          ease: "back.out(1.5)",
+        },
+        "-=0.25",
       );
     }, sectionRef);
 
@@ -345,11 +373,11 @@ export default function Hero() {
                   key={i}
                   src={src}
                   alt={`Client ${i + 1}`}
-                  className={`w-9 h-9 rounded-full border-2 border-surface object-cover flex-shrink-0 ${i !== 0 ? "-ml-2" : ""}`}
+                  className={`client-avatar w-9 h-9 rounded-full border-2 border-surface object-cover flex-shrink-0 ${i !== 0 ? "-ml-2" : ""}`}
                 />
               ))}
             </div>
-            <div className="hidden sm:block">
+            <div className="client-text hidden sm:block">
               <div className="text-warning text-sm leading-none tracking-widest">
                 ★★★★★
               </div>
