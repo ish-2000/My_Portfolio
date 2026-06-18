@@ -99,24 +99,23 @@ export default function Hero() {
       blurReveal(headlineRef.current, { delay: 0.25, duration: 1.1, y: 20 });
       blurReveal(sublineRef.current, { delay: 0.55, duration: 0.9, y: 16 });
 
-      // Image cards — come from bottom of screen
+      // Image cards — come from bottom of screen without blur/blue appear effect
       gsap.fromTo(
         [card1Ref.current, card2Ref.current, card3Ref.current],
         {
-          filter: "blur(14px)",
           opacity: 0,
           y: "70vh",
-          scale: 0.96,
+          scale: 0.98,
         },
         {
-          filter: "blur(0px)",
           opacity: 1,
           y: 0,
           scale: 1,
-          duration: 1.25,
+          duration: 1.15,
           stagger: 0.14,
           delay: 0.35,
           ease: "power3.out",
+          clearProps: "filter",
         },
       );
 
