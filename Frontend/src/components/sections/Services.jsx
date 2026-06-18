@@ -4,13 +4,15 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 // ─── Tech stack icons ─────────────────────────────────────
 import FigmaIcon from "/icons/figma.svg";
-import FramerIcon from "/icons/framer.svg";
-import WebflowIcon from "/icons/webflow.svg";
-import RemixIcon from "/icons/remix.svg";
-import BlenderIcon from "/icons/blender.svg";
-import TrelloIcon from "/icons/trello.svg";
-import OpenAIIcon from "/icons/openai.svg";
-import AnthropicIcon from "/icons/anthropic.svg";
+import ReactIcon from "/icons/react.svg";
+import NodeIcon from "/icons/nodedotjs.svg";
+import MongoIcon from "/icons/mongodb.svg";
+import TailwindIcon from "/icons/tailwindcss.svg";
+import TypeScriptIcon from "/icons/typescript.svg";
+import ExpressIcon from "/icons/express.svg";
+import NineGagIcon from "/icons/9gag.svg";
+import FirebaseIcon from "/icons/firebase.svg";
+import GitHubIcon from "/icons/github.svg";
 
 // ─── Service icons (lucide-style, inline) ─────────────────
 import {
@@ -25,15 +27,17 @@ import {
 
 gsap.registerPlugin(ScrollTrigger);
 
-const TECH_STACK = [
+const LOGOS = [
   { name: "Figma", icon: FigmaIcon },
-  { name: "Framer", icon: FramerIcon },
-  { name: "Webflow", icon: WebflowIcon },
-  { name: "Remix", icon: RemixIcon },
-  { name: "Blender", icon: BlenderIcon },
-  { name: "Trello", icon: TrelloIcon },
-  { name: "OpenAI", icon: OpenAIIcon },
-  { name: "Anthropic", icon: AnthropicIcon },
+  { name: "React", icon: ReactIcon },
+  { name: "Node.js", icon: NodeIcon },
+  { name: "MongoDB", icon: MongoIcon },
+  { name: "Tailwind", icon: TailwindIcon },
+  { name: "TypeScript", icon: TypeScriptIcon },
+  { name: "Express", icon: ExpressIcon },
+  { name: "9gag", icon: NineGagIcon },
+  { name: "Firebase", icon: FirebaseIcon },
+  { name: "GitHub", icon: GitHubIcon },
 ];
 
 const SERVICES = [
@@ -131,18 +135,18 @@ export default function Services() {
               </span>
             </h2>
 
-            <div ref={techRef}>
+            <div ref={techRef} className="w-full">
               <p className="font-body text-sm font-semibold text-text-muted mb-4">
                 My tech stack
               </p>
-              <div className="flex flex-wrap gap-2">
-                {TECH_STACK.map((tech) => (
+              <div className="flex flex-wrap gap-3">
+                {LOGOS.map((logo) => (
                   <div
-                    key={tech.name}
-                    title={tech.name}
-                    className="w-12 h-12 rounded-xl bg-surface border border-surface-border flex items-center justify-center shadow-sm"
+                    key={logo.name}
+                    title={logo.name}
+                    className="w-14 h-14 rounded-xl bg-white border border-surface-border flex items-center justify-center shadow-xs"
                   >
-                    <img src={tech.icon} alt={tech.name} className="w-5 h-5" />
+                    <img src={logo.icon} alt={logo.name} className="w-7 h-7 object-contain" />
                   </div>
                 ))}
               </div>

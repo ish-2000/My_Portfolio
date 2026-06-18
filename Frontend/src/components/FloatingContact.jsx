@@ -38,10 +38,9 @@ export default function FloatingContact() {
       className={`
         fixed bottom-6 left-1/2 z-[9999] -translate-x-1/2 scale-[0.94] sm:scale-100
         transition-all duration-500 ease-out
-        ${
-          isVisible
-            ? 'translate-y-0 opacity-100 pointer-events-auto'
-            : 'translate-y-8 opacity-0 pointer-events-none'
+        ${isVisible
+          ? 'translate-y-0 opacity-100 pointer-events-auto'
+          : 'translate-y-8 opacity-0 pointer-events-none'
         }
       `}
     >
@@ -67,7 +66,7 @@ export default function FloatingContact() {
 
             border: '1px solid #E0DFDB ',
 
-            
+
           }}
         >
           {/* Top glass highlight */}
@@ -85,7 +84,7 @@ export default function FloatingContact() {
               Speak to me
             </div>
             <div className="font-body text-[12px] font-medium tracking-[-0.02em] text-black/60">
-              Email or book a call
+              Email or book a callx
             </div>
           </div>
 
@@ -98,7 +97,7 @@ export default function FloatingContact() {
                 background:
                   'linear-gradient(145deg, rgba(0,0,0,0.92), rgba(18,18,18,0.82))',
                 border: '1px solid rgba(255,255,255,0.18)',
-                
+
               }}
               aria-label="Email me"
             >
