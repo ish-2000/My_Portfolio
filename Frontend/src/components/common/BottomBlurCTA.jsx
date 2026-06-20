@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { Mail, Calendar } from 'lucide-react'
-import { Link } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 
 /**
  * BottomBlurCTA
@@ -8,9 +8,12 @@ import { Link } from 'react-router-dom'
  * Fixed bottom CTA with Launchfolio-style "Speak to me" pill.
  */
 export default function BottomBlurCTA() {
+  const location = useLocation()
   const [isVisible, setIsVisible] = useState(false)
 
   useEffect(() => {
+    if (location.pathname === '/lets-talk') return
+
     const trigger = document.getElementById('floating-contact-trigger')
 
     const handleScroll = () => {
@@ -32,7 +35,11 @@ export default function BottomBlurCTA() {
       window.removeEventListener('scroll', handleScroll)
       window.removeEventListener('resize', handleScroll)
     }
-  }, [])
+  }, [location.pathname])
+
+  if (location.pathname === '/lets-talk') {
+    return null
+  }
 
   return (
     <>

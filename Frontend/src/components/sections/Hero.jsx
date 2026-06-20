@@ -3,6 +3,7 @@ import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
+import Navbar from "../layout/Navbar";
 
 import ProfileImg from "../../assets/images/Me.png";
 
@@ -36,7 +37,6 @@ const CLIENT_5 = "https://i.pravatar.cc/150?img=11";
 gsap.registerPlugin(ScrollTrigger);
 
 // ─── Data ─────────────────────────────────────────────────
-const NAV_LINKS = ["Work", "Services", "Pricing", "Blog"];
 
 const LOGOS = [
   { name: "Figma", icon: FigmaIcon },
@@ -227,40 +227,7 @@ export default function Hero() {
     <div ref={sectionRef} className="w-full overflow-hidden bg-surface">
       <div className="max-w-[68rem] mx-auto border-x border-surface-border min-h-[92vh] bg-surface flex flex-col relative">
         {/* Navbar */}
-        <nav className="flex justify-center px-6 pt-6">
-          <div className="flex items-center bg-[#fdfdfd] border border-surface-border rounded-pill py-2 pr-2 pl-2">
-            <div className="flex items-center gap-3 pl-1 pr-16">
-              <img
-                src={ProfileImg}
-                alt="Ishara Udayanga"
-                className="w-9 h-9 rounded-full object-cover"
-              />
-              <span className="font-display font-semibold text-sm text-text-secondary tracking-tight">
-                Ishara Udayanga
-              </span>
-            </div>
-
-            <div className="flex items-center gap-8">
-              <div className="hidden md:flex items-center gap-6">
-                {NAV_LINKS.map((item) => (
-                  <a
-                    key={item}
-                    href={`#${item.toLowerCase()}`}
-                    className="font-body font-semibold text-sm text-text-secondary hover:text-text-muted transition-colors"
-                  >
-                    {item}
-                  </a>
-                ))}
-              </div>
-              <Link
-                to="/lets-talk"
-                className="bg-surface border border-surface-border text-text-secondary font-display font-medium text-sm px-5 py-2 rounded-pill hover:bg-surface-offwhite transition-colors"
-              >
-                Contact
-              </Link>
-            </div>
-          </div>
-        </nav>
+        <Navbar />
 
         {/* Hero body */}
         <section className="flex-1 flex items-center px-10 pb-10 w-full">
@@ -314,10 +281,10 @@ export default function Hero() {
               <div ref={ctaRef}>
                 <Link to="/lets-talk">
                   <motion.div
-                    whileHover={{ scale: 1.02 }}
+                    whileHover={{ scale: 1.0 }}
                     whileTap={{ scale: 0.98 }}
                     transition={{ duration: 0.2 }}
-                    className="inline-flex items-center gap-3 bg-dark text-white rounded-pill font-display font-semibold text-sm pr-6 pl-1.5 py-1.5 cursor-pointer shadow-xl shadow-black/20 w-fit"
+                    className="inline-flex items-center gap-3 bg-dark hover:bg-dark/80 text-white rounded-pill font-display font-semibold text-sm pr-6 pl-1.5 py-1.5 cursor-pointer shadow-xl shadow-black/20 w-fit"
                   >
                     <img
                       src={ProfileImg}
