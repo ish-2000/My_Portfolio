@@ -63,7 +63,7 @@ export default function LetsTalkContent() {
       {/* Intro paragraph */}
       <p
         ref={introRef}
-        className="font-body text-base text- text-text-body font-display text-lg leading-snug  max-w-lg mb-10"
+        className="font-body text-base text- text-text-secondary font-display text-lg leading-snug  max-w-lg mb-10"
       >
         Book a short call to discuss your idea, design direction, website,
         mobile app, or brand experience. I&apos;ll help you find the clearest

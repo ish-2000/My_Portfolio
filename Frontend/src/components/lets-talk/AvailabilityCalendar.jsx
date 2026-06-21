@@ -163,8 +163,6 @@ export default function AvailabilityCalendar() {
     setIsReserved(true);
   };
 
-
-
   // Check if a day is today
   const isToday = (day) => {
     return (
@@ -184,10 +182,10 @@ export default function AvailabilityCalendar() {
   return (
     <div
       ref={cardRef}
-      className="bg-white border border-surface-border rounded-lg overflow-hidden"
+      className="bg-white border border-dark/20 rounded-lg overflow-hidden max-w-[400px] w-full mx-auto lg:ml-auto lg:mr-0"
     >
       {/* Calendar */}
-      <div ref={calRef} className="px-6 py-5">
+      <div ref={calRef} className="px-5 py-4">
         {/* Month navigation */}
         <div className="flex items-center justify-between mb-4">
           <button
@@ -252,7 +250,7 @@ export default function AvailabilityCalendar() {
                       ? "bg-[#334155] text-white font-semibold"
                       : hasSlots && !dayIsPast
                         ? "bg-[#e5e7eb] text-text-primary font-medium hover:bg-surface-border cursor-pointer"
-                        : "text-text-placeholder/75 cursor-default"
+                        : "text-text-muted cursor-default"
                   }
                   ${dayIsToday && !isSelected ? "ring-1 ring-dark" : ""}
                 `}
@@ -266,7 +264,7 @@ export default function AvailabilityCalendar() {
 
       {/* Time slots panel — shown when a date is selected */}
       {selectedDate && (
-        <div className="px-6 pb-5 border-t border-surface-border pt-4">
+        <div className="px-5 pb-4 border-t border-surface-border pt-3.5">
           <p className="font-body text-xs font-semibold text-text-muted mb-3">
             Available slots for{" "}
             <span className="text-text-primary">
