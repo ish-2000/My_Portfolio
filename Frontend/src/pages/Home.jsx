@@ -8,6 +8,7 @@ import TrustSignals from "../components/sections/TrustSignals";
 import SoftCTA from "../components/sections/SoftCTA";
 import Testimonial from "../components/sections/Testimonial";
 import Services from "../components/sections/Services";
+import ServiceShowcaseSection from "../components/sections/ServiceShowcaseSection";
 
 export default function Home() {
   return (
@@ -19,6 +20,7 @@ export default function Home() {
       </div>
 
       <Services />
+      <ServiceShowcaseSection />
       <PositioningStrip />
       <SelectedWork />
       <Philosophy />

@@ -1,0 +1,216 @@
+import { useRef, useEffect, useState } from "react";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+gsap.registerPlugin(ScrollTrigger);
+
+/*
+  Media rules:
+  - type: 'video' → mp4/webm, autoplays muted ONLY while in view (best performance)
+  - type: 'gif'   → gif mounts ONLY when in view (prevents all gifs decoding at page load)
+  Put files in /public/media/
+*/
+const SERVICES = [
+  {
+    index: "01",
+    title: "Web Development",
+    description:
+      "Full-stack applications engineered for performance and scale.",
+    type: "video",
+    src: "/media/sample.mp4",
+  },
+  {
+    index: "02",
+    title: "Brand Design",
+    description: "Identities that communicate value and earn trust.",
+    type: "video",
+    src: "/media/sample_3.mp4",
+  },
+  {
+    index: "03",
+    title: "Mobile Apps",
+    description: "Data-driven products with seamless user experiences.",
+    type: "video",
+    src: "/media/sample_2.mp4",
+  },
+  {
+    index: "04",
+    title: "Landing Pages",
+    description: "High-converting pages built to capture and hold attention.",
+    type: "video",
+    src: "/media/sample_4.mp4",
+  },
+];
+
+/* ── Media cell: activates only while visible ── */
+function MediaCell({ type, src, title }) {
+  const holderRef = useRef(null);
+  const videoRef = useRef(null);
+  const [inView, setInView] = useState(false);
+
+  useEffect(() => {
+    const el = holderRef.current;
+    const observer = new IntersectionObserver(
+      ([entry]) => setInView(entry.isIntersecting),
+      { threshold: 0.25 },
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
+
+  // Play / pause video with visibility — saves battery + CPU on mobile
+  useEffect(() => {
+    const v = videoRef.current;
+    if (!v) return;
+    if (inView) v.play().catch(() => {});
+    else v.pause();
+  }, [inView]);
+
+  return (
+    <div
+      ref={holderRef}
+      className="relative w-full aspect-[4/3] bg-surface-subtle overflow-hidden"
+    >
+      {type === "video" ? (
+        <video
+          ref={videoRef}
+          src={src}
+          muted
+          loop
+          playsInline
+          preload="metadata"
+          className="w-full h-full object-cover"
+        />
+      ) : (
+        /* GIF only mounts while visible — never decodes off-screen */
+        inView && (
+          <img
+            src={src}
+            alt={title}
+            loading="lazy"
+            className="w-full h-full object-cover"
+          />
+        )
+      )}
+    </div>
+  );
+}
+
+export default function ServiceShowcaseSection() {
+  const sectionRef = useRef(null);
+  const headingRef = useRef(null);
+  const cellRefs = useRef([]);
+
+  useEffect(() => {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+    const ctx = gsap.context(() => {
+      // Heading — signature blur reveal
+      gsap.fromTo(
+        headingRef.current,
+        { filter: "blur(12px)", opacity: 0, y: 30 },
+        {
+          filter: "blur(0px)",
+          opacity: 1,
+          y: 0,
+          duration: 1,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: headingRef.current,
+            start: "top 80%",
+            once: true,
+          },
+        },
+      );
+
+      // Cells — rise + settle, staggered. Transform/opacity only (mobile-safe)
+      gsap.fromTo(
+        cellRefs.current,
+        { opacity: 0, y: 48 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.8,
+          stagger: 0.12,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: cellRefs.current[0],
+            start: "top 85%",
+            once: true,
+          },
+        },
+      );
+    }, sectionRef);
+
+    return () => ctx.revert();
+  }, []);
+
+  return (
+    <section id="showcase" ref={sectionRef} className="w-full bg-surface">
+      <div className="max-w-6xl mx-auto  px-10 py-28">
+        {/* Heading */}
+        <div ref={headingRef} className="mb-16">
+          <p className="font-body text-sm font-medium tracking-widest uppercase text-text-muted mb-3">
+            / What I do
+          </p>
+          <h2 className="font-display font-medium tracking-tighter">
+            <span
+              className="block text-text-ghost"
+              style={{ fontSize: "58px", lineHeight: "58px" }}
+            >
+              Work in
+            </span>
+            <span
+              className="block text-text-primary"
+              style={{ fontSize: "58px", lineHeight: "58px" }}
+            >
+              motion.
+            </span>
+          </h2>
+        </div>
+
+        {/* Blueprint grid — sharp edges, collapsed shared borders */}
+        <div className="grid grid-cols-1 md:grid-cols-2 border-t border-l border-surface-border">
+          {SERVICES.map((service, i) => (
+            <div
+              key={service.index}
+              ref={(el) => (cellRefs.current[i] = el)}
+              className="group border-b border-r border-surface-border will-change-transform"
+            >
+              {/* Media */}
+              <div className="p-5 pb-0">
+                <MediaCell
+                  type={service.type}
+                  src={service.src}
+                  title={service.title}
+                />
+              </div>
+
+              {/* Meta bar */}
+              <div className="flex items-start gap-5 p-5">
+                <span className="font-display font-medium text-sm text-text-placeholder pt-1 flex-shrink-0">
+                  {service.index}
+                </span>
+                <div>
+                  <h3 className="font-display font-semibold text-xl text-text-primary mb-1">
+                    {service.title}
+                  </h3>
+                  <p className="font-body text-sm text-text-muted leading-relaxed">
+                    {service.description}
+                  </p>
+                </div>
+                {/* Arrow — nudges on hover, desktop only */}
+                <span
+                  aria-hidden="true"
+                  className="ml-auto pt-1 hidden md:block text-text-placeholder transition-transform duration-300 group-hover:translate-x-1 group-hover:text-text-primary"
+                >
+                  →
+                </span>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
