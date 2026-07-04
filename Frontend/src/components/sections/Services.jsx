@@ -84,6 +84,9 @@ const SERVICES = [
   },
 ];
 
+// Module-level flag: resets on hard refresh, persists during SPA navigation.
+let servicesAnimationHasPlayed = false;
+
 export default function Services() {
   const sectionRef = useRef(null);
   const headingRef = useRef(null);
@@ -162,6 +165,12 @@ export default function Services() {
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
     const ctx = gsap.context(() => {
+      if (servicesAnimationHasPlayed) {
+        gsap.set(headingRef.current, { filter: "blur(0px)", opacity: 1, y: 0 });
+        gsap.set(iconRefs.current, { opacity: 1, x: 0, scale: 1 });
+        return;
+      }
+
       gsap.fromTo(
         headingRef.current,
         { filter: "blur(12px)", opacity: 0, y: 30 },
@@ -175,6 +184,9 @@ export default function Services() {
             trigger: sectionRef.current,
             start: "top 70%",
             once: true,
+            onEnter: () => {
+              servicesAnimationHasPlayed = true;
+            },
           },
         },
       );

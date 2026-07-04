@@ -76,8 +76,11 @@ function blurReveal(target, { delay = 0, duration = 0.9, y = 16 } = {}) {
   );
 }
 
+// Module-level flag: resets on hard refresh, persists during SPA navigation.
+let heroAnimationHasPlayed = false;
+
 // ─── Component ────────────────────────────────────────────
-export default function Hero() {
+export default function Hero({ preloaderDone = true }) {
   const sectionRef = useRef(null);
   const availRef = useRef(null);
   const headlineRef = useRef(null);
@@ -90,6 +93,7 @@ export default function Hero() {
   const card3Ref = useRef(null);
 
   useEffect(() => {
+    if (!preloaderDone) return;
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
     const ctx = gsap.context(() => {
@@ -99,6 +103,18 @@ export default function Hero() {
         headlineRef.current,
         sublineRef.current,
       ];
+      const avatars = clientRef.current.querySelectorAll(".client-avatar");
+      const textElement = clientRef.current.querySelector(".client-text");
+
+      // Already played — instantly show everything, skip animation.
+      if (heroAnimationHasPlayed) {
+        gsap.set([...otherTextItems, ctaRef.current, textElement, stripRef.current], {
+          opacity: 1, y: 0, x: 0, filter: "blur(0px)",
+        });
+        gsap.set(avatars, { opacity: 1, scale: 1, x: 0, filter: "blur(0px)" });
+        gsap.set(cards, { opacity: 1, y: 0, scale: 1, filter: "none" });
+        return;
+      }
 
       // Hide content first
       gsap.set([...otherTextItems, ctaRef.current], {
@@ -107,10 +123,6 @@ export default function Hero() {
         filter: "blur(12px)",
       });
 
-      const avatars = clientRef.current.querySelectorAll(".client-avatar");
-      const textElement = clientRef.current.querySelector(".client-text");
-
-      // Hide client components first
       gsap.set(textElement, {
         opacity: 0,
         x: -20,
@@ -138,7 +150,7 @@ export default function Hero() {
         filter: "none",
       });
 
-      const tl = gsap.timeline();
+      const tl = gsap.timeline({ delay: 0.3, onStart: () => { heroAnimationHasPlayed = true; } });
 
       // 1. All 3 images move together as one batch
       tl.to(cards, {
@@ -221,7 +233,7 @@ export default function Hero() {
     }, sectionRef);
 
     return () => ctx.revert();
-  }, []);
+  }, [preloaderDone]);
 
   return (
     <div ref={sectionRef} className="w-full overflow-hidden bg-surface">

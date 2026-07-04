@@ -13,8 +13,12 @@ import Testimonial from "../components/sections/Testimonial";
 import Services from "../components/sections/Services";
 import ServiceShowcaseSection from "../components/sections/ServiceShowcaseSection";
 
+// Module-level flag: resets to false on every hard refresh (JS re-executes),
+// but stays true during SPA navigation (module stays in memory).
+let preloaderHasPlayed = false;
+
 export default function Home() {
-  const [showPreloader, setShowPreloader] = useState(true);
+  const [showPreloader, setShowPreloader] = useState(!preloaderHasPlayed);
 
   // Prevent scroll during loading
   useEffect(() => {
@@ -28,15 +32,20 @@ export default function Home() {
     };
   }, [showPreloader]);
 
+  const handlePreloaderComplete = () => {
+    preloaderHasPlayed = true; // persists for the lifetime of this JS module
+    setShowPreloader(false);
+  };
+
   return (
     <>
       <AnimatePresence mode="wait">
         {showPreloader && (
-          <Preloader onComplete={() => setShowPreloader(false)} />
+          <Preloader onComplete={handlePreloaderComplete} />
         )}
       </AnimatePresence>
 
-      <Hero />
+      <Hero preloaderDone={!showPreloader} />
 
       <div id="floating-contact-trigger">
         <Testimonial />

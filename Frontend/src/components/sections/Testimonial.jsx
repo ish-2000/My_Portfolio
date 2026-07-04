@@ -6,6 +6,9 @@ import AuthorImg from "../../assets/images/Me.png";
 
 gsap.registerPlugin(ScrollTrigger);
 
+// Module-level flag: resets on hard refresh, persists during SPA navigation.
+let testimonialAnimationHasPlayed = false;
+
 export default function Testimonial() {
   const sectionRef = useRef(null);
   const quoteRef = useRef(null);
@@ -15,6 +18,12 @@ export default function Testimonial() {
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
     const ctx = gsap.context(() => {
+      if (testimonialAnimationHasPlayed) {
+        gsap.set(quoteRef.current, { filter: "blur(0px)", opacity: 1, y: 0 });
+        gsap.set(authorRef.current, { opacity: 1, y: 0 });
+        return;
+      }
+
       gsap.fromTo(
         quoteRef.current,
         { filter: "blur(12px)", opacity: 0, y: 30 },
@@ -28,6 +37,9 @@ export default function Testimonial() {
             trigger: sectionRef.current,
             start: "top 75%",
             once: true,
+            onEnter: () => {
+              testimonialAnimationHasPlayed = true;
+            },
           },
         },
       );

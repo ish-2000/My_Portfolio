@@ -96,6 +96,9 @@ function MediaCell({ type, src, title }) {
   );
 }
 
+// Module-level flag: resets on hard refresh, persists during SPA navigation.
+let showcaseAnimationHasPlayed = false;
+
 export default function ServiceShowcaseSection() {
   const sectionRef = useRef(null);
   const headingRef = useRef(null);
@@ -105,6 +108,14 @@ export default function ServiceShowcaseSection() {
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
     const ctx = gsap.context(() => {
+      if (showcaseAnimationHasPlayed) {
+        if (headingRef.current) {
+          gsap.set(headingRef.current, { filter: "blur(0px)", opacity: 1, y: 0 });
+        }
+        gsap.set(cellRefs.current, { opacity: 1, y: 0 });
+        return;
+      }
+
       // Heading — signature blur reveal
       gsap.fromTo(
         headingRef.current,
@@ -119,6 +130,9 @@ export default function ServiceShowcaseSection() {
             trigger: headingRef.current,
             start: "top 80%",
             once: true,
+            onEnter: () => {
+              showcaseAnimationHasPlayed = true;
+            },
           },
         },
       );
@@ -137,6 +151,9 @@ export default function ServiceShowcaseSection() {
             trigger: cellRefs.current[0],
             start: "top 85%",
             once: true,
+            onEnter: () => {
+              showcaseAnimationHasPlayed = true;
+            },
           },
         },
       );
@@ -147,7 +164,7 @@ export default function ServiceShowcaseSection() {
 
   return (
     <section id="showcase" ref={sectionRef} className="w-full bg-surface">
-      <div className="max-w-6xl mx-auto  px-10 pb-28 pt-16">
+      <div className="max-w-7xl mx-auto  px-10 pb-28 pt-16">
         {/* Heading */}
         {/* <div ref={headingRef} className="mb-16">
           <p className="font-body text-sm font-medium tracking-widest uppercase text-text-muted mb-3">

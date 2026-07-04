@@ -78,7 +78,7 @@ export default function Footer() {
         <div className="mb-16">
           <h2 className="font-display font-medium tracking-tighter">
             <span
-              className="block text-dark-text"
+              className="block text-surface"
               style={{ fontSize: "64px", lineHeight: "66px" }}
             >
               Lets design
@@ -100,7 +100,7 @@ export default function Footer() {
             <p className="font-body text-sm text-text-muted mb-2">Email</p>
             <a
               href="mailto:hello@isharaudayanga.com"
-              className="font-display font-medium text-lg text-dark-text hover:text-text-muted transition-colors"
+              className="font-display font-medium text-lg text-surface hover:text-text-muted transition-colors"
             >
               hello@isharaudayanga.com
             </a>
@@ -194,7 +194,7 @@ export default function Footer() {
         {/* ── Large watermark name ── */}
         <div className="relative overflow-hidden h-32 md:h-48">
           <span
-            className="flex font-display font-medium text-dark-text uppercase tracking-tighter select-none justify-center"
+            className="flex font-display font-medium text-surface uppercase tracking-tighter select-none justify-center"
             style={{ fontSize: "clamp(120px, 18vw, 280px)", lineHeight: "1" }}
           >
             ISHARA
