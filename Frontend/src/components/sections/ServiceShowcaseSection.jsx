@@ -147,9 +147,9 @@ export default function ServiceShowcaseSection() {
 
   return (
     <section id="showcase" ref={sectionRef} className="w-full bg-surface">
-      <div className="max-w-6xl mx-auto  px-10 py-28">
+      <div className="max-w-6xl mx-auto  px-10 pb-28 pt-16">
         {/* Heading */}
-        <div ref={headingRef} className="mb-16">
+        {/* <div ref={headingRef} className="mb-16">
           <p className="font-body text-sm font-medium tracking-widest uppercase text-text-muted mb-3">
             / What I do
           </p>
@@ -167,7 +167,7 @@ export default function ServiceShowcaseSection() {
               motion.
             </span>
           </h2>
-        </div>
+        </div> */}
 
         {/* Blueprint grid — sharp edges, collapsed shared borders */}
         <div className="grid grid-cols-1 md:grid-cols-2 border-t border-l border-surface-border">

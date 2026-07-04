@@ -72,7 +72,7 @@ export default function Footer() {
   }, []);
 
   return (
-    <footer className="w-full bg-dark overflow-hidden">
+    <footer id="footer" className="w-full bg-dark overflow-hidden">
       <div className="max-w-6xl mx-auto px-10 pt-20 pb-0">
         {/* ── Headline with rotating text ── */}
         <div className="mb-16">

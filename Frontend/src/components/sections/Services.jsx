@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useLayoutEffect, useRef } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
@@ -76,13 +76,6 @@ const SERVICES = [
     description:
       "High-converting landing pages designed to capture attention and drive measurable results.",
   },
-  // {
-  //   label: "Motion Graphics",
-  //   Icon: Clapperboard,
-  //   description:
-  //     "Polished animations and micro-interactions that bring interfaces to life.",
-  // },
-
   {
     label: "UX / UI Design",
     icon: ImmichIcon,
@@ -101,6 +94,20 @@ export default function Services() {
   const rafRef = useRef(null);
   const activeRef = useRef(0);
   const isVisibleRef = useRef(false);
+
+  // ── Description height measurement (for smooth, jump-free transitions) ──
+  const descRefs = useRef([]);
+  const [descHeights, setDescHeights] = useState([]);
+
+  useLayoutEffect(() => {
+    const measure = () =>
+      setDescHeights(descRefs.current.map((el) => (el ? el.scrollHeight : 0)));
+    measure();
+    window.addEventListener("resize", measure);
+    return () => window.removeEventListener("resize", measure);
+  }, []);
+
+  const maxDescHeight = descHeights.length ? Math.max(...descHeights) : 0;
 
   const goToStep = (index) => {
     if (index === activeRef.current) return;
@@ -290,9 +297,10 @@ export default function Services() {
 
                     {/* Description — expands when active */}
                     <div
+                      ref={(el) => (descRefs.current[i] = el)}
                       className="overflow-hidden transition-all duration-500 ease-in-out"
                       style={{
-                        maxHeight: isActive ? "120px" : "0px",
+                        height: isActive ? `${descHeights[i] ?? 0}px` : "0px",
                         marginTop: isActive ? "8px" : "0px",
                         opacity: isActive ? 1 : 0,
                       }}
@@ -305,6 +313,18 @@ export default function Services() {
                 </div>
               );
             })}
+
+            {/* ── Invisible spacer — keeps total column height constant ── */}
+            <div
+              aria-hidden
+              className="transition-all duration-500 ease-in-out"
+              style={{
+                height: `${Math.max(
+                  0,
+                  maxDescHeight - (descHeights[activeIndex] ?? 0),
+                )}px`,
+              }}
+            />
           </div>
         </div>
       </div>

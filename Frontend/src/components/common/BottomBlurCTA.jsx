@@ -10,6 +10,7 @@ import { Link, useLocation } from 'react-router-dom'
 export default function BottomBlurCTA() {
   const location = useLocation()
   const [isVisible, setIsVisible] = useState(false)
+  const [isAtFooter, setIsAtFooter] = useState(false)
 
   useEffect(() => {
     if (location.pathname === '/lets-talk') return
@@ -17,6 +18,16 @@ export default function BottomBlurCTA() {
     const trigger = document.getElementById('floating-contact-trigger')
 
     const handleScroll = () => {
+      const footer = document.getElementById('footer')
+      let footerVisible = false
+      if (footer) {
+        const footerRect = footer.getBoundingClientRect()
+        if (footerRect.top <= window.innerHeight) {
+          footerVisible = true
+        }
+      }
+      setIsAtFooter(footerVisible)
+
       if (!trigger) {
         setIsVisible(window.scrollY > window.innerHeight * 0.85)
         return
@@ -46,7 +57,7 @@ export default function BottomBlurCTA() {
       {/* Bottom blur overlay */}
       <div
         aria-hidden="true"
-        className="pointer-events-none fixed bottom-0 left-0 z-40 w-full"
+        className={`pointer-events-none fixed bottom-0 left-0 z-40 w-full transition-opacity duration-700 ${isAtFooter ? 'opacity-0' : 'opacity-100'}`}
         style={{
           height: '58px',
           backdropFilter: 'blur(5px) saturate(1.4)',
@@ -65,7 +76,7 @@ export default function BottomBlurCTA() {
         className={`
           fixed bottom-2 left-1/2 z-50 -translate-x-1/2
           transition-all duration-700 ease-[cubic-bezier(0.175,0.885,0.32,1.275)]
-          ${isVisible
+          ${(isVisible && !isAtFooter)
             ? 'translate-y-0 opacity-100 pointer-events-auto'
             : 'translate-y-[150px] opacity-0 pointer-events-none'
           }
