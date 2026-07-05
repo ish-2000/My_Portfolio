@@ -2,12 +2,9 @@ import { useRef, useEffect } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
-import AuthorImg from "../../assets/images/Me.png";
+import ProfileImg from "../../assets/images/Me.png";
 
 gsap.registerPlugin(ScrollTrigger);
-
-// Module-level flag: resets on hard refresh, persists during SPA navigation.
-let testimonialAnimationHasPlayed = false;
 
 export default function Testimonial() {
   const sectionRef = useRef(null);
@@ -18,12 +15,6 @@ export default function Testimonial() {
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
     const ctx = gsap.context(() => {
-      if (testimonialAnimationHasPlayed) {
-        gsap.set(quoteRef.current, { filter: "blur(0px)", opacity: 1, y: 0 });
-        gsap.set(authorRef.current, { opacity: 1, y: 0 });
-        return;
-      }
-
       gsap.fromTo(
         quoteRef.current,
         { filter: "blur(12px)", opacity: 0, y: 30 },
@@ -37,9 +28,6 @@ export default function Testimonial() {
             trigger: sectionRef.current,
             start: "top 75%",
             once: true,
-            onEnter: () => {
-              testimonialAnimationHasPlayed = true;
-            },
           },
         },
       );
@@ -65,19 +53,26 @@ export default function Testimonial() {
   }, []);
 
   return (
-    <section ref={sectionRef} className="w-full bg-surface">
-      <div className="max-w-[68rem] mx-auto border-x border-surface-border px-10 py-28">
-        {/* Quote */}
+    <section ref={sectionRef} className="w-full bg-surface border-b border-surface-border">
+      <div className="max-w-[68rem]  mx-auto border-x border-surface-border px-10 py-28">
         <blockquote
           ref={quoteRef}
-          className="font-display text-text-primary font-medium text-center text-text-ghost max-w-3xl mx-auto"
-          style={{ fontSize: "28px", lineHeight: "38px" }}
+          className="font-display font-medium text-center max-w-3xl mx-auto"
+          style={{ fontSize: "38px", lineHeight: "50px" }}
         >
-          &ldquo;Working with Ishara felt like having a seasoned design partner{" "}
-          <span className="text-text-primary font-semibold">
-            who truly understood our vision for KYMA
-          </span>{" "}
-          and brought it to life in ways we hadn&apos;t even imagined.&rdquo;
+          {/* Line 1 — grey, sets up the contrast */}
+          <span className="block text-text-ghost">
+            &ldquo;Most people hire a designer
+          </span>
+          {/* Line 2 — grey continues */}
+          <span className="block text-text-ghost mb-1">or a developer.</span>
+          {/* Line 3 — black, the punchline lands */}
+          <span className="block text-text-primary">
+            I&apos;m what happens when you
+          </span>
+          <span className="block text-text-primary">
+            don&apos;t have to choose.&rdquo;
+          </span>
         </blockquote>
 
         {/* Author */}
@@ -86,23 +81,19 @@ export default function Testimonial() {
           className="flex items-center justify-center gap-3 mt-10"
         >
           <img
-            src={AuthorImg}
-            alt="Thomas Weber"
-            className="w-10 h-10 rounded-full object-cover"
+            src={ProfileImg}
+            alt="Ishara Udayanga"
+            className="w-12 h-12 rounded-full object-cover"
           />
           <div className="text-left">
             <div className="font-display font-semibold text-sm text-text-primary">
-              Thomas Weber
+              Ishara Udayanga
             </div>
-            <div className="font-body font-semibold text-xs text-text-muted">
-              Co-founder of KYMA
+            <div className="font-body text-xs text-text-muted">
+              Full-stack Product Designer &amp; Developer
             </div>
           </div>
         </div>
-      </div>
-      {/* Bottom full-width divider — closes the strip */}
-      <div className="relative h-px">
-        <div className="absolute left-1/2 -translate-x-1/2 w-screen h-px bg-surface-border" />
       </div>
     </section>
   );

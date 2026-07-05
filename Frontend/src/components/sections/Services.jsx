@@ -213,7 +213,11 @@ export default function Services() {
   }, []);
 
   return (
-    <section id="services" ref={sectionRef} className="w-full bg-surface">
+    <section
+      id="services"
+      ref={sectionRef}
+      className="w-full bg-surface border-b border-surface-border"
+    >
       <div className="max-w-[68rem] mx-auto border-x border-surface-border px-10 py-28">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
           {/* ── Left — heading + tech stack ── */}

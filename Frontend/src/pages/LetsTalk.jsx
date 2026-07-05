@@ -1,6 +1,8 @@
 import { useState, useMemo } from "react";
 import Navbar from "../components/layout/Navbar";
 import ProfileImg from "../assets/images/Me.png";
+import WhatsAppQR from "../components/lets-talk/WhatsAppQR";
+
 
 function toDateKey(year, month, day) {
   return `${year}-${String(month + 1).padStart(2, "0")}-${String(day).padStart(2, "0")}`;
@@ -259,7 +261,7 @@ export default function LetsTalk() {
                 <p className="font-body text-sm text-text-muted leading-relaxed mb-6">
                   Got a project in mind? Let's chat about it. We'll talk through
                   your idea, what you need, and how I can help.no commitments,
-                  no pressure. Just a little chat
+                  no pressure. Just a little chat 😊
                 </p>
 
                 {/* Duration selector */}
@@ -530,6 +532,9 @@ export default function LetsTalk() {
           </p>
         </div>
       </div>
+
+      {/* Floating WhatsApp QR Code Widget */}
+      <WhatsAppQR />
     </div>
   );
 }

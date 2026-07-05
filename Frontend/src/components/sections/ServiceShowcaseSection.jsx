@@ -102,6 +102,7 @@ let showcaseAnimationHasPlayed = false;
 export default function ServiceShowcaseSection() {
   const sectionRef = useRef(null);
   const headingRef = useRef(null);
+  const contextRef = useRef(null);
   const cellRefs = useRef([]);
 
   useEffect(() => {
@@ -110,7 +111,14 @@ export default function ServiceShowcaseSection() {
     const ctx = gsap.context(() => {
       if (showcaseAnimationHasPlayed) {
         if (headingRef.current) {
-          gsap.set(headingRef.current, { filter: "blur(0px)", opacity: 1, y: 0 });
+          gsap.set(headingRef.current, {
+            filter: "blur(0px)",
+            opacity: 1,
+            y: 0,
+          });
+        }
+        if (contextRef.current) {
+          gsap.set(contextRef.current, { opacity: 1, x: 0 });
         }
         gsap.set(cellRefs.current, { opacity: 1, y: 0 });
         return;
@@ -133,6 +141,24 @@ export default function ServiceShowcaseSection() {
             onEnter: () => {
               showcaseAnimationHasPlayed = true;
             },
+          },
+        },
+      );
+
+      // Context line — slides in from the right
+      gsap.fromTo(
+        contextRef.current,
+        { opacity: 0, x: 24 },
+        {
+          opacity: 1,
+          x: 0,
+          duration: 0.8,
+          delay: 0.3,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: headingRef.current,
+            start: "top 80%",
+            once: true,
           },
         },
       );
@@ -163,28 +189,39 @@ export default function ServiceShowcaseSection() {
   }, []);
 
   return (
-    <section id="showcase" ref={sectionRef} className="w-full bg-surface">
-      <div className="max-w-7xl mx-auto  px-10 pb-28 pt-16">
-        {/* Heading */}
-        {/* <div ref={headingRef} className="mb-16">
-          <p className="font-body text-sm font-medium tracking-widest uppercase text-text-muted mb-3">
-            / What I do
+    <section
+      id="showcase"
+      ref={sectionRef}
+      className="w-full bg-surface border-b border-surface-border"
+    >
+      <div className="max-w-7xl mx-auto  px-10 pb-28 pt-16 ">
+        {/* ── Header row: headline left, context right ── */}
+        <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-6 mb-16">
+          <div ref={headingRef}>
+            <h2 className="font-display font-medium tracking-tighter">
+              <span
+                className="block text-text-ghost"
+                style={{ fontSize: "58px", lineHeight: "58px" }}
+              >
+                What I am
+              </span>
+              <span
+                className="block text-text-primary"
+                style={{ fontSize: "58px", lineHeight: "58px" }}
+              >
+                Interested On
+              </span>
+            </h2>
+          </div>
+
+          {/* Context line — engineering-note style, right aligned */}
+          <p
+            ref={contextRef}
+            className="font-body text-xs tracking-widest uppercase text-text-muted text-left lg:text-right leading-loose lg:max-w-xs lg:pt-2"
+          >
+            Specializing in digital product engineering, interactive websites, and brand systems
           </p>
-          <h2 className="font-display font-medium tracking-tighter">
-            <span
-              className="block text-text-ghost"
-              style={{ fontSize: "58px", lineHeight: "58px" }}
-            >
-              Work in
-            </span>
-            <span
-              className="block text-text-primary"
-              style={{ fontSize: "58px", lineHeight: "58px" }}
-            >
-              motion.
-            </span>
-          </h2>
-        </div> */}
+        </div>
 
         {/* Blueprint grid — sharp edges, collapsed shared borders */}
         <div className="grid grid-cols-1 md:grid-cols-2 border-t border-l border-surface-border">

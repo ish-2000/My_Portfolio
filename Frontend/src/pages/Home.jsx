@@ -12,6 +12,7 @@ import SoftCTA from "../components/sections/SoftCTA";
 import Testimonial from "../components/sections/Testimonial";
 import Services from "../components/sections/Services";
 import ServiceShowcaseSection from "../components/sections/ServiceShowcaseSection";
+import Trustsection from "../components/sections/Trustsection";
 
 // Module-level flag: resets to false on every hard refresh (JS re-executes),
 // but stays true during SPA navigation (module stays in memory).
@@ -40,9 +41,7 @@ export default function Home() {
   return (
     <>
       <AnimatePresence mode="wait">
-        {showPreloader && (
-          <Preloader onComplete={handlePreloaderComplete} />
-        )}
+        {showPreloader && <Preloader onComplete={handlePreloaderComplete} />}
       </AnimatePresence>
 
       <Hero preloaderDone={!showPreloader} />
@@ -53,6 +52,7 @@ export default function Home() {
 
       <Services />
       <ServiceShowcaseSection />
+      <Trustsection />
       <PositioningStrip />
       <SelectedWork />
       <Philosophy />
