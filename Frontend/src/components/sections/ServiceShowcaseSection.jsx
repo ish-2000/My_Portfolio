@@ -219,7 +219,8 @@ export default function ServiceShowcaseSection() {
             ref={contextRef}
             className="font-body text-xs tracking-widest uppercase text-text-muted text-left lg:text-right leading-loose lg:max-w-xs lg:pt-2"
           >
-            Specializing in digital product engineering, interactive websites, and brand systems
+            Specializing in digital product engineering, interactive websites,
+            and brand systems
           </p>
         </div>
 
@@ -242,7 +243,7 @@ export default function ServiceShowcaseSection() {
 
               {/* Meta bar */}
               <div className="flex items-start gap-5 p-5">
-                <span className="font-display font-medium text-sm text-text-placeholder pt-1 flex-shrink-0">
+                <span className="font-display font-medium text-xs text-text-placeholder pt-1 flex-shrink-0">
                   {service.index}
                 </span>
                 <div>

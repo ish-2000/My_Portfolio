@@ -65,11 +65,11 @@ export default function MyProcess() {
       // Releases when the section bottom exits the viewport.
       ScrollTrigger.create({
         trigger: headingRef.current,
-        start: "center center",   // heading centre hits viewport centre
+        start: "center center", // heading centre hits viewport centre
         endTrigger: sectionRef.current,
-        end: "bottom bottom",     // release when section bottom exits
+        end: "bottom bottom", // release when section bottom exits
         pin: true,
-        pinSpacing: false,        // right col height drives the scroll length
+        pinSpacing: false, // right col height drives the scroll length
       });
 
       // ── Each step — rise-in on enter ──
@@ -110,16 +110,19 @@ export default function MyProcess() {
   }, []);
 
   return (
-    <section id="process" ref={sectionRef} className="w-full bg-surface overflow-visible">
-      <div className="max-w-6xl mx-auto border-x border-surface-border px-6 md:px-10 overflow-visible">
+    <section
+      id="process"
+      ref={sectionRef}
+      className="w-full bg-surface overflow-visible"
+    >
+      <div className="max-w-6xl mx-auto border-surface-border px-6 md:px-10 overflow-visible">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-stretch">
-
           {/* ── Left — heading starts at top, GSAP pins at viewport centre ── */}
           <div ref={leftColRef} className="flex items-start pt-20 lg:pt-32">
             <div ref={headingRef}>
-              <p className="font-body text-sm font-medium tracking-widest uppercase text-text-muted mb-4">
+              {/* <p className="font-body text-sm font-medium tracking-widest uppercase text-text-muted mb-4">
                 / My Process
-              </p>
+              </p> */}
 
               <h2 className="font-display font-medium tracking-tighter">
                 <span
@@ -149,7 +152,7 @@ export default function MyProcess() {
               >
                 <div className="py-14">
                   <div className="flex items-start gap-2 mb-5">
-                    <h3 className="font-display font-semibold text-3xl text-text-primary tracking-tight">
+                    <h3 className="font-display font-medium text-2xl text-text-primary tracking-tight leading-snug ">
                       {step.title}
                     </h3>
                     <span className="font-body text-xs text-text-placeholder pt-1">
@@ -168,7 +171,6 @@ export default function MyProcess() {
               </div>
             ))}
           </div>
-
         </div>
       </div>
     </section>

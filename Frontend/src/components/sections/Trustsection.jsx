@@ -186,7 +186,7 @@ export default function TrustSection() {
               </div>
 
               {/* Title */}
-              <h3 className="font-display font-semibold text-2xl text-text-primary tracking-tight leading-snug mb-4">
+              <h3 className="font-display font-medium text-2xl text-text-primary tracking-tight leading-snug mb-4">
                 {pillar.title}
               </h3>
 

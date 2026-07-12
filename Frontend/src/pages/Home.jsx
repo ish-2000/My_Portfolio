@@ -14,6 +14,7 @@ import Services from "../components/sections/Services";
 import ServiceShowcaseSection from "../components/sections/ServiceShowcaseSection";
 import Trustsection from "../components/sections/Trustsection";
 import BeyondWork from "../components/sections/BeyondWork";
+import VisionSection from "../components/sections/VisionSection";
 
 // Module-level flag: resets to false on every hard refresh (JS re-executes),
 // but stays true during SPA navigation (module stays in memory).
@@ -56,6 +57,7 @@ export default function Home() {
       <Trustsection />
       <MyProcess />
       <BeyondWork />
+      <VisionSection />
       <PositioningStrip />
       <SelectedWork />
       <Philosophy />

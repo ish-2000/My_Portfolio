@@ -108,9 +108,15 @@ export default function Hero({ preloaderDone = true }) {
 
       // Already played — instantly show everything, skip animation.
       if (heroAnimationHasPlayed) {
-        gsap.set([...otherTextItems, ctaRef.current, textElement, stripRef.current], {
-          opacity: 1, y: 0, x: 0, filter: "blur(0px)",
-        });
+        gsap.set(
+          [...otherTextItems, ctaRef.current, textElement, stripRef.current],
+          {
+            opacity: 1,
+            y: 0,
+            x: 0,
+            filter: "blur(0px)",
+          },
+        );
         gsap.set(avatars, { opacity: 1, scale: 1, x: 0, filter: "blur(0px)" });
         gsap.set(cards, { opacity: 1, y: 0, scale: 1, filter: "none" });
         return;
@@ -150,7 +156,12 @@ export default function Hero({ preloaderDone = true }) {
         filter: "none",
       });
 
-      const tl = gsap.timeline({ delay: 0.3, onStart: () => { heroAnimationHasPlayed = true; } });
+      const tl = gsap.timeline({
+        delay: 0.3,
+        onStart: () => {
+          heroAnimationHasPlayed = true;
+        },
+      });
 
       // 1. All 3 images move together as one batch
       tl.to(cards, {

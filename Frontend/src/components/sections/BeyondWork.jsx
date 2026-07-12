@@ -113,9 +113,9 @@ export default function BeyondWork() {
       <div className="max-w-6xl mx-auto border-dark-border px-10 py-28">
         {/* ── Heading ── */}
         <div ref={headingRef} className="mb-16">
-          <p className="font-body text-sm font-medium tracking-widest uppercase text-dark-text-muted mb-3">
+          {/* <p className="font-body text-sm font-medium tracking-widest uppercase text-dark-text-muted mb-3">
             / Beyond client work
-          </p>
+          </p> */}
           <h2 className="font-display font-medium tracking-tighter">
             <span
               className="block text-dark-text-muted"
@@ -124,7 +124,7 @@ export default function BeyondWork() {
               More than
             </span>
             <span
-              className="block text-dark-text"
+              className="block text-white"
               style={{ fontSize: "58px", lineHeight: "58px" }}
             >
               just projects.
@@ -166,7 +166,7 @@ export default function BeyondWork() {
               </div>
 
               {/* Title */}
-              <h3 className="font-display font-semibold text-2xl text-dark-text tracking-tight leading-snug mb-4">
+              <h3 className="font-display font-medium text-2xl text-white tracking-tight leading-snug mb-4">
                 {item.title}
               </h3>
 
