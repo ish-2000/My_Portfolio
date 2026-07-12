@@ -22,13 +22,6 @@
   font-display: swap;
 }
 
-  html,
-  body {
-    scroll-behavior: smooth;
-    overflow-x: hidden;
-    width: 100%;
-  }
-
 @import "tailwindcss";
 
 @theme {
@@ -57,6 +50,7 @@
   --color-dark-card: #171717;
   --color-dark-elevated: #222220;
   --color-dark-border: #2E2E2C;
+  --color-dark-muted: #6B6A66;
 
   /* ── Text — light sections ── */
   --color-text-primary: #000000;
@@ -104,6 +98,8 @@
 
   html {
     scroll-behavior: smooth;
+    overflow-x: hidden;
+    width: 100%;
   }
 
   body {
@@ -111,6 +107,8 @@
     background-color: var(--color-surface);
     color: var(--color-text-secondary);
     -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+    width: 100%;
   }
 }
 
@@ -177,3 +175,4 @@
 .pulse-dot {
   animation: pulse-dot 2s ease-in-out infinite;
 }
+

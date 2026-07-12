@@ -13,6 +13,7 @@ import Testimonial from "../components/sections/Testimonial";
 import Services from "../components/sections/Services";
 import ServiceShowcaseSection from "../components/sections/ServiceShowcaseSection";
 import Trustsection from "../components/sections/Trustsection";
+import BeyondWork from "../components/sections/BeyondWork";
 
 // Module-level flag: resets to false on every hard refresh (JS re-executes),
 // but stays true during SPA navigation (module stays in memory).
@@ -53,11 +54,12 @@ export default function Home() {
       <Services />
       <ServiceShowcaseSection />
       <Trustsection />
+      <MyProcess />
+      <BeyondWork />
       <PositioningStrip />
       <SelectedWork />
       <Philosophy />
       <Capabilities />
-      <MyProcess />
       <TrustSignals />
       <SoftCTA />
     </>
