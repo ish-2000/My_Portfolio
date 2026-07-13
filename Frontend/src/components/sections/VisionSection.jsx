@@ -153,7 +153,7 @@ export default function VisionSection() {
       <div
         className="
           relative mx-auto grid min-h-screen
-          w-full 
+          w-full max-w-[68rem]
           grid-cols-1
           gap-16
           px-10 py-24
@@ -161,11 +161,10 @@ export default function VisionSection() {
           lg:items-center
           lg:gap-20
           lg:py-20
-         
         "
       >
         {/* Left profile area */}
-        <div className="w-full lg:translate-x-12 xl:translate-x-20 lg:translate-y-8">
+        <div className="w-full lg:translate-x-4 xl:translate-x-8 lg:translate-y-8">
           <div ref={profileRef} className="w-full max-w-[280px]">
             <div
               className="
@@ -221,7 +220,7 @@ export default function VisionSection() {
         {/* Right vision content */}
         <div
           ref={contentRef}
-          className="w-full max-w-[760px] lg:justify-self-end"
+          className="w-full max-w-[620px]"
         >
           {/* Section label */}
           <div ref={labelRef} className="mb-14 flex w-full items-center gap-5">
@@ -241,7 +240,7 @@ export default function VisionSection() {
           <h2
             ref={headingRef}
             className="
-              max-w-[750px]
+              max-w-[600px]
               font-display font-medium
               tracking-tight
               leading-[1.1]
@@ -251,7 +250,7 @@ export default function VisionSection() {
             style={{ wordSpacing: "0.12em" }}
           >
             <span className="text-white ">
-              We believe that AI should not just automate tasks, but
+              I believe that AI should not just automate tasks, but
               amplify{" "}
             </span>
             <span className="text-[#303030]">

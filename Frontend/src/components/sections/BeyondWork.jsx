@@ -11,6 +11,7 @@ const ITEMS = [
     title: "Blog",
     status: "Live",
     statusStyle: "live",
+    icon: "https://res.cloudinary.com/dgvdlyxhw/image/upload/v1743191578/amari-james-bzdfrbaGztY-unsplash_th1wxr.jpg",
     description:
       "Thoughts on product design, engineering, and building digital experiences that actually work. Written from real projects, not theory.",
     cta: "Read articles",
@@ -21,6 +22,7 @@ const ITEMS = [
     title: "Podcast",
     status: "Coming soon",
     statusStyle: "soon",
+    icon: "https://res.cloudinary.com/dgvdlyxhw/image/upload/v1783953087/ChatGPT_Image_Jul_13_2026_08_00_43_PM_zlkvn3.png",
     description:
       "Conversations about design, code, and the space in between. Honest talks with people who build things for a living.",
     cta: "Get notified",
@@ -31,6 +33,7 @@ const ITEMS = [
     title: "Sponsorship & Collaborations",
     status: "Open",
     statusStyle: "live",
+    icon: "https://res.cloudinary.com/dgvdlyxhw/image/upload/v1783952679/ChatGPT_Image_Jul_13_2026_07_54_09_PM_c96kfc.png",
     description:
       "Partnering with brands and creators who value quality. If you are building something interesting, there is probably a way we can work together.",
     cta: "Start a conversation",
@@ -142,10 +145,20 @@ export default function BeyondWork() {
               whileHover="hover"
               initial="rest"
               animate="rest"
-              className="group relative border-b border-r border-dark-border p-8 lg:p-10 flex flex-col will-change-transform bg-dark hover:bg-dark-elevated transition-colors duration-300 no-underline"
+              className="group relative border-b border-r border-dark-border p-4 lg:p-4 flex flex-col will-change-transform bg-dark hover:bg-dark-elevated transition-colors duration-300 no-underline"
             >
+              {/* Thumbnail Image Container */}
+              <div className="mb-6 w-full aspect-[16/10] overflow-hidden border border-white/[0.08] bg-[#0c0c0c] shadow-2xl relative">
+                <img
+                  src={item.icon}
+                  alt={`${item.title} thumbnail`}
+                  className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03]"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/10 via-transparent to-transparent pointer-events-none" />
+              </div>
+
               {/* Index + status row */}
-              <div className="flex items-center justify-between mb-14">
+              <div className="flex items-center justify-between mb-6">
                 <span className="font-body text-xs tracking-widest text-dark-text-muted group-hover:text-dark-text transition-colors duration-300">
                   {item.index}
                 </span>
