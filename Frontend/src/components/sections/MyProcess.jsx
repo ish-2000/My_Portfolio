@@ -63,14 +63,6 @@ export default function MyProcess() {
       // Heading starts at the top of the section and scrolls naturally.
       // When its vertical centre reaches the viewport centre → it pins.
       // Releases when the section bottom exits the viewport.
-      ScrollTrigger.create({
-        trigger: headingRef.current,
-        start: "center center", // heading centre hits viewport centre
-        endTrigger: sectionRef.current,
-        end: "bottom bottom", // release when section bottom exits
-        pin: true,
-        pinSpacing: false, // right col height drives the scroll length
-      });
 
       // ── Each step — rise-in on enter ──
       stepRefs.current.forEach((step) => {
@@ -118,12 +110,8 @@ export default function MyProcess() {
       <div className="max-w-6xl mx-auto border-surface-border px-6 md:px-10 overflow-visible">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-stretch">
           {/* ── Left — heading starts at top, GSAP pins at viewport centre ── */}
-          <div ref={leftColRef} className="flex items-start pt-20 lg:pt-32">
+          <div className="lg:sticky lg:top-0 lg:h-screen flex items-center py-20 lg:py-0">
             <div ref={headingRef}>
-              {/* <p className="font-body text-sm font-medium tracking-widest uppercase text-text-muted mb-4">
-                / My Process
-              </p> */}
-
               <h2 className="font-display font-medium tracking-tighter">
                 <span
                   className="block text-text-ghost"
@@ -131,7 +119,6 @@ export default function MyProcess() {
                 >
                   From ideas to
                 </span>
-
                 <span
                   className="block text-text-primary"
                   style={{ fontSize: "56px", lineHeight: "58px" }}
@@ -152,7 +139,7 @@ export default function MyProcess() {
               >
                 <div className="py-14">
                   <div className="flex items-start gap-2 mb-5">
-                    <h3 className="font-display font-medium text-2xl text-text-primary tracking-tight leading-snug ">
+                    <h3 className="font-display font-medium text-2xl text-text-primary tracking-tight leading-snug  mb-1 leading-snug ">
                       {step.title}
                     </h3>
                     <span className="font-body text-xs text-text-placeholder pt-1">

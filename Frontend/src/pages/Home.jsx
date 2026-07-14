@@ -2,13 +2,8 @@ import { useState, useEffect } from "react";
 import { AnimatePresence } from "framer-motion";
 import Preloader from "./Preloader .jsx";
 import Hero from "../components/sections/Hero";
-import PositioningStrip from "../components/sections/PositioningStrip";
-import SelectedWork from "../components/sections/SelectedWork";
 import Philosophy from "../components/sections/Philosophy";
-import Capabilities from "../components/sections/Capabilities";
 import MyProcess from "../components/sections/MyProcess";
-import TrustSignals from "../components/sections/TrustSignals";
-import SoftCTA from "../components/sections/SoftCTA";
 import Testimonial from "../components/sections/Testimonial";
 import Services from "../components/sections/Services";
 import ServiceShowcaseSection from "../components/sections/ServiceShowcaseSection";
@@ -16,8 +11,6 @@ import Trustsection from "../components/sections/Trustsection";
 import BeyondWork from "../components/sections/BeyondWork";
 import VisionSection from "../components/sections/VisionSection";
 
-// Module-level flag: resets to false on every hard refresh (JS re-executes),
-// but stays true during SPA navigation (module stays in memory).
 let preloaderHasPlayed = false;
 
 export default function Home() {
@@ -58,12 +51,7 @@ export default function Home() {
       <MyProcess />
       <BeyondWork />
       <VisionSection />
-      <PositioningStrip />
-      <SelectedWork />
       <Philosophy />
-      <Capabilities />
-      <TrustSignals />
-      <SoftCTA />
     </>
   );
 }

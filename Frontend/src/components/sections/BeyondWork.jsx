@@ -11,7 +11,7 @@ const ITEMS = [
     title: "Blog",
     status: "Live",
     statusStyle: "live",
-    icon: "https://res.cloudinary.com/dgvdlyxhw/image/upload/v1743191578/amari-james-bzdfrbaGztY-unsplash_th1wxr.jpg",
+    icon: "https://res.cloudinary.com/dgvdlyxhw/image/upload/f_auto,q_auto,w_800/v1743191578/amari-james-bzdfrbaGztY-unsplash_th1wxr.jpg",
     description:
       "Thoughts on product design, engineering, and building digital experiences that actually work. Written from real projects, not theory.",
     cta: "Read articles",
@@ -22,7 +22,7 @@ const ITEMS = [
     title: "Podcast",
     status: "Coming soon",
     statusStyle: "soon",
-    icon: "https://res.cloudinary.com/dgvdlyxhw/image/upload/v1783953087/ChatGPT_Image_Jul_13_2026_08_00_43_PM_zlkvn3.png",
+    icon: "https://res.cloudinary.com/dgvdlyxhw/image/upload/f_auto,q_auto,w_800/v1783953087/ChatGPT_Image_Jul_13_2026_08_00_43_PM_zlkvn3.png",
     description:
       "Conversations about design, code, and the space in between. Honest talks with people who build things for a living.",
     cta: "Get notified",
@@ -33,7 +33,7 @@ const ITEMS = [
     title: "Sponsorship & Collaborations",
     status: "Open",
     statusStyle: "live",
-    icon: "https://res.cloudinary.com/dgvdlyxhw/image/upload/v1783952679/ChatGPT_Image_Jul_13_2026_07_54_09_PM_c96kfc.png",
+    icon: "https://res.cloudinary.com/dgvdlyxhw/image/upload/f_auto,q_auto,w_800/v1783952679/ChatGPT_Image_Jul_13_2026_07_54_09_PM_c96kfc.png",
     description:
       "Partnering with brands and creators who value quality. If you are building something interesting, there is probably a way we can work together.",
     cta: "Start a conversation",
@@ -113,7 +113,7 @@ export default function BeyondWork() {
 
   return (
     <section id="beyond" ref={sectionRef} className="w-full bg-dark">
-      <div className="max-w-6xl mx-auto border-dark-border px-10 py-28">
+      <div className="max-w-7xl mx-auto border-dark-border px-10 py-28">
         {/* ── Heading ── */}
         <div ref={headingRef} className="mb-16">
           {/* <p className="font-body text-sm font-medium tracking-widest uppercase text-dark-text-muted mb-3">

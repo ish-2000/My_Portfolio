@@ -247,7 +247,7 @@ export default function ServiceShowcaseSection() {
                   {service.index}
                 </span>
                 <div>
-                  <h3 className="font-display font-semibold text-xl text-text-primary mb-1">
+                  <h3 className="font-display font-medium text-xl text-text-primary tracking-tight leading-snug  mb-1">
                     {service.title}
                   </h3>
                   <p className="font-body text-sm text-text-muted leading-relaxed">
