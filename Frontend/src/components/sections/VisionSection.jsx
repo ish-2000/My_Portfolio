@@ -139,17 +139,6 @@ export default function VisionSection() {
       ref={sectionRef}
       className="relative w-full overflow-hidden bg-dark text-dark-text"
     >
-      {/* Subtle background lighting */}
-      <div
-        aria-hidden="true"
-        className="
-          pointer-events-none absolute right-0 top-0
-          h-[500px] w-[500px]
-          translate-x-1/3 -translate-y-1/3
-          rounded-full bg-white/[0.015] blur-3xl
-        "
-      />
-
       <div
         className="
           relative mx-auto grid min-h-screen
