@@ -1,13 +1,12 @@
 import { useEffect, useRef } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-
-import meImage from "../../assets/images/Me_dark.webp";
+import MeImage from "../../assets/images/Me_dark.webp";
 
 gsap.registerPlugin(ScrollTrigger);
 
 const PROFILE = {
-  image: meImage,
+  image: MeImage,
   name: "Ishara Udayanga",
   role: "Designer & Developer",
 };
