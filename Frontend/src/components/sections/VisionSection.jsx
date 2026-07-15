@@ -2,7 +2,7 @@ import { useEffect, useRef } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
-import meImage from "../../assets/images/Me_dark.png";
+import meImage from "../../assets/images/Me_dark.webp";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -28,26 +28,26 @@ export default function VisionSection() {
     if (reduceMotion) return undefined;
 
     const context = gsap.context(() => {
-      gsap.fromTo(
-        profileRef.current,
-        {
-          opacity: 0,
-          x: -45,
-          filter: "blur(10px)",
-        },
-        {
-          opacity: 1,
-          x: 0,
-          filter: "blur(0px)",
-          duration: 1,
-          ease: "power3.out",
-          scrollTrigger: {
-            trigger: sectionRef.current,
-            start: "top 70%",
-            once: true,
-          },
-        },
-      );
+      // gsap.fromTo(
+      //   profileRef.current,
+      //   {
+      //     opacity: 0,
+      //     x: -45,
+      //     filter: "blur(10px)",
+      //   },
+      //   {
+      //     opacity: 1,
+      //     x: 0,
+      //     filter: "blur(0px)",
+      //     duration: 1,
+      //     ease: "power3.out",
+      //     scrollTrigger: {
+      //       trigger: sectionRef.current,
+      //       start: "top 70%",
+      //       once: true,
+      //     },
+      //   },
+      // );
 
       gsap.fromTo(
         labelRef.current,
@@ -166,6 +166,9 @@ export default function VisionSection() {
               <img
                 src={PROFILE.image}
                 alt={`${PROFILE.name} portrait`}
+                width={600}
+                height={600}
+                decoding="async"
                 className="
           h-full w-full object-cover
           transition-transform duration-700
@@ -207,10 +210,7 @@ export default function VisionSection() {
         </div>
 
         {/* Right vision content */}
-        <div
-          ref={contentRef}
-          className="w-full max-w-[620px]"
-        >
+        <div ref={contentRef} className="w-full max-w-[620px]">
           {/* Section label */}
           <div ref={labelRef} className="mb-14 flex w-full items-center gap-5">
             <span
@@ -239,8 +239,7 @@ export default function VisionSection() {
             style={{ wordSpacing: "0.12em" }}
           >
             <span className="text-white ">
-              I believe that AI should not just automate tasks, but
-              amplify{" "}
+              I believe that AI should not just automate tasks, but amplify{" "}
             </span>
             <span className="text-[#303030]">
               the creative and strategic potential of every human.

@@ -17,28 +17,28 @@ const SERVICES = [
     description:
       "Full-stack applications engineered for performance and scale.",
     type: "video",
-    src: "/media/sample.mp4",
+    src: "https://res.cloudinary.com/dgvdlyxhw/video/upload/v1784127915/sample_rrrzqx.mp4",
   },
   {
     index: "02",
     title: "Brand Design",
     description: "Identities that communicate value and earn trust.",
     type: "video",
-    src: "/media/sample_3.mp4",
+    src: "https://res.cloudinary.com/dgvdlyxhw/video/upload/v1784127915/sample_3_v4ovjv.mp4",
   },
   {
     index: "03",
     title: "Mobile Apps",
     description: "Data-driven products with seamless user experiences.",
     type: "video",
-    src: "/media/sample_2.mp4",
+    src: "https://res.cloudinary.com/dgvdlyxhw/video/upload/v1784127916/sample_2_pjjuf0.mp4",
   },
   {
     index: "04",
     title: "Landing Pages",
     description: "High-converting pages built to capture and hold attention.",
     type: "video",
-    src: "/media/sample_4.mp4",
+    src: "https://res.cloudinary.com/dgvdlyxhw/video/upload/v1784127915/sample_4_uvuaog.mp4",
   },
 ];
 
