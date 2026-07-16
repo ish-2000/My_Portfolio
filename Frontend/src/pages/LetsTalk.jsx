@@ -2,6 +2,7 @@ import { useState, useMemo, useEffect } from "react";
 import Navbar from "../components/layout/Navbar";
 import ProfileImg from "../assets/images/Me.png";
 import WhatsAppQR from "../components/lets-talk/WhatsAppQR";
+import { sendBookingEmail } from "../utils/emailService";
 
 function toDateKey(year, month, day) {
   return `${year}-${String(month + 1).padStart(2, "0")}-${String(day).padStart(2, "0")}`;
@@ -128,6 +129,8 @@ export default function LetsTalk() {
   const [email, setEmail] = useState("");
   const [isReserved, setIsReserved] = useState(false);
   const [isFocused, setIsFocused] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [submitError, setSubmitError] = useState(null);
 
   // ── Cursor Tooltip state ───────────────────────────────────
   const [hovered, setHovered] = useState(false);
@@ -174,22 +177,34 @@ export default function LetsTalk() {
     setIsReserved(false);
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     if (!selectedDate || !email.trim()) return;
+
     const dateLabel = new Date(selectedDate).toLocaleDateString("en-US", {
       weekday: "long",
       year: "numeric",
       month: "long",
       day: "numeric",
     });
+    const durationLabel =
+      selectedDuration < 60 ? `${selectedDuration} min` : "1 hour";
 
-    console.log("Booking request details for EmailJS:", {
-      date: dateLabel,
-      duration: selectedDuration,
-      email: email,
-    });
+    setIsLoading(true);
+    setSubmitError(null);
 
-    setIsReserved(true);
+    try {
+      await sendBookingEmail({
+        userEmail: email.trim(),
+        selectedDate: dateLabel,
+        duration: durationLabel,
+      });
+      setIsReserved(true);
+    } catch (err) {
+      console.error("EmailJS error:", err);
+      setSubmitError("Something went wrong. Please try again.");
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const isToday = (day) =>
@@ -392,19 +407,34 @@ export default function LetsTalk() {
                 {/* Submit button */}
                 <button
                   onClick={handleSubmit}
-                  disabled={!selectedDate || !email.trim()}
+                  disabled={
+                    !selectedDate || !email.trim() || isLoading || isReserved
+                  }
                   className={`
                     w-full py-3 rounded-full font-display text-sm font-semibold
                     transition-all duration-300
                     ${
-                      selectedDate && email.trim()
-                        ? "bg-dark text-dark-text hover:opacity-90 cursor-pointer shadow-[0_4px_24px_rgba(0,0,0,0.08)]"
-                        : "bg-surface-subtle text-text-muted cursor-not-allowed"
+                      isReserved
+                        ? "bg-white text-dark border border-surface-border cursor-default"
+                        : selectedDate && email.trim() && !isLoading
+                          ? "bg-dark text-dark-text hover:opacity-90 cursor-pointer shadow-[0_4px_24px_rgba(0,0,0,0.08)] animate-shimmer"
+                          : "bg-surface-subtle text-text-muted cursor-not-allowed"
                     }
                   `}
                 >
-                  {isReserved ? "Request Submitted!" : "Confirm Discussion"}
+                  {isReserved
+                    ? "Request Sent Successfully "
+                    : isLoading
+                      ? "Sending…"
+                      : "Confirm Discussion"}
                 </button>
+
+                {/* Inline error */}
+                {submitError && (
+                  <p className="font-body text-[11px] text-red-500 mt-2 text-center">
+                    {submitError}
+                  </p>
+                )}
               </div>
 
               {/* ── RIGHT — calendar ───────────────────────────── */}
