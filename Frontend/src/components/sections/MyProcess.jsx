@@ -147,7 +147,7 @@ export default function MyProcess() {
                     </span>
                   </div>
 
-                  <p className="font-body text-base text-text-body leading-relaxed max-w-lg">
+                  <p className="font-body text-sm text-text-muted leading-relaxed">
                     {step.description}
                   </p>
                 </div>

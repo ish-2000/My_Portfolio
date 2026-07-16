@@ -183,7 +183,7 @@ export default function BeyondWork() {
               </div>
 
               {/* Title */}
-              <h3 className="font-display font-medium text-2xl text-white tracking-tight leading-snug mb-4">
+              <h3 className="font-display font-medium text-2xl text-text-primary tracking-tight leading-snug  text-white mb-4">
                 {item.title}
               </h3>
 

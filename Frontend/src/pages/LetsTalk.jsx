@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import Navbar from "../components/layout/Navbar";
 import ProfileImg from "../assets/images/Me.png";
 import WhatsAppQR from "../components/lets-talk/WhatsAppQR";
@@ -112,6 +112,10 @@ const DURATIONS = [
 
 // ─── Component ───────────────────────────────────────────────
 export default function LetsTalk() {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   const now = new Date();
 
   // ── Duration state ─────────────────────────────────────────
@@ -121,8 +125,13 @@ export default function LetsTalk() {
   const [viewYear, setViewYear] = useState(now.getFullYear());
   const [viewMonth, setViewMonth] = useState(now.getMonth());
   const [selectedDate, setSelectedDate] = useState(null);
-  const [selectedSlot, setSelectedSlot] = useState(null);
+  const [email, setEmail] = useState("");
   const [isReserved, setIsReserved] = useState(false);
+  const [isFocused, setIsFocused] = useState(false);
+
+  // ── Cursor Tooltip state ───────────────────────────────────
+  const [hovered, setHovered] = useState(false);
+  const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
 
   // ── Timezone ───────────────────────────────────────────────
   const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
@@ -137,8 +146,6 @@ export default function LetsTalk() {
     return cells;
   }, [viewYear, viewMonth]);
 
-  const slotsForDate = selectedDate ? AVAILABLE_SLOTS[selectedDate] || [] : [];
-
   // ── Month navigation ───────────────────────────────────────
   const goToPrev = () => {
     if (viewMonth === 0) {
@@ -146,8 +153,8 @@ export default function LetsTalk() {
       setViewYear((y) => y - 1);
     } else setViewMonth((m) => m - 1);
     setSelectedDate(null);
-    setSelectedSlot(null);
     setIsReserved(false);
+    setHovered(false);
   };
 
   const goToNext = () => {
@@ -156,34 +163,32 @@ export default function LetsTalk() {
       setViewYear((y) => y + 1);
     } else setViewMonth((m) => m + 1);
     setSelectedDate(null);
-    setSelectedSlot(null);
     setIsReserved(false);
+    setHovered(false);
   };
 
   const handleDateClick = (day) => {
     const key = toDateKey(viewYear, viewMonth, day);
     if (!AVAILABLE_SLOTS[key]) return;
     setSelectedDate(key);
-    setSelectedSlot(null);
     setIsReserved(false);
   };
 
-  const handleReserve = () => {
-    if (!selectedSlot || !selectedDate) return;
+  const handleSubmit = () => {
+    if (!selectedDate || !email.trim()) return;
     const dateLabel = new Date(selectedDate).toLocaleDateString("en-US", {
       weekday: "long",
       year: "numeric",
       month: "long",
       day: "numeric",
     });
-    const subject = encodeURIComponent("Meeting Request — Let's Talk");
-    const body = encodeURIComponent(
-      `Hi Ishara,\n\nI'd like to book a ${selectedDuration < 60 ? selectedDuration + " min" : "1 hour"} call on ${dateLabel} at ${selectedSlot}.\n\nLooking forward to connecting!\n\nBest regards`,
-    );
-    window.open(
-      `mailto:hello@isharaudayanga.com?subject=${subject}&body=${body}`,
-      "_self",
-    );
+
+    console.log("Booking request details for EmailJS:", {
+      date: dateLabel,
+      duration: selectedDuration,
+      email: email,
+    });
+
     setIsReserved(true);
   };
 
@@ -338,71 +343,67 @@ export default function LetsTalk() {
                   </span>
                 </div>
 
-                {/* Available slots panel */}
+                {/* Selected Date Summary & Email input panel */}
                 {selectedDate && (
                   <div className="mb-6 pt-5 border-t border-surface-border">
                     <p className="font-body text-xs font-semibold text-text-muted mb-3">
-                      Available slots for{" "}
+                      Selected Date:{" "}
                       <span className="text-text-primary">
                         {new Date(selectedDate).toLocaleDateString("en-US", {
-                          weekday: "short",
-                          month: "short",
+                          weekday: "long",
+                          month: "long",
                           day: "numeric",
                         })}
                       </span>
                     </p>
-
-                    {slotsForDate.length > 0 ? (
-                      <div className="flex flex-wrap gap-2">
-                        {slotsForDate.map((slot) => (
-                          <button
-                            key={slot}
-                            onClick={() => {
-                              setSelectedSlot(slot);
-                              setIsReserved(false);
-                            }}
-                            className={`
-                              px-3.5 py-2 rounded-full font-body text-sm transition-all duration-200 cursor-pointer
-                              ${
-                                selectedSlot === slot
-                                  ? "bg-dark text-dark-text font-semibold"
-                                  : "bg-surface-subtle text-text-secondary font-medium hover:bg-surface-border"
-                              }
-                            `}
-                          >
-                            {slot}
-                          </button>
-                        ))}
-                      </div>
-                    ) : (
-                      <p className="font-body text-sm text-text-muted">
-                        No slots available for this date.
-                      </p>
-                    )}
+                    {/* <label
+                      htmlFor="email"
+                      className="block font-body text-xs font-semibold text-text-muted mb-2"
+                    >
+                      Enter your email Address
+                    </label> */}
+                    <div className="relative">
+                      <input
+                        id="email"
+                        type="email"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                        onFocus={() => setIsFocused(true)}
+                        onBlur={() => setIsFocused(false)}
+                        className="w-full py-2 bg-transparent border-b border-surface-border text-text-primary font-body text-xs outline-none focus:border-dark transition-all duration-200"
+                        required
+                      />
+                      {!email && (
+                        <span className="absolute left-0 top-1/2 -translate-y-1/2 pointer-events-none text-text-placeholder font-body text-xs flex items-center">
+                          {!isFocused && (
+                            <span className="mr-1 w-[1px] h-3.5 bg-text-placeholder animate-cursor-blink" />
+                          )}
+                          Enter your email Address
+                        </span>
+                      )}
+                    </div>
+                    {/* <p className="font-body text-[11px] text-text-muted mt-2 leading-relaxed">
+                      Enter your email address so I can send you the meeting
+                      details.
+                    </p> */}
                   </div>
                 )}
 
-                {/* Reserve button */}
+                {/* Submit button */}
                 <button
-                  onClick={handleReserve}
-                  disabled={!selectedDate || !selectedSlot}
+                  onClick={handleSubmit}
+                  disabled={!selectedDate || !email.trim()}
                   className={`
                     w-full py-3 rounded-full font-display text-sm font-semibold
                     transition-all duration-300
                     ${
-                      selectedSlot && selectedDate
+                      selectedDate && email.trim()
                         ? "bg-dark text-dark-text hover:opacity-90 cursor-pointer shadow-[0_4px_24px_rgba(0,0,0,0.08)]"
                         : "bg-surface-subtle text-text-muted cursor-not-allowed"
                     }
                   `}
                 >
-                  {isReserved ? (
-                    <span className="inline-flex items-center gap-2 justify-center w-full">
-                      Check inbox
-                    </span>
-                  ) : (
-                    "Reserve a Slot Free"
-                  )}
+                  {isReserved ? "Request Submitted!" : "Confirm Discussion"}
                 </button>
               </div>
 
@@ -489,8 +490,22 @@ export default function LetsTalk() {
                     return (
                       <button
                         key={key}
-                        onClick={() => handleDateClick(day)}
+                        onClick={() => {
+                          handleDateClick(day);
+                          setHovered(false);
+                        }}
                         disabled={disabled}
+                        onMouseEnter={
+                          !disabled ? () => setHovered(true) : undefined
+                        }
+                        onMouseLeave={
+                          !disabled ? () => setHovered(false) : undefined
+                        }
+                        onMouseMove={
+                          !disabled
+                            ? (e) => setMousePos({ x: e.clientX, y: e.clientY })
+                            : undefined
+                        }
                         className={`
                           relative w-full aspect-square flex items-center justify-center
                           font-body text-sm transition-all duration-200
@@ -534,6 +549,19 @@ export default function LetsTalk() {
 
       {/* Floating WhatsApp QR Code Widget */}
       <WhatsAppQR />
+
+      {/* Cursor Tooltip */}
+      {hovered && (
+        <div
+          className="fixed pointer-events-none z-50 bg-dark text-dark-text text-[11px] font-medium font-body px-2.5 py-1.5 rounded-full shadow-md -translate-x-1/2 -translate-y-[calc(100%+8px)]"
+          style={{
+            left: `${mousePos.x}px`,
+            top: `${mousePos.y}px`,
+          }}
+        >
+          Select Date
+        </div>
+      )}
     </div>
   );
 }

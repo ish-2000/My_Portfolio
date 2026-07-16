@@ -108,7 +108,7 @@ export default function BottomBlurCTA() {
           {/* Buttons */}
           <div className="flex items-center gap-2">
             <a
-              href="mailto:hello@isharaudayanga.com"
+              href="mailto:isharaudayanga1000@gmail.com"
               aria-label="Email me"
               className="
                 grid h-10 w-10 place-items-center rounded-full

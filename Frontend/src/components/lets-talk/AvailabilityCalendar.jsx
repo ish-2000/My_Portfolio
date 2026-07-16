@@ -157,7 +157,7 @@ export default function AvailabilityCalendar() {
     );
 
     window.open(
-      `mailto:hello@isharaudayanga.com?subject=${subject}&body=${body}`,
+      `mailto:isharaudayanga1000@gmail.com?subject=${subject}&body=${body}`,
       "_self",
     );
     setIsReserved(true);

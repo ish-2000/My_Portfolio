@@ -92,7 +92,7 @@ export default function FloatingContact() {
           {/* Action buttons */}
           <div className="relative z-10 flex items-center gap-2">
             <a
-              href="mailto:hello@isharaudayanga.com"
+              href="mailto:isharaudayanga1000@gmail.com"
               className="group grid h-10 w-10 place-items-center rounded-full text-white transition duration-300 hover:scale-110 active:scale-95"
               style={{
                 background:
