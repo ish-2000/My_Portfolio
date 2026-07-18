@@ -60,56 +60,37 @@ export default function DarkHero() {
       <nav
         ref={navRef}
         className="flex items-center justify-between px-8 md:px-16 py-8 relative z-20"
-      >
-        <span className="font-display font-medium text-sm text-white tracking-tight">
-          Ishara Udayanga
-        </span>
-        <div className="hidden md:flex items-center gap-8">
-          {NAV_LINKS.map((label) => (
-            <a
-              key={label}
-              href={`#${label.toLowerCase()}`}
-              className="font-body text-sm text-white hover:text-dark-text-muted transition-colors"
-            >
-              {label}
-            </a>
-          ))}
-        </div>
-      </nav>
+      ></nav>
 
       {/* ── Main content grid ── */}
       <div className="max-w-7xl mx-auto px-8 md:px-16 relative z-20">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-end min-h-[calc(100vh-140px)] pb-16">
-          {/* Left — headline + body */}
-          <div className="flex flex-col justify-center">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-end min-h-[calc(100vh-140px)]">
+          {/* Left — label, headline + body — matches VisionSection pattern */}
+          <div className="flex flex-col justify-start lg:self-center">
+            {/* Section label + divider — same as VisionSection */}
+            <div className="mb-14 flex justify-start w-full items-center gap-5">
+              <span className="shrink-0 font-body text-[11px] font-medium uppercase tracking-[0.03em] text-dark-text">
+                Our Approach
+              </span>
+              <span className="h-px flex-1 bg-dark-border" />
+            </div>
+
             <h1
               ref={headlineRef}
-              className="font-display font-bold tracking-tighter mb-8"
+              className="max-w-[600px] font-display font-light tracking-tight leading-[1.1] text-[46px]"
+              style={{ wordSpacing: "0.12em" }}
             >
-              <span
-                className="block text-white"
-                style={{
-                  fontSize: "clamp(40px, 5.5vw, 68px)",
-                  lineHeight: "1.05",
-                }}
-              >
-                Products people
+              <span className="text-white">
+                Products people actually want to use, built with{" "}
               </span>
-              <span
-                className="block text-dark-text-muted"
-                style={{
-                  fontSize: "clamp(40px, 5.5vw, 68px)",
-                  lineHeight: "1.05",
-                }}
-              >
-                actually want to use.
+              <span className="text-[#303030]">
+                care and shipped with confidence.
               </span>
             </h1>
 
             <p
               ref={bodyRef}
-              className="font-body text-white/80 leading-relaxed max-w-lg"
-              style={{ fontSize: "clamp(17px, 1.6vw, 20px)" }}
+              className="mt-12 max-w-[610px] font-body text-sm leading-[1.65] text-dark-text sm:text-[15px] lg:mt-14"
             >
               I work across the full stack — from first sketch to shipped code —
               helping founders and teams turn rough ideas into interfaces that
@@ -153,24 +134,6 @@ export default function DarkHero() {
             </div>
           </div>
         </div>
-      </div>
-
-      {/* ── Bottom-left links ── */}
-      <div className="absolute bottom-8 left-8 md:left-16 z-20 flex items-center gap-6">
-        <Link
-          to="/lets-talk"
-          className="font-body text-sm text-white hover:text-dark-text-muted transition-colors underline underline-offset-4"
-        >
-          Book a call
-        </Link>
-        <a
-          href="https://x.com/yourusername"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="font-body text-sm text-white hover:text-dark-text-muted transition-colors underline underline-offset-4"
-        >
-          X / Twitter
-        </a>
       </div>
     </section>
   );
