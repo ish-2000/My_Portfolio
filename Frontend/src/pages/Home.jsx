@@ -10,6 +10,7 @@ import ServiceShowcaseSection from "../components/sections/ServiceShowcaseSectio
 import Trustsection from "../components/sections/Trustsection";
 import BeyondWork from "../components/sections/BeyondWork";
 import VisionSection from "../components/sections/VisionSection";
+import Darkhero from "../components/sections/Darkhero";
 
 let preloaderHasPlayed = false;
 
@@ -51,6 +52,7 @@ export default function Home() {
       <MyProcess />
       <BeyondWork />
       <VisionSection />
+      <Darkhero />
       <Philosophy />
     </>
   );
