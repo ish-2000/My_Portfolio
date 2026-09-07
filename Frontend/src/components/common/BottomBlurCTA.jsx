@@ -1,6 +1,6 @@
-import { useEffect, useState } from 'react'
-import { Mail, Calendar } from 'lucide-react'
-import { Link, useLocation } from 'react-router-dom'
+import { useEffect, useState } from "react";
+import { Mail, Calendar } from "lucide-react";
+import { Link, useLocation } from "react-router-dom";
 
 /**
  * BottomBlurCTA
@@ -8,48 +8,48 @@ import { Link, useLocation } from 'react-router-dom'
  * Fixed bottom CTA with Launchfolio-style "Speak to me" pill.
  */
 export default function BottomBlurCTA() {
-  const location = useLocation()
-  const [isVisible, setIsVisible] = useState(false)
-  const [isAtFooter, setIsAtFooter] = useState(false)
+  const location = useLocation();
+  const [isVisible, setIsVisible] = useState(false);
+  const [isAtFooter, setIsAtFooter] = useState(false);
 
   useEffect(() => {
-    if (location.pathname === '/lets-talk') return
+    if (location.pathname === "/lets-talk") return;
 
-    const trigger = document.getElementById('floating-contact-trigger')
+    const trigger = document.getElementById("floating-contact-trigger");
 
     const handleScroll = () => {
-      const footer = document.getElementById('footer')
-      let footerVisible = false
+      const footer = document.getElementById("footer");
+      let footerVisible = false;
       if (footer) {
-        const footerRect = footer.getBoundingClientRect()
+        const footerRect = footer.getBoundingClientRect();
         if (footerRect.top <= window.innerHeight) {
-          footerVisible = true
+          footerVisible = true;
         }
       }
-      setIsAtFooter(footerVisible)
+      setIsAtFooter(footerVisible);
 
       if (!trigger) {
-        setIsVisible(window.scrollY > window.innerHeight * 0.85)
-        return
+        setIsVisible(window.scrollY > window.innerHeight * 0.85);
+        return;
       }
 
-      const triggerTop = trigger.getBoundingClientRect().top + window.scrollY
-      const showPoint = triggerTop - window.innerHeight * 0.45
-      setIsVisible(window.scrollY >= showPoint)
-    }
+      const triggerTop = trigger.getBoundingClientRect().top + window.scrollY;
+      const showPoint = triggerTop - window.innerHeight * 0.45;
+      setIsVisible(window.scrollY >= showPoint);
+    };
 
-    handleScroll()
-    window.addEventListener('scroll', handleScroll, { passive: true })
-    window.addEventListener('resize', handleScroll)
+    handleScroll();
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    window.addEventListener("resize", handleScroll);
 
     return () => {
-      window.removeEventListener('scroll', handleScroll)
-      window.removeEventListener('resize', handleScroll)
-    }
-  }, [location.pathname])
+      window.removeEventListener("scroll", handleScroll);
+      window.removeEventListener("resize", handleScroll);
+    };
+  }, [location.pathname]);
 
-  if (location.pathname === '/lets-talk') {
-    return null
+  if (location.pathname === "/lets-talk") {
+    return null;
   }
 
   return (
@@ -57,17 +57,17 @@ export default function BottomBlurCTA() {
       {/* Bottom blur overlay */}
       <div
         aria-hidden="true"
-        className={`pointer-events-none fixed bottom-0 left-0 z-40 w-full transition-opacity duration-700 ${isAtFooter ? 'opacity-0' : 'opacity-100'}`}
+        className={`pointer-events-none fixed bottom-0 left-0 z-40 w-full transition-opacity duration-700 ${isAtFooter ? "opacity-0" : "opacity-100"}`}
         style={{
-          height: '58px',
-          backdropFilter: 'blur(5px) saturate(1.4)',
-          WebkitBackdropFilter: 'blur(5px) saturate(1.4)',
+          height: "58px",
+          backdropFilter: "blur(5px) saturate(1.4)",
+          WebkitBackdropFilter: "blur(5px) saturate(1.4)",
           maskImage:
-            'linear-gradient(to bottom, transparent 0%, transparent 28%, black 68%, black 100%)',
+            "linear-gradient(to bottom, transparent 0%, transparent 28%, black 68%, black 100%)",
           WebkitMaskImage:
-            'linear-gradient(to bottom, transparent 0%, transparent 28%, black 68%, black 100%)',
+            "linear-gradient(to bottom, transparent 0%, transparent 28%, black 68%, black 100%)",
           background:
-            'linear-gradient(to bottom, transparent 0%, rgba(250,250,250,0.08) 60%, rgba(250,250,250,0.22) 100%)',
+            "linear-gradient(to bottom, transparent 0%, rgba(250,250,250,0.08) 60%, rgba(250,250,250,0.22) 100%)",
         }}
       />
 
@@ -76,9 +76,10 @@ export default function BottomBlurCTA() {
         className={`
           fixed bottom-2 left-1/2 z-50 -translate-x-1/2
           transition-all duration-700 ease-[cubic-bezier(0.175,0.885,0.32,1.275)]
-          ${(isVisible && !isAtFooter)
-            ? 'translate-y-0 opacity-100 pointer-events-auto'
-            : 'translate-y-[150px] opacity-0 pointer-events-none'
+          ${
+            isVisible && !isAtFooter
+              ? "translate-y-0 opacity-100 pointer-events-auto"
+              : "translate-y-[150px] opacity-0 pointer-events-none"
           }
         `}
       >
@@ -88,11 +89,11 @@ export default function BottomBlurCTA() {
             py-2 pl-6 pr-2
           "
           style={{
-            backdropFilter: 'blur(6px) saturate(1.4)',
-            WebkitBackdropFilter: 'blur(5px) saturate(1.4)',
-            background: 'rgba(250, 250, 250, 0.22)',
-            border: '1px solid #ededed',
-            boxShadow: '0 8px 32px rgba(0, 0, 0, 0.06)',
+            backdropFilter: "blur(6px) saturate(1.4)",
+            WebkitBackdropFilter: "blur(5px) saturate(1.4)",
+            background: "rgba(250, 250, 250, 0.22)",
+            border: "1px solid #ededed",
+            boxShadow: "0 8px 32px rgba(0, 0, 0, 0.06)",
           }}
         >
           {/* Text */}
@@ -136,5 +137,5 @@ export default function BottomBlurCTA() {
         </div>
       </div>
     </>
-  )
+  );
 }
