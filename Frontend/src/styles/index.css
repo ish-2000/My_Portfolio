@@ -42,7 +42,7 @@
   --color-surface-raised: #FAFAFA;
   --color-surface-offwhite: #F7F6F3;
   --color-surface-subtle: #EFEFEC;
-  --color-surface-border: #E0DFDB;
+  --color-surface-border: #dedede;
   --color-surface-border-strong: #D4D3CF;
 
   /* ── Dark section surfaces ── */
@@ -50,6 +50,7 @@
   --color-dark-card: #171717;
   --color-dark-elevated: #222220;
   --color-dark-border: #2E2E2C;
+  --color-dark-muted: #6B6A66;
 
   /* ── Text — light sections ── */
   --color-text-primary: #000000;
@@ -85,6 +86,22 @@
   --shadow-heavy: 0 20px 40px rgba(0, 0, 0, 0.20);
 }
 
+@font-face {
+  font-family: 'Switzer';
+  src: url('/fonts/Switzer-Light.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Switzer';
+  src: url('/fonts/Switzer-Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
 @layer base {
 
   *,
@@ -97,6 +114,8 @@
 
   html {
     scroll-behavior: smooth;
+     overflow-x: clip;
+     width: 100%;
   }
 
   body {
@@ -104,6 +123,8 @@
     background-color: var(--color-surface);
     color: var(--color-text-secondary);
     -webkit-font-smoothing: antialiased;
+    overflow-x: clip;
+    width: 100%;
   }
 }
 
@@ -122,9 +143,9 @@
   animation: marquee 22s linear infinite;
 }
 
-.animate-marquee:hover {
+/* .animate-marquee:hover {
   animation-play-state: paused;
-}
+} */
 
 /* ── Marquee fade masks ── */
 .marquee-container {
@@ -170,3 +191,46 @@
 .pulse-dot {
   animation: pulse-dot 2s ease-in-out infinite;
 }
+
+/* ── Text caret cursor blink ── */
+@keyframes cursor-blink {
+  50% {
+    opacity: 0;
+  }
+}
+
+.animate-cursor-blink {
+  animation: cursor-blink 1s step-end infinite;
+}
+
+/* ── Button Shimmer effect ── */
+@keyframes shimmer {
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+.animate-shimmer {
+  position: relative;
+  overflow: hidden;
+}
+
+.animate-shimmer::after {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  transform: translateX(-100%);
+  background-image: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0.15) 30%,
+    rgba(255, 255, 255, 0.3) 50%,
+    rgba(255, 255, 255, 0.15) 70%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  animation: shimmer 3s infinite;
+  content: '';
+}
+
