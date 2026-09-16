@@ -79,14 +79,14 @@ export default function Footer() {
           <h2 className="font-display font-medium tracking-tighter">
             <span
               className="block text-surface"
-              style={{ fontSize: "64px", lineHeight: "66px" }}
+              style={{ fontSize: "48px", lineHeight: "54px" }}
             >
               Lets design
             </span>
             <span
               ref={textRef}
               className="block text-text-muted"
-              style={{ fontSize: "64px", lineHeight: "66px" }}
+              style={{ fontSize: "48px", lineHeight: "54px" }}
             >
               {HEADLINES[activeIndex]}
             </span>
@@ -99,10 +99,10 @@ export default function Footer() {
           <div>
             <p className="font-body text-sm text-text-muted mb-2">Email</p>
             <a
-              href="mailto:isharaudayanga1000@gmail.com"
+              href="mailto:ishara@ishara.live"
               className="font-display font-medium text-lg text-surface hover:text-text-muted transition-colors"
             >
-              isharaudayanga1000@gmail.com
+              ishara@ishara.live
             </a>
           </div>
 

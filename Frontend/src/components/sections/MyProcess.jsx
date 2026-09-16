@@ -115,13 +115,13 @@ export default function MyProcess() {
               <h2 className="font-display font-medium tracking-tighter">
                 <span
                   className="block text-text-ghost"
-                  style={{ fontSize: "56px", lineHeight: "58px" }}
+                  style={{ fontSize: "38px", lineHeight: "42px" }}
                 >
                   From ideas to
                 </span>
                 <span
                   className="block text-text-primary"
-                  style={{ fontSize: "56px", lineHeight: "58px" }}
+                  style={{ fontSize: "38px", lineHeight: "42px" }}
                 >
                   products that work.
                 </span>
