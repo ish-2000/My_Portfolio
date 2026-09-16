@@ -133,13 +133,13 @@ export default function TrustSection() {
             <h2 className="font-display font-medium tracking-tighter">
               <span
                 className="block text-text-ghost"
-                style={{ fontSize: "58px", lineHeight: "58px" }}
+                style={{ fontSize: "38px", lineHeight: "42px" }}
               >
                 Why you can
               </span>
               <span
                 className="block text-text-primary"
-                style={{ fontSize: "58px", lineHeight: "58px" }}
+                style={{ fontSize: "38px", lineHeight: "42px" }}
               >
                 trust my work.
               </span>

@@ -122,13 +122,13 @@ export default function BeyondWork() {
           <h2 className="font-display font-medium tracking-tighter">
             <span
               className="block text-dark-text-muted"
-              style={{ fontSize: "58px", lineHeight: "58px" }}
+              style={{ fontSize: "38px", lineHeight: "42px" }}
             >
               More than
             </span>
             <span
               className="block text-white"
-              style={{ fontSize: "58px", lineHeight: "58px" }}
+              style={{ fontSize: "38px", lineHeight: "42px" }}
             >
               just projects.
             </span>

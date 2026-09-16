@@ -271,7 +271,7 @@ export default function Hero({ preloaderDone = true }) {
                 <span
                   className="block font-display font-medium tracking-tighter"
                   style={{
-                    fontSize: "72px",
+                    fontSize: "56px",
                     lineHeight: "68px",
                     color: "#828282",
                   }}
@@ -281,8 +281,8 @@ export default function Hero({ preloaderDone = true }) {
                 <span
                   className="block font-display font-medium tracking-tighter"
                   style={{
-                    fontSize: "72px",
-                    lineHeight: "78px",
+                    fontSize: "56px",
+                    lineHeight: "68px",
                     color: "#000000",
                   }}
                 >
