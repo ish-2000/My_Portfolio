@@ -263,7 +263,7 @@ export default function Hero({ preloaderDone = true }) {
               >
                 <span className="w-2 h-2 rounded-full bg-success flex-shrink-0 pulse-dot" />
                 <span className="font-display font-semibold text-sm text-text-secondary tracking-tight">
-                  Available for August&apos;25
+                  Available for September&apos;25
                 </span>
               </div>
 
