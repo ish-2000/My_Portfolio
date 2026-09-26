@@ -1,6 +1,7 @@
 import useLenis from '../../hooks/useLenis'
 import Footer from './Footer'
 import BottomBlurCTA from '../common/BottomBlurCTA'
+import FloatingRobot from '../FloatingRobot'
 
 export default function WebLayout({ children }) {
   useLenis()
@@ -12,6 +13,7 @@ export default function WebLayout({ children }) {
       </main>
       <Footer />
       <BottomBlurCTA />
+      <FloatingRobot />
     </div>
   )
 }
