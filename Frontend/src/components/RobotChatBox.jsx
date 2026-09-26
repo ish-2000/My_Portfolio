@@ -7,6 +7,7 @@ const SUGGESTIONS = [
   "What services do you offer?",
   "How can we work together?",
   "What is your availability?",
+  "What are your rates / pricing?",
 ];
 
 function getBotResponse(userText) {
@@ -20,7 +21,7 @@ function getBotResponse(userText) {
     text.includes("specialize") ||
     text.includes("skill")
   ) {
-    return "I specialize in UI/UX design and front-end development — crafting experiences that are beautiful and performant.";
+    return "I specialize in brand design, UI/UX design, and frontend development, crafting digital experiences that bring your entire visual and digital identity to life.";
   }
 
   // 2. How can we work together?
@@ -43,6 +44,18 @@ function getBotResponse(userText) {
     text.includes("when can you start")
   ) {
     return "I am full time available for freelance project. Contact me and let's discuss the timeline!";
+  }
+
+  // 4. What are your rates / pricing?
+  if (
+    text.includes("rate") ||
+    text.includes("pricing") ||
+    text.includes("price") ||
+    text.includes("cost") ||
+    text.includes("charge") ||
+    text.includes("budget")
+  ) {
+    return "My pricing depends on the scope of the project since every design and frontend build is unique. I focus heavily on top quality design and final product, but I keep my pricing very friendly and budget conscious compared to standard market rates. Let's chat about your project and we can work out a great deal!";
   }
 
   // Fallback for custom questions
@@ -166,10 +179,41 @@ export default function RobotChatBox({ isOpen, onClose }) {
   const [inputVal, setInputVal] = useState("");
   const [isTyping, setIsTyping] = useState(false);
   const [hasGreeted, setHasGreeted] = useState(false);
+  const chatboxRef = useRef(null);
   const chatContainerRef = useRef(null);
   const msgEndRef = useRef(null);
   const inputRef = useRef(null);
   const msgCounter = useRef(0);
+
+  useEffect(() => {
+    const el = chatboxRef.current;
+    if (!el) return;
+
+    const handleWheel = (e) => {
+      // Allow pure horizontal scroll (e.g. for horizontal suggestion pills)
+      if (Math.abs(e.deltaX) > Math.abs(e.deltaY)) return;
+
+      const container = chatContainerRef.current;
+      if (!container) return;
+
+      const { scrollHeight, clientHeight } = container;
+      if (scrollHeight > clientHeight) {
+        e.preventDefault();
+        e.stopPropagation();
+
+        let delta = e.deltaY;
+        if (e.deltaMode === 1) delta *= 16;
+        else if (e.deltaMode === 2) delta *= clientHeight;
+
+        container.scrollTop += delta;
+      }
+    };
+
+    el.addEventListener("wheel", handleWheel, { passive: false });
+    return () => {
+      el.removeEventListener("wheel", handleWheel);
+    };
+  }, []);
 
   useEffect(() => {
     if (chatContainerRef.current) {
@@ -264,10 +308,12 @@ export default function RobotChatBox({ isOpen, onClose }) {
 
       <div
         id="robot-chatbox"
+        ref={chatboxRef}
         className={`fixed bottom-[116px] right-6 md:right-8 z-[9999] w-[340px] sm:w-[370px] flex flex-col ${isOpen ? "chatbox-enter pointer-events-auto" : "chatbox-exit pointer-events-none"}`}
         style={{
           borderRadius: 24,
           overflow: "hidden",
+          overscrollBehavior: "contain",
           background: "#ffffff",
           maxHeight: "calc(100vh - 135px)",
           height:
@@ -356,6 +402,10 @@ export default function RobotChatBox({ isOpen, onClose }) {
             ref={chatContainerRef}
             className="chat-scroll flex-1 px-4 py-3 min-h-0"
             style={{
+              overflowY: "auto",
+              overscrollBehavior: "contain",
+              WebkitOverflowScrolling: "touch",
+              touchAction: "pan-y",
               borderTop: "1px solid rgba(0,0,0,0.05)",
             }}
           >
