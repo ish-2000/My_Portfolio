@@ -10,106 +10,194 @@ const SUGGESTIONS = [
   "What are your rates / pricing?",
 ];
 
-function getBotResponse(userText) {
-  const text = (userText || "").toLowerCase().trim();
+const PREDEFINED_QA = {
+  "what services do you offer?":
+    "I specialize in brand design, UI/UX design, and frontend development, crafting digital experiences that bring your entire visual and digital identity to life.",
 
-  // 1. What services do you offer?
-  if (
-    text.includes("service") ||
-    text.includes("offer") ||
-    text.includes("what do you do") ||
-    text.includes("specialize") ||
-    text.includes("skill")
-  ) {
-    return "I specialize in brand design, UI/UX design, and frontend development, crafting digital experiences that bring your entire visual and digital identity to life.";
+  "how can we work together?":
+    `I'd love to collaborate! We can connect in a few easy ways. You can book an appointment directly <a href="/lets-talk" class="underline text-indigo-500 font-medium">click here</a>, message me on <a href="[https://wa.me/94711370769](https://wa.me/94711370769)" target="_blank" rel="noopener noreferrer" class="underline text-green-500 font-medium">WhatsApp</a>, or email me at <a href="mailto:ishara@ishara.live" class="underline text-indigo-500 font-medium">ishara@ishara.live</a>. Feel free to choose whichever works best for you!`,
+
+  "what is your availability?":
+    "I am full time available for freelance project. Contact me and let's discuss the timeline!",
+
+  "what are your rates / pricing?":
+    "My pricing depends on the scope of the project since every design and frontend build is unique. I focus heavily on top quality design and final product, but I keep my pricing very friendly and budget conscious compared to standard market rates. Let's chat about your project and we can work out a great deal!",
+};
+
+export { PREDEFINED_QA };
+
+function findPredefinedMatch(rawText) {
+  if (!rawText) return null;
+  const normalized = rawText.trim().toLowerCase();
+
+  // 1. Direct match with key in PREDEFINED_QA
+  if (PREDEFINED_QA[normalized]) {
+    return PREDEFINED_QA[normalized];
   }
 
-  // 2. How can we work together?
-  if (
-    text.includes("work together") ||
-    text.includes("collaborat") ||
-    text.includes("hire") ||
-    text.includes("contact") ||
-    text.includes("reach") ||
-    text.includes("connect")
-  ) {
-    return "I'd love to collaborate! We can connect in a few easy ways.you can book an appointment directly click here, message me on WhatsApp, or email me at ishara@ishara.live. Feel free to choose whichever works best for you!";
+  // 2. Normalized match (punctuation, spacing around slashes, whitespace)
+  const clean = (s) =>
+    s
+      .replace(/[?!.]+/g, "")
+      .replace(/\s*\/\s*/g, " / ")
+      .replace(/\s+/g, " ")
+      .trim();
+
+  const cleanedInput = clean(normalized);
+  for (const [key, answer] of Object.entries(PREDEFINED_QA)) {
+    if (clean(key) === cleanedInput) {
+      return answer;
+    }
   }
 
-  // 3. What is your availability?
-  if (
-    text.includes("availab") ||
-    text.includes("timeline") ||
-    text.includes("free") ||
-    text.includes("when can you start")
-  ) {
-    return "I am full time available for freelance project. Contact me and let's discuss the timeline!";
-  }
-
-  // 4. What are your rates / pricing?
-  if (
-    text.includes("rate") ||
-    text.includes("pricing") ||
-    text.includes("price") ||
-    text.includes("cost") ||
-    text.includes("charge") ||
-    text.includes("budget")
-  ) {
-    return "My pricing depends on the scope of the project since every design and frontend build is unique. I focus heavily on top quality design and final product, but I keep my pricing very friendly and budget conscious compared to standard market rates. Let's chat about your project and we can work out a great deal!";
-  }
-
-  // Fallback for custom questions
-  return "Thanks for asking! You can explore my services, book a call (click here), or reach me directly at ishara@ishara.live.";
+  return null;
 }
+
+export { findPredefinedMatch };
 
 function FormattedMessageText({ text, onClose }) {
   if (typeof text !== "string") return text;
 
-  // Split by click here, /lets-talk, WhatsApp, ishara@ishara.live
-  const regex = /(click here|\/lets-talk|WhatsApp|ishara@ishara\.live)/g;
-  const parts = text.split(regex);
+  // 1. Split by HTML anchor tags: <a ...href="...">...</a>
+  const htmlRegex = /(<a\s+[^>]*href=["'][^"']+["'][^>]*>.*?<\/a>)/gi;
+  const parts = text.split(htmlRegex);
 
   return parts.map((part, i) => {
-    if (part === "click here" || part === "/lets-talk") {
-      return (
-        <Link
-          key={i}
-          to="/lets-talk"
-          onClick={onClose}
-          className="font-medium underline hover:text-[#6D28D9] transition-colors cursor-pointer"
-          style={{ color: "#7C3AED" }}
-        >
-          {part}
-        </Link>
-      );
-    }
-    if (part === "WhatsApp") {
+    if (part.startsWith("<a")) {
+      const hrefMatch = part.match(/href=["']([^"']+)["']/i);
+      const textMatch = part.match(/>([^<]+)</);
+      let href = hrefMatch ? hrefMatch[1] : "#";
+      const label = textMatch ? textMatch[1] : part;
+
+      // Clean any markdown link syntax inside href (e.g. "[https://wa.me/...](...)")
+      const urlMatch = href.match(/https?:\/\/[^\s"'\]\)]+/);
+      if (urlMatch) {
+        href = urlMatch[0];
+      }
+
+      if (href === "/lets-talk" || href.startsWith("/")) {
+        return (
+          <Link
+            key={i}
+            to={href}
+            onClick={() => {
+              if (onClose) onClose();
+            }}
+            className="font-medium underline hover:text-[#6D28D9] transition-colors cursor-pointer"
+            style={{ color: "#7C3AED" }}
+          >
+            {label}
+          </Link>
+        );
+      }
+      if (href.startsWith("mailto:")) {
+        return (
+          <a
+            key={i}
+            href={href}
+            className="font-medium underline hover:text-[#6D28D9] transition-colors cursor-pointer"
+            style={{ color: "#7C3AED" }}
+          >
+            {label}
+          </a>
+        );
+      }
+      if (href.includes("wa.me")) {
+        return (
+          <a
+            key={i}
+            href={href}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="font-medium underline hover:text-[#15803d] transition-colors cursor-pointer"
+            style={{ color: "#16a34a" }}
+          >
+            {label}
+          </a>
+        );
+      }
       return (
         <a
           key={i}
-          href="https://wa.me/94712345678"
+          href={href}
           target="_blank"
           rel="noopener noreferrer"
-          className="font-medium underline hover:text-[#15803d] transition-colors cursor-pointer"
-          style={{ color: "#16a34a" }}
-        >
-          WhatsApp
-        </a>
-      );
-    }
-    if (part === "ishara@ishara.live") {
-      return (
-        <a
-          key={i}
-          href="mailto:ishara@ishara.live"
           className="font-medium underline hover:text-[#6D28D9] transition-colors cursor-pointer"
           style={{ color: "#7C3AED" }}
         >
-          ishara@ishara.live
+          {label}
         </a>
       );
     }
-    return part;
+
+    // 2. Parse plain text segments for bold (**...**) or raw keywords
+    const subRegex =
+      /(\*\*.*?\*\*|click here|\/lets-talk|WhatsApp|ishara@ishara\.live)/g;
+    const subParts = part.split(subRegex);
+
+    return subParts.map((sub, j) => {
+      const key = `${i}-${j}`;
+      if (sub.startsWith("**") && sub.endsWith("**")) {
+        const boldText = sub.slice(2, -2);
+        if (boldText === "ishara@ishara.live") {
+          return (
+            <a
+              key={key}
+              href="mailto:ishara@ishara.live"
+              className="font-semibold underline hover:text-[#6D28D9] transition-colors cursor-pointer"
+              style={{ color: "#7C3AED" }}
+            >
+              {boldText}
+            </a>
+          );
+        }
+        return (
+          <strong key={key} className="font-semibold">
+            {boldText}
+          </strong>
+        );
+      }
+      if (sub === "click here" || sub === "/lets-talk") {
+        return (
+          <Link
+            key={key}
+            to="/lets-talk"
+            onClick={onClose}
+            className="font-medium underline hover:text-[#6D28D9] transition-colors cursor-pointer"
+            style={{ color: "#7C3AED" }}
+          >
+            {sub}
+          </Link>
+        );
+      }
+      if (sub === "WhatsApp") {
+        return (
+          <a
+            key={key}
+            href="https://wa.me/94711370769"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="font-medium underline hover:text-[#15803d] transition-colors cursor-pointer"
+            style={{ color: "#16a34a" }}
+          >
+            WhatsApp
+          </a>
+        );
+      }
+      if (sub === "ishara@ishara.live") {
+        return (
+          <a
+            key={key}
+            href="mailto:ishara@ishara.live"
+            className="font-medium underline hover:text-[#6D28D9] transition-colors cursor-pointer"
+            style={{ color: "#7C3AED" }}
+          >
+            ishara@ishara.live
+          </a>
+        );
+      }
+      return sub;
+    });
   });
 }
 
@@ -135,7 +223,7 @@ function TypingDots() {
 }
 
 function MessageBubble({ msg, visible, onClose }) {
-  const isUser = msg.from === "user";
+  const isUser = msg.from === "user" || msg.sender === "user";
   return (
     <div
       className={`flex ${isUser ? "justify-end" : "justify-start"} mb-2`}
@@ -153,6 +241,7 @@ function MessageBubble({ msg, visible, onClose }) {
         style={{
           fontSize: 13.5,
           lineHeight: 1.5,
+          whiteSpace: "pre-wrap",
           borderRadius: isUser ? "18px 18px 4px 18px" : "18px 18px 18px 4px",
           background: isUser
             ? "linear-gradient(135deg,#7C3AED,#6D28D9)"
@@ -184,6 +273,172 @@ export default function RobotChatBox({ isOpen, onClose }) {
   const msgEndRef = useRef(null);
   const inputRef = useRef(null);
   const msgCounter = useRef(0);
+  const processedMsgIdsRef = useRef(new Set());
+  const safetyTimeoutRef = useRef(null);
+  const typingTimeoutRef = useRef(null);
+
+  // ── 1. Dynamic Script Injection fallback ──────────────────────────
+  useEffect(() => {
+    const INJECT_URL = "https://cdn.botpress.cloud/webchat/v5.0/inject.js";
+    const CONFIG_URL =
+      "https://files.bpcontent.cloud/2026/09/28/13/20260928135641-K770R6LA.js";
+
+    function loadScript(src) {
+      return new Promise((resolve, reject) => {
+        if (document.querySelector(`script[src="${src}"]`)) {
+          resolve();
+          return;
+        }
+        const s = document.createElement("script");
+        s.src = src;
+        s.async = true;
+        s.onload = () => resolve();
+        s.onerror = (e) => reject(e);
+        document.body.appendChild(s);
+      });
+    }
+
+    if (!window.botpress) {
+      loadScript(INJECT_URL)
+        .then(() => loadScript(CONFIG_URL))
+        .catch((err) => console.error("Error loading Botpress scripts:", err));
+    }
+  }, []);
+
+  // ── 2. Event Listeners & Client Hookup ────────────────────────────
+  useEffect(() => {
+    // Intercept incoming AI text message via "botpress:message" CustomEvent
+    const handleBotpressMessage = (event) => {
+      if (event.detail && event.detail.type === "text") {
+        const botText = event.detail.payload?.text || event.detail.text;
+        if (botText) {
+          if (safetyTimeoutRef.current) {
+            clearTimeout(safetyTimeoutRef.current);
+            safetyTimeoutRef.current = null;
+          }
+          appendMessageToThread({
+            id: event.detail.id || Date.now(),
+            sender: "bot",
+            text: botText,
+          });
+          setIsTyping(false); // Stop typing indicator if present
+        }
+      }
+    };
+
+    window.addEventListener("botpress:message", handleBotpressMessage);
+
+    // Bridge Botpress v5 SDK events to window "botpress:message" dispatcher
+    let unsubscribeMessage = null;
+    let unsubscribeTyping = null;
+    let pollInterval = null;
+
+    const ensureBotpressSendMessageWrapped = () => {
+      if (
+        window.botpress &&
+        !window.botpress.__isWrapped &&
+        typeof window.botpress.sendMessage === "function"
+      ) {
+        const orig = window.botpress;
+        const wrapper = Object.create(orig);
+        wrapper.__isWrapped = true;
+        Object.defineProperty(wrapper, "sendMessage", {
+          value: function (arg, ...rest) {
+            const text =
+              arg && typeof arg === "object"
+                ? arg.text || arg.payload?.text || ""
+                : arg;
+            return orig.sendMessage(text, ...rest);
+          },
+          writable: true,
+          configurable: true,
+        });
+        window.botpress = wrapper;
+      }
+    };
+
+    const attachSDKListeners = () => {
+      if (!window.botpress || typeof window.botpress.on !== "function")
+        return false;
+
+      ensureBotpressSendMessageWrapped();
+
+      // Ensure Botpress conversation and SSE stream are opened in background
+      if (typeof window.botpress.open === "function") {
+        window.botpress.open();
+      }
+
+      // Also open when webchat finishes initializing
+      window.botpress.on("webchat:initialized", () => {
+        if (typeof window.botpress.open === "function") {
+          window.botpress.open();
+        }
+      });
+
+      // Listen for message events from Botpress Cloud
+      unsubscribeMessage = window.botpress.on("message", (msg) => {
+        if (!msg) return;
+
+        // Skip user's own sent messages
+        const currentUserId = window.botpress?.user?.id;
+        const authorId = msg.authorId || msg.userId;
+        if (currentUserId && authorId === currentUserId) return;
+
+        // Prevent duplicate processing
+        if (msg.id && processedMsgIdsRef.current.has(msg.id)) return;
+        if (msg.id) processedMsgIdsRef.current.add(msg.id);
+
+        // In Botpress Cloud v5, AI responses arrive in msg.block.text
+        const text =
+          msg.block?.text ||
+          msg.block?.payload?.text ||
+          msg.payload?.text ||
+          msg.text ||
+          (typeof msg.block === "string" ? msg.block : "");
+        if (!text) return;
+
+        // Dispatch CustomEvent as specified in mission breakdown
+        window.dispatchEvent(
+          new CustomEvent("botpress:message", {
+            detail: {
+              id: msg.id,
+              type: "text",
+              payload: { text },
+              text,
+            },
+          }),
+        );
+      });
+
+      // Listen for typing indicator events if emitted by Botpress
+      if (typeof window.botpress.on === "function") {
+        unsubscribeTyping = window.botpress.on("isTyping", (data) => {
+          if (data && typeof data.isTyping === "boolean") {
+            setIsTyping(data.isTyping);
+          }
+        });
+      }
+
+      return true;
+    };
+
+    if (!attachSDKListeners()) {
+      pollInterval = setInterval(() => {
+        if (attachSDKListeners()) {
+          clearInterval(pollInterval);
+        }
+      }, 250);
+    }
+
+    return () => {
+      window.removeEventListener("botpress:message", handleBotpressMessage);
+      if (typeof unsubscribeMessage === "function") unsubscribeMessage();
+      if (typeof unsubscribeTyping === "function") unsubscribeTyping();
+      if (pollInterval) clearInterval(pollInterval);
+      if (safetyTimeoutRef.current) clearTimeout(safetyTimeoutRef.current);
+      if (typingTimeoutRef.current) clearTimeout(typingTimeoutRef.current);
+    };
+  }, []);
 
   useEffect(() => {
     const el = chatboxRef.current;
@@ -226,6 +481,9 @@ export default function RobotChatBox({ isOpen, onClose }) {
 
   useEffect(() => {
     if (isOpen) {
+      if (window.botpress && typeof window.botpress.open === "function") {
+        window.botpress.open();
+      }
       setTimeout(() => inputRef.current?.focus(), 420);
       if (!hasGreeted) {
         setHasGreeted(true);
@@ -240,24 +498,134 @@ export default function RobotChatBox({ isOpen, onClose }) {
     }
   }, [isOpen]);
 
-  function addBotMessage(text) {
-    const id = ++msgCounter.current;
-    setMessages((p) => [...p, { id, from: "bot", text }]);
-    setTimeout(() => setVisibleIds((s) => new Set([...s, id])), 40);
+  function appendMessageToThread({ id, sender, text }) {
+    if (!text) return;
+    const msgId = id || ++msgCounter.current;
+    setMessages((p) => [
+      ...p,
+      { id: msgId, from: sender || "bot", sender: sender || "bot", text },
+    ]);
+    setTimeout(() => setVisibleIds((s) => new Set([...s, msgId])), 40);
   }
 
+  function addBotMessage(text) {
+    appendMessageToThread({
+      id: ++msgCounter.current,
+      sender: "bot",
+      text,
+    });
+  }
+
+  // ── 3. Handle User Input Submission ───────────────────────────────
   function sendMessage(text) {
-    if (!text.trim()) return;
+    // Guard against empty strings or whitespace
+    if (!text || !text.trim()) return;
+    const userMessageText = text.trim();
     const id = ++msgCounter.current;
-    setMessages((p) => [...p, { id, from: "user", text }]);
+
+    // Append the user message immediately into the existing UI thread
+    setMessages((p) => [
+      ...p,
+      { id, from: "user", sender: "user", text: userMessageText },
+    ]);
     setTimeout(() => setVisibleIds((s) => new Set([...s, id])), 40);
+
+    // Clear the input field
     setInputVal("");
+
+    // Exact-Match Fast Path check (0ms latency, zero Botpress token usage)
+    const fastPathResponse = findPredefinedMatch(userMessageText);
+    if (fastPathResponse) {
+      setIsTyping(true);
+      if (typingTimeoutRef.current) clearTimeout(typingTimeoutRef.current);
+      typingTimeoutRef.current = setTimeout(() => {
+        setIsTyping(false);
+        addBotMessage(fastPathResponse);
+      }, 2000);
+      return; // Do NOT forward this message to Botpress
+    }
+
+    // ── Dynamic Inquiries: Route through Botpress Cloud AI ───────────
     setIsTyping(true);
-    const delay = 900 + Math.random() * 700;
-    setTimeout(() => {
-      setIsTyping(false);
-      addBotMessage(getBotResponse(text));
-    }, delay);
+
+    // Safety fallback timer if Botpress server takes unusually long
+    if (safetyTimeoutRef.current) clearTimeout(safetyTimeoutRef.current);
+    safetyTimeoutRef.current = setTimeout(() => {
+      setIsTyping((currentlyTyping) => {
+        if (currentlyTyping) {
+          addBotMessage(
+            "Thanks for reaching out! You can book a call directly <a href=\"/lets-talk\" class=\"underline text-indigo-500 font-medium\">click here</a> or email me at <a href=\"mailto:ishara@ishara.live\" class=\"underline text-indigo-500 font-medium\">ishara@ishara.live</a>."
+          );
+          return false;
+        }
+        return false;
+      });
+    }, 25000);
+
+    // Ensure window.botpress.sendMessage is wrapped to support { type: "text", text } object as well as string
+    if (
+      window.botpress &&
+      !window.botpress.__isWrapped &&
+      typeof window.botpress.sendMessage === "function"
+    ) {
+      const orig = window.botpress;
+      const wrapper = Object.create(orig);
+      wrapper.__isWrapped = true;
+      Object.defineProperty(wrapper, "sendMessage", {
+        value: function (arg, ...rest) {
+          const text =
+            arg && typeof arg === "object"
+              ? arg.text || arg.payload?.text || ""
+              : arg;
+          return orig.sendMessage(text, ...rest);
+        },
+        writable: true,
+        configurable: true,
+      });
+      window.botpress = wrapper;
+    }
+
+    // Trigger Botpress client dispatch
+    const trySend = () => {
+      if (
+        window.botpress &&
+        typeof window.botpress.sendMessage === "function" &&
+        window.botpress.conversationId
+      ) {
+        try {
+          window.botpress.sendMessage({ type: "text", text: userMessageText });
+          return true;
+        } catch (err) {
+          console.error("Botpress sendMessage error:", err);
+        }
+      }
+      return false;
+    };
+
+    if (window.botpress && typeof window.botpress.open === "function") {
+      window.botpress.open();
+    }
+
+    if (!trySend()) {
+      // If window.botpress is initializing its conversation, poll until ready
+      let attempts = 0;
+      const sendInterval = setInterval(() => {
+        attempts++;
+        if (trySend()) {
+          clearInterval(sendInterval);
+        } else if (attempts >= 40) {
+          clearInterval(sendInterval);
+          setTimeout(() => {
+            if (safetyTimeoutRef.current)
+              clearTimeout(safetyTimeoutRef.current);
+            setIsTyping(false);
+            addBotMessage(
+              "Thanks for reaching out! You can book a call directly <a href=\"/lets-talk\" class=\"underline text-indigo-500 font-medium\">click here</a> or email me at <a href=\"mailto:ishara@ishara.live\" class=\"underline text-indigo-500 font-medium\">ishara@ishara.live</a>."
+            );
+          }, 800);
+        }
+      }, 250);
+    }
   }
 
   return (
@@ -303,6 +671,24 @@ export default function RobotChatBox({ isOpen, onClose }) {
         .no-scrollbar {
           -ms-overflow-style: none;
           scrollbar-width: none;
+        }
+        #bp-web-widget-container,
+        .bpw-widget-btn,
+        .bpw-floating-button,
+        #fab-root,
+        #webchat-root,
+        #message-preview-root,
+        .bpFabWrapper,
+        .bpFab,
+        .bpWebchat,
+        .bpMessagePreview,
+        .bpUnreadMessage,
+        iframe[id^="bp-"],
+        div[id^="bp-"] {
+          display: none !important;
+          visibility: hidden !important;
+          pointer-events: none !important;
+          opacity: 0 !important;
         }
       `}</style>
 
@@ -500,7 +886,13 @@ export default function RobotChatBox({ isOpen, onClose }) {
         <div className="px-4 pb-3 flex items-center gap-2 flex-shrink-0">
           <Link
             to="/lets-talk"
-            onClick={onClose}
+            onClick={(e) => {
+              if (window.CALENDLY_URL) {
+                e.preventDefault();
+                window.open(window.CALENDLY_URL, "_blank");
+              }
+              onClose();
+            }}
             className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl font-body font-medium transition-all duration-200 hover:opacity-80 active:scale-95"
             style={{
               fontSize: 12.5,
@@ -514,6 +906,9 @@ export default function RobotChatBox({ isOpen, onClose }) {
           </Link>
           <a
             href="mailto:ishara@ishara.live"
+            onClick={() => {
+              window.location.href = "mailto:ishara@ishara.live";
+            }}
             className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl font-body font-medium transition-all duration-200 hover:opacity-80 active:scale-95"
             style={{
               fontSize: 12.5,

@@ -234,3 +234,23 @@
   content: '';
 }
 
+/* ── Botpress Webchat Headless Isolation ──────────────────────── */
+#bp-web-widget-container,
+.bpw-widget-btn,
+.bpw-floating-button,
+#fab-root,
+#webchat-root,
+#message-preview-root,
+.bpFabWrapper,
+.bpFab,
+.bpWebchat,
+.bpMessagePreview,
+.bpUnreadMessage,
+iframe[id^="bp-"],
+div[id^="bp-"] {
+  display: none !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+  opacity: 0 !important;
+}
+
