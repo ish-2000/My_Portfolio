@@ -13,16 +13,16 @@ gsap.registerPlugin(ScrollTrigger);
 const SERVICES = [
   {
     index: "01",
-    title: "Web Development",
-    description:
-      "Full-stack applications engineered for performance and scale.",
+    title: "Brand Design",
+    description: "Identities that communicate value and earn trust.",
     type: "video",
     src: "https://res.cloudinary.com/dgvdlyxhw/video/upload/v1784127915/sample_rrrzqx.mp4",
   },
   {
     index: "02",
-    title: "Brand Design",
-    description: "Identities that communicate value and earn trust.",
+    title: "Web Development",
+    description:
+      "Full-stack applications engineered for performance and scale.",
     type: "video",
     src: "https://res.cloudinary.com/dgvdlyxhw/video/upload/v1784127915/sample_3_v4ovjv.mp4",
   },
@@ -31,7 +31,7 @@ const SERVICES = [
     title: "Mobile Apps",
     description: "Data-driven products with seamless user experiences.",
     type: "video",
-    src: "https://res.cloudinary.com/dgvdlyxhw/video/upload/v1784127916/sample_2_pjjuf0.mp4",
+    src: "https://res.cloudinary.com/dgvdlyxhw/video/upload/v1790693335/From_Klickpin.com-_82_Smart_No-Bake_Treats-pin-id-1044694444806884214_k7umiq.mp4",
   },
   {
     index: "04",

@@ -9,7 +9,7 @@ const STEPS = [
     index: "/01",
     title: "Creative Discovery",
     description:
-      "Every project starts with understanding — your goals, your audience, and where your product fits in the market. Through focused conversations and research, we build a foundation that keeps every decision grounded in purpose.",
+      "Every project starts with understanding your goals, your audience, and where your product fits in the market. Through focused conversations and research, we build a foundation that keeps every decision grounded in purpose.",
   },
   {
     index: "/02",
@@ -25,6 +25,12 @@ const STEPS = [
   },
   {
     index: "/04",
+    title: "Test & Refine",
+    description:
+      "Before launch, I test the product across screen sizes and browsers, check key user journeys, and review accessibility and performance. Your feedback helps me fix issues and refine the details, so the final result looks right and works smoothly.",
+  },
+  {
+    index: "/05",
     title: "Launch & Evolve",
     description:
       "We ship, then we listen. I handle deployment, monitor real usage, and refine based on how people actually interact with the product. A launch is the starting line — not the finish.",

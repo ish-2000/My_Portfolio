@@ -695,6 +695,7 @@ export default function RobotChatBox({ isOpen, onClose }) {
       <div
         id="robot-chatbox"
         ref={chatboxRef}
+        data-lenis-prevent
         className={`fixed bottom-[116px] right-6 md:right-8 z-[9999] w-[340px] sm:w-[370px] flex flex-col ${isOpen ? "chatbox-enter pointer-events-auto" : "chatbox-exit pointer-events-none"}`}
         style={{
           borderRadius: 24,

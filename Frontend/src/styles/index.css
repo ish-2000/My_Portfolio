@@ -1,3 +1,21 @@
+@import "tailwindcss";
+
+@font-face {
+  font-family: 'Switzer';
+  src: url('/fonts/Switzer-Light.woff2') format('woff2');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Switzer';
+  src: url('/fonts/Switzer-Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
 @font-face {
   font-family: 'Switzer';
   src: url('/fonts/Switzer-Medium.woff2') format('woff2');
@@ -21,8 +39,6 @@
   font-style: normal;
   font-display: swap;
 }
-
-@import "tailwindcss";
 
 @theme {
   /* ── Fonts ── */
@@ -86,22 +102,6 @@
   --shadow-heavy: 0 20px 40px rgba(0, 0, 0, 0.20);
 }
 
-@font-face {
-  font-family: 'Switzer';
-  src: url('/fonts/Switzer-Light.woff2') format('woff2');
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'Switzer';
-  src: url('/fonts/Switzer-Regular.woff2') format('woff2');
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
-
 @layer base {
 
   *,
@@ -113,9 +113,8 @@
   }
 
   html {
-    scroll-behavior: smooth;
-     overflow-x: clip;
-     width: 100%;
+    overflow-x: clip;
+    width: 100%;
   }
 
   body {
@@ -253,4 +252,16 @@ div[id^="bp-"] {
   pointer-events: none !important;
   opacity: 0 !important;
 }
+/* ── Global Reduced Motion ── */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
 
