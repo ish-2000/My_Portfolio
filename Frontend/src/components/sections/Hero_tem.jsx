@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { ArrowUpRight, ArrowRight, ChevronDown } from "lucide-react";
 import { gsap } from "gsap";
 
-import HeroPortrait from "../../assets/images/heroo.png";
+import HeroPortrait from "../../assets/images/heroo.svg";
 import ProfileImg from "../../assets/images/Me.png";
 
 const NAV_LINKS = [
@@ -417,10 +417,16 @@ export default function HeroTem({ preloaderDone = true }) {
               ref={h1Ref}
               className="flex flex-col mb-5.5 font-display tracking-[-0.035em] leading-[1.12]"
             >
-              <span className="text-[clamp(34px,8.5vw,42px)] md:text-[clamp(32px,4.2vw,48px)] lg:text-[clamp(36px,3.8vw,56px)] xl:text-[60px] font-medium text-[#8A8984] whitespace-normal md:whitespace-nowrap">
+              <span
+                className="text-[clamp(34px,8.5vw,42px)] md:text-[clamp(32px,4.2vw,48px)] lg:text-[clamp(36px,3.8vw,56px)] xl:text-[60px] font-medium text-[#8A8984] whitespace-normal md:whitespace-nowrap"
+                style={{ fontSize: "50px" }}
+              >
                 Built With Purpose.
               </span>
-              <span className="text-[clamp(34px,8.5vw,42px)] md:text-[clamp(32px,4.2vw,48px)] lg:text-[clamp(36px,3.8vw,56px)] xl:text-[60px] font-medium text-white whitespace-normal md:whitespace-nowrap">
+              <span
+                className="text-[clamp(34px,8.5vw,42px)] md:text-[clamp(32px,4.2vw,48px)] lg:text-[clamp(36px,3.8vw,56px)] xl:text-[60px] font-medium text-white whitespace-normal md:whitespace-nowrap"
+                style={{ fontSize: "50px" }}
+              >
                 Driven by Vision.
               </span>
             </h1>

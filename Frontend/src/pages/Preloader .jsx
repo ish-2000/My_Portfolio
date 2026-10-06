@@ -100,7 +100,7 @@ export default function Preloader({ onComplete }) {
     <motion.div
       initial={{ opacity: 1 }}
       // No exit fade — unmount is instant so we don't sit on a white screen.
-      className="fixed inset-0 z-[9999] flex items-center justify-center overflow-hidden"
+      className="fixed inset-0 z-[99999] flex items-center justify-center overflow-hidden"
       style={{ backgroundColor: "#121212" }}
     >
       {dimensionSet && (
