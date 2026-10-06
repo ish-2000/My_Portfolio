@@ -71,7 +71,7 @@ export default function Home() {
       <MyProcess />
       <BeyondWork />
       <VisionSection />
-      <Darkhero />
+      {/* <Darkhero /> */}
       <Philosophy />
     </>
   );
