@@ -185,7 +185,7 @@ export default function VisionSection() {
               />
             </div>
 
-            <div className="mt-8">
+            <div className="mt-8 text-center">
               <p
                 className="
           font-body text-[14px] font-medium

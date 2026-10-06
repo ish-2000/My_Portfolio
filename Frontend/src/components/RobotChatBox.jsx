@@ -268,6 +268,7 @@ export default function RobotChatBox({ isOpen, onClose }) {
   const [inputVal, setInputVal] = useState("");
   const [isTyping, setIsTyping] = useState(false);
   const [hasGreeted, setHasGreeted] = useState(false);
+  const [hasBeenOpened, setHasBeenOpened] = useState(false);
   const chatboxRef = useRef(null);
   const chatContainerRef = useRef(null);
   const msgEndRef = useRef(null);
@@ -481,6 +482,7 @@ export default function RobotChatBox({ isOpen, onClose }) {
 
   useEffect(() => {
     if (isOpen) {
+      setHasBeenOpened(true);
       if (window.botpress && typeof window.botpress.open === "function") {
         window.botpress.open();
       }
@@ -626,6 +628,10 @@ export default function RobotChatBox({ isOpen, onClose }) {
         }
       }, 250);
     }
+  }
+
+  if (!isOpen && !hasBeenOpened) {
+    return null;
   }
 
   return (
