@@ -239,7 +239,7 @@ export default function HeroTem({ preloaderDone = true }) {
           alt=""
           fetchpriority="high"
           decoding="async"
-          className="absolute inset-0 w-full h-full object-contain object-right max-md:object-top max-md:top-[60px] max-md:h-[calc(100%-60px)] max-md:opacity-45 block"
+          className="absolute inset-0 w-full h-full object-contain object-right max-md:h-[380px] max-md:object-cover max-md:object-[72%_top] max-md:top-[10px] max-md:opacity-85 block"
         />
         {/* Left readable gradient — desktop/tablet */}
         <div
@@ -249,12 +249,12 @@ export default function HeroTem({ preloaderDone = true }) {
               "linear-gradient(105deg, rgba(8, 8, 7, 0.94) 0%, rgba(8, 8, 7, 0.82) 30%, rgba(8, 8, 7, 0.55) 52%, rgba(8, 8, 7, 0.12) 68%, transparent 80%)",
           }}
         />
-        {/* Left readable gradient — mobile */}
+        {/* Mobile gradient — clear at top for portrait, fading to solid dark for text */}
         <div
           className="absolute inset-0 md:hidden"
           style={{
             background:
-              "linear-gradient(180deg, rgba(8, 8, 7, 0.82) 0%, rgba(8, 8, 7, 0.55) 40%, rgba(8, 8, 7, 0.92) 100%)",
+              "linear-gradient(180deg, rgba(8, 8, 7, 0.1) 0%, rgba(8, 8, 7, 0.25) 25%, rgba(8, 8, 7, 0.85) 48%, #080807 68%, #080807 100%)",
           }}
         />
         {/* Bottom smooth fade into next section */}
@@ -396,12 +396,12 @@ export default function HeroTem({ preloaderDone = true }) {
         </div>
 
         {/* Hero body */}
-        <div className="flex-1 flex items-start md:items-center py-5 md:py-4 lg:py-6">
+        <div className="flex-1 flex items-start md:items-center pt-[210px] xs:pt-[240px] sm:pt-[270px] pb-5 md:py-4 lg:py-6">
           <div className="flex flex-col w-full max-w-full md:max-w-[580px] lg:max-w-[700px] xl:max-w-[780px] ml-0 md:ml-5 lg:ml-[75px]">
             {/* Status pill */}
             <div
               ref={pillRef}
-              className="inline-flex items-center gap-2 border border-white/12 rounded-full px-3 py-1.5 mb-6 w-fit bg-white/[0.03]"
+              className="inline-flex items-center gap-2 border border-white/12 rounded-full px-3 py-1.5 mb-4 sm:mb-6 w-fit bg-white/[0.03]"
             >
               <span
                 className="w-1.5 h-1.5 rounded-full bg-emerald-500 shrink-0 pulse-dot"
@@ -415,18 +415,12 @@ export default function HeroTem({ preloaderDone = true }) {
             {/* Main heading — strictly 2 lines on desktop */}
             <h1
               ref={h1Ref}
-              className="flex flex-col mb-5.5 font-display tracking-[-0.035em] leading-[1.12]"
+              className="flex flex-col mb-4 sm:mb-5.5 font-display tracking-[-0.035em] leading-[1.15]"
             >
-              <span
-                className="text-[clamp(34px,8.5vw,42px)] md:text-[clamp(32px,4.2vw,48px)] lg:text-[clamp(36px,3.8vw,56px)] xl:text-[60px] font-medium text-[#8A8984] whitespace-normal md:whitespace-nowrap"
-                style={{ fontSize: "50px" }}
-              >
+              <span className="text-[clamp(28px,7.5vw,36px)] sm:text-[38px] md:text-[46px] lg:text-[50px] xl:text-[56px] font-medium text-[#8A8984] whitespace-normal md:whitespace-nowrap">
                 Built With Purpose.
               </span>
-              <span
-                className="text-[clamp(34px,8.5vw,42px)] md:text-[clamp(32px,4.2vw,48px)] lg:text-[clamp(36px,3.8vw,56px)] xl:text-[60px] font-medium text-white whitespace-normal md:whitespace-nowrap"
-                style={{ fontSize: "50px" }}
-              >
+              <span className="text-[clamp(28px,7.5vw,36px)] sm:text-[38px] md:text-[46px] lg:text-[50px] xl:text-[56px] font-medium text-white whitespace-normal md:whitespace-nowrap">
                 Driven by Vision.
               </span>
             </h1>
@@ -434,7 +428,7 @@ export default function HeroTem({ preloaderDone = true }) {
             {/* Supporting paragraph */}
             <p
               ref={paraRef}
-              className="font-body text-[15px] lg:text-[clamp(15px,1.1vw,17px)] leading-[1.55] text-white/45 max-w-full md:max-w-[420px] mb-7.5"
+              className="font-body text-[14px] sm:text-[15px] lg:text-[clamp(15px,1.1vw,17px)] leading-[1.55] text-white/45 max-w-full md:max-w-[420px] mb-5 sm:mb-7.5"
             >
               I turn ideas into websites and web apps that look great and work
               smoothly, from the first sketch to the final build.
@@ -443,7 +437,7 @@ export default function HeroTem({ preloaderDone = true }) {
             {/* CTA buttons */}
             <div
               ref={ctaRef}
-              className="flex items-center flex-wrap gap-4 mb-10"
+              className="flex items-center flex-wrap gap-3.5 sm:gap-4 mb-7 sm:mb-10"
             >
               <Link
                 to="/lets-talk"

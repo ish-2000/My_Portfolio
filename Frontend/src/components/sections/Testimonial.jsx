@@ -54,36 +54,32 @@ export default function Testimonial() {
 
   return (
     <section ref={sectionRef} className="w-full bg-surface border-b border-surface-border">
-      <div className="max-w-[68rem]  mx-auto border-x border-surface-border px-10 py-28">
+      <div className="max-w-[68rem] mx-auto border-x border-surface-border px-5 sm:px-8 md:px-10 py-14 sm:py-20 md:py-28">
         <blockquote
           ref={quoteRef}
-          className="font-display font-medium text-center max-w-3xl mx-auto"
-          style={{ fontSize: "38px", lineHeight: "50px" }}
+          className="font-display font-medium text-center max-w-3xl mx-auto text-[clamp(21px,5.8vw,38px)] leading-[1.3] sm:leading-[1.35] md:leading-[50px] tracking-tight"
         >
-          {/* Line 1 — grey, sets up the contrast */}
-          <span className="block text-text-ghost">
-            &ldquo;Most people hire a designer
+          {/* Line 1 & 2 — grey, sets up the contrast */}
+          <span className="block text-text-ghost mb-1 md:mb-0">
+            <span className="inline md:block">&ldquo;Most people hire a designer </span>
+            <span className="inline md:block">or a developer.</span>
           </span>
-          {/* Line 2 — grey continues */}
-          <span className="block text-text-ghost mb-1">or a developer.</span>
-          {/* Line 3 — black, the punchline lands */}
+          {/* Line 3 & 4 — black, the punchline lands */}
           <span className="block text-text-primary">
-            I&apos;m what happens when you
-          </span>
-          <span className="block text-text-primary">
-            don&apos;t have to choose.&rdquo;
+            <span className="inline md:block">I&apos;m what happens when you </span>
+            <span className="inline md:block">don&apos;t have to choose.&rdquo;</span>
           </span>
         </blockquote>
 
         {/* Author */}
         <div
           ref={authorRef}
-          className="flex items-center justify-center gap-3 mt-10"
+          className="flex items-center justify-center gap-3 mt-8 sm:mt-10"
         >
           <img
             src={ProfileImg}
             alt="Ishara Udayanga"
-            className="w-12 h-12 rounded-full object-cover"
+            className="w-11 h-11 sm:w-12 sm:h-12 rounded-full object-cover shrink-0"
           />
           <div className="text-left">
             <div className="font-display font-semibold text-sm text-text-primary">

@@ -194,21 +194,15 @@ export default function ServiceShowcaseSection() {
       ref={sectionRef}
       className="w-full bg-surface border-b border-surface-border"
     >
-      <div className="max-w-7xl mx-auto  px-10 pb-28 pt-16 ">
+      <div className="max-w-7xl mx-auto px-0 sm:px-6 md:px-10 pb-16 sm:pb-20 md:pb-28 pt-12 sm:pt-14 md:pt-16">
         {/* ── Header row: headline left, context right ── */}
-        <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-6 mb-16">
+        <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-4 sm:gap-6 mb-10 sm:mb-14 md:mb-16 px-5 sm:px-0">
           <div ref={headingRef}>
             <h2 className="font-display font-medium tracking-tighter">
-              <span
-                className="block text-text-ghost"
-                style={{ fontSize: "38px", lineHeight: "42px" }}
-              >
+              <span className="block text-text-ghost text-[28px] sm:text-[34px] md:text-[38px] leading-[1.12]">
                 What I am
               </span>
-              <span
-                className="block text-text-primary"
-                style={{ fontSize: "38px", lineHeight: "42px" }}
-              >
+              <span className="block text-text-primary text-[28px] sm:text-[34px] md:text-[38px] leading-[1.12]">
                 Interested On
               </span>
             </h2>
@@ -217,7 +211,7 @@ export default function ServiceShowcaseSection() {
           {/* Context line — engineering-note style, right aligned */}
           <p
             ref={contextRef}
-            className="font-body text-xs tracking-widest uppercase text-text-muted text-left lg:text-right leading-loose lg:max-w-xs lg:pt-2"
+            className="font-body text-[11px] sm:text-xs tracking-widest uppercase text-text-muted text-left lg:text-right leading-relaxed sm:leading-loose lg:max-w-xs lg:pt-2"
           >
             Specializing in digital product engineering, interactive websites,
             and brand systems
@@ -225,15 +219,15 @@ export default function ServiceShowcaseSection() {
         </div>
 
         {/* Blueprint grid — sharp edges, collapsed shared borders */}
-        <div className="grid grid-cols-1 md:grid-cols-2 border-t border-l border-surface-border">
+        <div className="grid grid-cols-1 md:grid-cols-2 border-t md:border-l border-surface-border">
           {SERVICES.map((service, i) => (
             <div
               key={service.index}
               ref={(el) => (cellRefs.current[i] = el)}
-              className="group border-b border-r border-surface-border will-change-transform"
+              className="group border-b md:border-r border-surface-border will-change-transform"
             >
               {/* Media */}
-              <div className="p-5 pb-0">
+              <div className="p-3.5 sm:p-5 pb-0">
                 <MediaCell
                   type={service.type}
                   src={service.src}
@@ -242,15 +236,15 @@ export default function ServiceShowcaseSection() {
               </div>
 
               {/* Meta bar */}
-              <div className="flex items-start gap-5 p-5">
-                <span className="font-display font-medium text-xs text-text-placeholder pt-1 flex-shrink-0">
+              <div className="flex items-start gap-4 sm:gap-5 p-4 sm:p-5">
+                <span className="font-display font-medium text-xs text-text-placeholder pt-0.5 sm:pt-1 flex-shrink-0">
                   {service.index}
                 </span>
                 <div>
-                  <h3 className="font-display font-medium text-xl text-text-primary tracking-tight leading-snug  mb-1">
+                  <h3 className="font-display font-medium text-lg sm:text-xl text-text-primary tracking-tight leading-snug mb-1">
                     {service.title}
                   </h3>
-                  <p className="font-body text-sm text-text-muted leading-relaxed">
+                  <p className="font-body text-xs sm:text-sm text-text-muted leading-relaxed">
                     {service.description}
                   </p>
                 </div>
