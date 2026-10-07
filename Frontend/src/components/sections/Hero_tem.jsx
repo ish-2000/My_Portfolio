@@ -3,8 +3,9 @@ import { Link } from "react-router-dom";
 import { ArrowUpRight, ArrowRight, ChevronDown } from "lucide-react";
 import { gsap } from "gsap";
 
-import HeroPortrait from "../../assets/images/heroo.svg";
 import ProfileImg from "../../assets/images/Me.png";
+
+const HeroPortrait = "https://res.cloudinary.com/dgvdlyxhw/image/upload/v1791390669/heroo_cqr8jd.svg";
 
 const NAV_LINKS = [
   { label: "Work", href: "/#work" },
@@ -439,20 +440,20 @@ export default function HeroTem({ preloaderDone = true }) {
               ref={ctaRef}
               className="flex items-center flex-wrap gap-3.5 sm:gap-4 mb-7 sm:mb-10"
             >
-              <Link
-                to="/lets-talk"
+              <a
+                href="/#work"
                 className="relative inline-flex items-center gap-1.5 font-display text-[13.5px] font-semibold text-[#111] bg-white rounded-full px-5 py-2.5 tracking-[0.01em] whitespace-nowrap hover:bg-[#e8e8e8] hover:-translate-y-0.5 hover:shadow-[0_4px_22px_rgba(255,255,255,0.12)] active:translate-y-0 transition-all duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-white/70 focus-visible:outline-offset-3"
               >
                 View my work
                 <ArrowUpRight size={16} aria-hidden="true" />
-              </Link>
-              <a
-                href="/lets-talk"
+              </a>
+              <Link
+                to="/lets-talk"
                 className="inline-flex items-center gap-1.5 hover:gap-2.5 font-display text-sm font-medium text-white/60 hover:text-white whitespace-nowrap transition-all duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-white/50 focus-visible:outline-offset-3 rounded-sm"
               >
                 Let’s talk
                 <ArrowRight size={16} aria-hidden="true" />
-              </a>
+              </Link>
             </div>
 
             {/* Trusted by row */}
