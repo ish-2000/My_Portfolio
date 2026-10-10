@@ -90,7 +90,7 @@ let servicesAnimationHasPlayed = false;
 export default function Services() {
   const sectionRef = useRef(null);
   const headingRef = useRef(null);
-  const iconRefs = useRef([]);
+  const techStackRef = useRef(null);
   const [activeIndex, setActiveIndex] = useState(0);
   const [progress, setProgress] = useState(0);
   const startTimeRef = useRef(null);
@@ -167,7 +167,8 @@ export default function Services() {
     const ctx = gsap.context(() => {
       if (servicesAnimationHasPlayed) {
         gsap.set(headingRef.current, { filter: "blur(0px)", opacity: 1, y: 0 });
-        gsap.set(iconRefs.current, { opacity: 1, x: 0, scale: 1 });
+        if (techStackRef.current)
+          gsap.set(techStackRef.current, { opacity: 1, y: 0 });
         return;
       }
 
@@ -190,23 +191,23 @@ export default function Services() {
           },
         },
       );
-      gsap.fromTo(
-        iconRefs.current,
-        { opacity: 0, x: -40, scale: 0.9 },
-        {
-          opacity: 1,
-          x: 0,
-          scale: 1,
-          duration: 0.5,
-          stagger: 0.1,
-          ease: "power3.out",
-          scrollTrigger: {
-            trigger: iconRefs.current[0],
-            start: "top 90%",
-            once: true,
+      if (techStackRef.current) {
+        gsap.fromTo(
+          techStackRef.current,
+          { opacity: 0, y: 24 },
+          {
+            opacity: 1,
+            y: 0,
+            duration: 0.8,
+            ease: "power3.out",
+            scrollTrigger: {
+              trigger: techStackRef.current,
+              start: "top 90%",
+              once: true,
+            },
           },
-        },
-      );
+        );
+      }
     }, sectionRef);
 
     return () => ctx.revert();
@@ -237,25 +238,32 @@ export default function Services() {
               </span>
             </h2>
 
-            <div className="w-full">
+            <div ref={techStackRef} className="w-full">
               <p className="font-body text-sm font-semibold text-text-muted mb-4">
                 My tech stack
               </p>
-              <div className="flex flex-wrap gap-3">
-                {LOGOS.map((logo, i) => (
-                  <div
-                    key={logo.name}
-                    ref={(el) => (iconRefs.current[i] = el)}
-                    title={logo.name}
-                    className="w-14 h-14 rounded-xl bg-white border border-surface-border flex items-center justify-center shadow-xs"
-                  >
-                    <img
-                      src={logo.icon}
-                      alt={logo.name}
-                      className="w-7 h-7 object-contain"
-                    />
-                  </div>
-                ))}
+
+              {/* Horizontal infinite scroll loop */}
+              <div className="relative w-full overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_8%,black_92%,transparent)] [-webkit-mask-image:linear-gradient(to_right,transparent,black_8%,black_92%,transparent)] py-1">
+                <div className="flex w-max animate-marquee">
+                  {[...LOGOS, ...LOGOS].map((logo, i) => (
+                    <div
+                      key={`${logo.name}-${i}`}
+                      className="mr-3 flex-shrink-0"
+                    >
+                      <div
+                        title={logo.name}
+                        className="flex items-center justify-center w-14 h-14 rounded-2xl bg-white border border-surface-border shadow-xs"
+                      >
+                        <img
+                          src={logo.icon}
+                          alt={logo.name}
+                          className="w-7 h-7 object-contain"
+                        />
+                      </div>
+                    </div>
+                  ))}
+                </div>
               </div>
             </div>
           </div>
