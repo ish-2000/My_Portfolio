@@ -4,8 +4,8 @@ import { ArrowUpRight, ArrowRight, ChevronDown } from "lucide-react";
 import { gsap } from "gsap";
 
 import ProfileImg from "../../assets/images/Me.png";
-
-const HeroPortrait = "https://res.cloudinary.com/dgvdlyxhw/image/upload/v1791390669/heroo_cqr8jd.svg";
+// const HeroPortrait = "https://res.cloudinary.com/dgvdlyxhw/image/upload/v1791390669/heroo_cqr8jd.svg";
+import HeroPortrait from "../../assets/images/heroo.svg";
 
 const NAV_LINKS = [
   { label: "Work", href: "/#work" },
