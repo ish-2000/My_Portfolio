@@ -35,8 +35,9 @@ const SERVICES = [
   },
   {
     index: "04",
-    title: "Landing Pages",
-    description: "High-converting pages built to capture and hold attention.",
+    title: "UX / UI Design",
+    description:
+      "Creating intuitive, visually appealing interfaces that enhance user experience and drive engagement.",
     type: "video",
     src: "https://res.cloudinary.com/dgvdlyxhw/video/upload/v1784127915/sample_4_uvuaog.mp4",
   },

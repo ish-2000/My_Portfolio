@@ -139,7 +139,7 @@ export default function MyProcess() {
               >
                 <div className="py-7 sm:py-10 lg:py-14">
                   <div className="flex items-start gap-2 mb-5">
-                    <h3 className="font-display font-medium text-2xl text-text-primary tracking-tight leading-snug  mb-1 leading-snug ">
+                    <h3 className="font-display font-medium text-xl sm:text-2xl text-text-primary tracking-tight leading-snug mb-3 sm:mb-4">
                       {step.title}
                     </h3>
                     <span className="font-body text-xs text-text-placeholder pt-1">
