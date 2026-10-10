@@ -122,25 +122,19 @@ export default function TrustSection() {
   }, []);
 
   return (
-    <section id="trust" ref={sectionRef} className="w-full bg-surface">
-      <div className="max-w-6xl mx-auto  px-10 py-28">
+    <section id="trust" ref={sectionRef} className="w-full bg-surface overflow-hidden">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 md:px-8 lg:px-10 py-16 sm:py-20 lg:py-28">
         {/* ── Header row: headline left, context right ── */}
-        <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-6 mb-16">
+        <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-6 mb-10 sm:mb-12 lg:mb-16">
           <div ref={headingRef}>
             {/* <p className="font-body text-sm font-medium tracking-widest uppercase text-text-muted mb-3">
               / Why trust me
             </p> */}
             <h2 className="font-display font-medium tracking-tighter">
-              <span
-                className="block text-text-ghost"
-                style={{ fontSize: "38px", lineHeight: "42px" }}
-              >
+              <span className="block text-text-ghost text-[26px] xs:text-[28px] sm:text-[34px] md:text-[38px] leading-[1.12]">
                 Why you can
               </span>
-              <span
-                className="block text-text-primary"
-                style={{ fontSize: "38px", lineHeight: "42px" }}
-              >
+              <span className="block text-text-primary text-[26px] xs:text-[28px] sm:text-[34px] md:text-[38px] leading-[1.12]">
                 trust my work.
               </span>
             </h2>
@@ -149,7 +143,7 @@ export default function TrustSection() {
           {/* Context line — engineering-note style, right aligned */}
           <p
             ref={contextRef}
-            className="font-body text-xs tracking-widest uppercase text-text-muted text-left lg:text-right leading-loose lg:max-w-xs lg:pt-2"
+            className="font-body text-xs tracking-wider sm:tracking-widest uppercase text-text-muted text-left lg:text-right leading-relaxed sm:leading-loose lg:max-w-xs lg:pt-2"
           >
             Experience across engineering, research, and real startup building
           </p>
@@ -164,10 +158,10 @@ export default function TrustSection() {
               whileHover="hover"
               initial="rest"
               animate="rest"
-              className="group relative border-b border-r border-surface-border p-8 lg:p-10 flex flex-col will-change-transform bg-surface hover:bg-surface-raised transition-colors duration-300"
+              className="group relative border-b border-r border-surface-border p-5 sm:p-6 lg:p-10 flex flex-col will-change-transform bg-surface hover:bg-surface-raised transition-colors duration-300"
             >
               {/* Index */}
-              <div className="flex items-center justify-between mb-14">
+              <div className="flex items-center justify-between mb-8 sm:mb-10 lg:mb-14">
                 <span className="font-body text-xs tracking-widest text-text-placeholder group-hover:text-text-primary transition-colors duration-300">
                   {pillar.index}
                 </span>
@@ -186,12 +180,12 @@ export default function TrustSection() {
               </div>
 
               {/* Title */}
-              <h3 className="font-display font-medium text-2xl text-text-primary tracking-tight leading-snug mb-4">
+              <h3 className="font-display font-medium text-xl sm:text-2xl text-text-primary tracking-tight leading-snug mb-3 sm:mb-4">
                 {pillar.title}
               </h3>
 
               {/* Description */}
-              <p className="font-body text-sm text-text-muted leading-relaxed mb-10 flex-1">
+              <p className="font-body text-sm text-text-muted leading-relaxed mb-6 sm:mb-8 lg:mb-10 flex-1">
                 {pillar.description}
               </p>
 
@@ -200,10 +194,10 @@ export default function TrustSection() {
 
               {/* Tags */}
               <div>
-                <p className="font-body text-[11px] tracking-widest uppercase text-text-placeholder mb-3">
+                <p className="font-body text-[11px] tracking-widest uppercase text-text-placeholder mb-2 sm:mb-3">
                   {pillar.tagLabel}
                 </p>
-                <p className="font-body text-xs tracking-wide uppercase text-text-secondary leading-loose">
+                <p className="font-body text-xs tracking-wide uppercase text-text-secondary leading-normal sm:leading-loose">
                   {pillar.tags.join("  ·  ")}
                 </p>
               </div>

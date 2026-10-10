@@ -219,26 +219,28 @@ export default function Services() {
       ref={sectionRef}
       className="w-full bg-surface border-b border-surface-border"
     >
-      <div className="max-w-[68rem] mx-auto border-x border-surface-border px-10 py-28">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
-          {/* ── Left — heading + tech stack ── */}
-          <div ref={headingRef}>
-            <h2 className="font-display font-medium tracking-tighter mb-8">
-              <span
-                className="block text-text-ghost"
-                style={{ fontSize: "38px", lineHeight: "38px" }}
-              >
+      <div className="max-w-[68rem] mx-auto border-x border-surface-border px-5 sm:px-8 md:px-10 py-16 sm:py-20 lg:py-28">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 sm:gap-12 lg:gap-16 items-start">
+          {/* ── Left column: heading + tech stack grouped on desktop, unrolled on mobile via contents ── */}
+          <div className="contents lg:block">
+            {/* ── Heading ── */}
+            <h2
+              ref={headingRef}
+              className="order-1 lg:order-none font-display font-medium tracking-tighter mb-0 lg:mb-8"
+            >
+              <span className="block text-text-ghost text-[28px] sm:text-[34px] md:text-[38px] leading-[1.12]">
                 Services that
               </span>
-              <span
-                className="block text-text-primary"
-                style={{ fontSize: "38px", lineHeight: "38px" }}
-              >
+              <span className="block text-text-primary text-[28px] sm:text-[34px] md:text-[38px] leading-[1.12]">
                 supercharge your business.
               </span>
             </h2>
 
-            <div ref={techStackRef} className="w-full">
+            {/* ── Tech stack — order-3 on mobile (below animated services list), directly under heading on desktop ── */}
+            <div
+              ref={techStackRef}
+              className="order-3 lg:order-none w-full"
+            >
               <p className="font-body text-sm font-semibold text-text-muted mb-4">
                 My tech stack
               </p>
@@ -268,8 +270,8 @@ export default function Services() {
             </div>
           </div>
 
-          {/* ── Right — animated services list ── */}
-          <div className="flex flex-col lg:pl-6">
+          {/* ── Right — animated services list — order-2 on mobile ── */}
+          <div className="order-2 lg:order-none flex flex-col lg:pl-6">
             {SERVICES.map(({ label, icon, description }, i) => {
               const isActive = i === activeIndex;
               const isPast = i < activeIndex;

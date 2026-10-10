@@ -113,22 +113,16 @@ export default function MyProcess() {
       ref={sectionRef}
       className="w-full bg-surface overflow-visible"
     >
-      <div className="max-w-6xl mx-auto border-surface-border px-6 md:px-10 overflow-visible">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-stretch">
-          {/* ── Left — heading starts at top, GSAP pins at viewport centre ── */}
-          <div className="lg:sticky lg:top-0 lg:h-screen flex items-center py-20 lg:py-0">
+      <div className="max-w-6xl mx-auto border-surface-border px-4 sm:px-6 md:px-10 overflow-visible">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 lg:gap-20 items-stretch">
+          {/* ── Left — heading starts at top, GSAP pins at viewport centre on desktop ── */}
+          <div className="lg:sticky lg:top-0 lg:h-screen flex items-center pt-10 sm:pt-14 pb-0 lg:py-0">
             <div ref={headingRef}>
               <h2 className="font-display font-medium tracking-tighter">
-                <span
-                  className="block text-text-ghost"
-                  style={{ fontSize: "38px", lineHeight: "42px" }}
-                >
+                <span className="block text-text-ghost text-[26px] xs:text-[28px] sm:text-[34px] md:text-[38px] leading-[1.12]">
                   From ideas to
                 </span>
-                <span
-                  className="block text-text-primary"
-                  style={{ fontSize: "38px", lineHeight: "42px" }}
-                >
+                <span className="block text-text-primary text-[26px] xs:text-[28px] sm:text-[34px] md:text-[38px] leading-[1.12]">
                   products that work.
                 </span>
               </h2>
@@ -136,14 +130,14 @@ export default function MyProcess() {
           </div>
 
           {/* ── Right — scrolling steps ── */}
-          <div className="flex flex-col py-8 lg:py-32">
+          <div className="flex flex-col py-0 lg:py-32">
             {STEPS.map((step, i) => (
               <div
                 key={step.index}
                 ref={(el) => (stepRefs.current[i] = el)}
                 className="will-change-transform"
               >
-                <div className="py-14">
+                <div className="py-7 sm:py-10 lg:py-14">
                   <div className="flex items-start gap-2 mb-5">
                     <h3 className="font-display font-medium text-2xl text-text-primary tracking-tight leading-snug  mb-1 leading-snug ">
                       {step.title}
