@@ -30,7 +30,7 @@ export default function WhatsAppQR({
     <>
       {/* ── COMPACT FLOATING CARD ── */}
       <div
-        className={`fixed right-0 top-[20%] z-50 w-[128px] bg-white border border-r-0 border-surface-border rounded-l-2xl pt-4 pb-4 pl-4 pr-2 flex flex-col items-start transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${
+        className={`hidden md:flex fixed right-0 top-[20%] z-50 w-[128px] bg-white border border-r-0 border-surface-border rounded-l-2xl pt-4 pb-4 pl-4 pr-2 flex-col items-start transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${
           isCollapsed ? "translate-x-full" : "translate-x-0"
         }`}
       >
@@ -71,7 +71,7 @@ export default function WhatsAppQR({
       {/* ── EXPAND HANDLE TRIGGER (Only visible when collapsed) ── */}
       <button
         onClick={() => setIsCollapsed(false)}
-        className={`fixed right-0 top-[30%] z-50 w-10 h-12 bg-white hover:bg-surface-subtle text-[#1a73e8] rounded-l-xl shadow-float flex items-center justify-center transition-all duration-500 border border-r-0 border-surface-border cursor-pointer hover:scale-105 active:scale-95 ${
+        className={`hidden md:flex fixed right-0 top-[30%] z-50 w-10 h-12 bg-white hover:bg-surface-subtle text-[#1a73e8] rounded-l-xl shadow-float items-center justify-center transition-all duration-500 border border-r-0 border-surface-border cursor-pointer hover:scale-105 active:scale-95 ${
           isCollapsed
             ? "translate-x-0 opacity-100"
             : "translate-x-full opacity-0 pointer-events-none"
