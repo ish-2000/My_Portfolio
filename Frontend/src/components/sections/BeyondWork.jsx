@@ -113,30 +113,21 @@ export default function BeyondWork() {
 
   return (
     <section id="beyond" ref={sectionRef} className="w-full bg-dark">
-      <div className="max-w-7xl mx-auto border-dark-border px-10 py-28">
+      <div className="max-w-7xl mx-auto border-dark-border px-5 sm:px-8 lg:px-10 py-16 sm:py-20 lg:py-28">
         {/* ── Heading ── */}
-        <div ref={headingRef} className="mb-16">
-          {/* <p className="font-body text-sm font-medium tracking-widest uppercase text-dark-text-muted mb-3">
-            / Beyond client work
-          </p> */}
+        <div ref={headingRef} className="mb-10 sm:mb-16">
           <h2 className="font-display font-medium tracking-tighter">
-            <span
-              className="block text-dark-text-muted"
-              style={{ fontSize: "38px", lineHeight: "42px" }}
-            >
+            <span className="block text-dark-text-muted text-[24px] xs:text-[28px] sm:text-[34px] md:text-[38px] leading-[1.12]">
               More than
             </span>
-            <span
-              className="block text-white"
-              style={{ fontSize: "38px", lineHeight: "42px" }}
-            >
+            <span className="block text-white text-[24px] xs:text-[28px] sm:text-[34px] md:text-[38px] leading-[1.12]">
               just projects.
             </span>
           </h2>
         </div>
 
         {/* ── Blueprint grid — dark, sharp edges ── */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 border-t border-l border-dark-border">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 border-t border-l border-dark-border">
           {ITEMS.map((item, i) => (
             <motion.a
               key={item.index}
@@ -145,10 +136,10 @@ export default function BeyondWork() {
               whileHover="hover"
               initial="rest"
               animate="rest"
-              className="group relative border-b border-r border-dark-border p-4 lg:p-4 flex flex-col will-change-transform bg-dark hover:bg-dark-elevated transition-colors duration-300 no-underline"
+              className="group relative border-b border-r border-dark-border p-5 sm:p-6 lg:p-6 flex flex-col will-change-transform bg-dark hover:bg-dark-elevated transition-colors duration-300 no-underline"
             >
               {/* Thumbnail Image Container */}
-              <div className="mb-6 w-full aspect-[16/10] overflow-hidden border border-white/[0.08] bg-[#0c0c0c] shadow-2xl relative">
+              <div className="mb-5 sm:mb-6 w-full aspect-[16/10] overflow-hidden border border-white/[0.08] bg-[#0c0c0c] shadow-2xl relative">
                 <img
                   src={item.icon}
                   alt={`${item.title} thumbnail`}
@@ -162,7 +153,7 @@ export default function BeyondWork() {
               </div>
 
               {/* Index + status row */}
-              <div className="flex items-center justify-between mb-6">
+              <div className="flex items-center justify-between mb-5 sm:mb-6">
                 <span className="font-body text-xs tracking-widest text-dark-text-muted group-hover:text-dark-text transition-colors duration-300">
                   {item.index}
                 </span>
@@ -183,12 +174,12 @@ export default function BeyondWork() {
               </div>
 
               {/* Title */}
-              <h3 className="font-display font-medium text-2xl text-text-primary tracking-tight leading-snug  text-white mb-4">
+              <h3 className="font-display font-medium text-xl sm:text-2xl text-text-primary tracking-tight leading-snug text-white mb-3 sm:mb-4">
                 {item.title}
               </h3>
 
               {/* Description */}
-              <p className="font-body text-sm text-dark-text-muted leading-relaxed mb-10 flex-1">
+              <p className="font-body text-sm text-dark-text-muted leading-relaxed mb-8 sm:mb-10 flex-1">
                 {item.description}
               </p>
 
