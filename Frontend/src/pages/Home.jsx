@@ -11,6 +11,7 @@ import HeroTem from "../components/sections/Hero_tem";
 
 import Philosophy from "../components/sections/Philosophy";
 import MyProcess from "../components/sections/MyProcess";
+import Blog from "../components/sections/Blog";
 import Testimonial from "../components/sections/Testimonial";
 import Services from "../components/sections/Services";
 import ServiceShowcaseSection from "../components/sections/ServiceShowcaseSection";
@@ -69,6 +70,7 @@ export default function Home() {
       <ServiceShowcaseSection />
       <Trustsection />
       <MyProcess />
+      <Blog />
       <BeyondWork />
       <VisionSection />
       {/* <Darkhero /> */}
