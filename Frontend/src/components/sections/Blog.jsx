@@ -5,7 +5,7 @@ import blogCafeImg from "../../assets/images/blog-cafe.jpg";
 
 gsap.registerPlugin(ScrollTrigger);
 
-const BLOG_TAGS = ["TECHNOLOGY", "FUTURE", "CULTURE", "PERSONAL", "NOTES"];
+const BLOG_TAGS = ["TECHNOLOGY", "FUTURE", "CULTURE", "PERSONAL"];
 
 export default function Blog() {
   const sectionRef = useRef(null);
@@ -104,32 +104,12 @@ export default function Blog() {
       <div className="relative max-w-[1320px] mx-auto px-6 sm:px-10 lg:px-14">
         {/* ── Architectural Grid Shell ── */}
         <div className="relative w-full">
-          {/* Extended architectural crosshair lines (hidden on mobile, visible on desktop) */}
-          {/* Top horizontal extension */}
-          <div
-            aria-hidden="true"
-            className="hidden lg:block absolute -left-12 -right-12 top-0 h-px bg-[#E5E5E5] pointer-events-none"
-          />
-          {/* Middle horizontal extension */}
-          <div
-            aria-hidden="true"
-            className="hidden lg:block absolute -left-12 -right-12 top-[200px] h-px bg-[#E5E5E5] pointer-events-none"
-          />
-          {/* Bottom horizontal extension */}
-          <div
-            aria-hidden="true"
-            className="hidden lg:block absolute -left-12 -right-12 bottom-0 h-px bg-[#E5E5E5] pointer-events-none"
-          />
           {/* Left vertical extension */}
           <div
             aria-hidden="true"
             className="hidden lg:block absolute left-0 -top-10 -bottom-10 w-px bg-[#E5E5E5] pointer-events-none"
           />
-          {/* Center vertical divider extension */}
-          <div
-            aria-hidden="true"
-            className="hidden lg:block absolute left-[65.5%] -top-10 -bottom-10 w-px bg-[#E5E5E5] pointer-events-none"
-          />
+
           {/* Right vertical extension */}
           <div
             aria-hidden="true"
@@ -144,10 +124,10 @@ export default function Blog() {
               className="pt-8 pb-8 pr-4 sm:pt-10 sm:pb-10 sm:pr-8 lg:pt-12 lg:pb-12 lg:pl-10 lg:pr-12 flex flex-col justify-center"
             >
               <h2 className="font-display tracking-tight text-3xl xs:text-4xl sm:text-[44px] md:text-[50px] lg:text-[52px] leading-[1.08]">
-                 <span className="block text-text-ghost text-[26px] xs:text-[28px] sm:text-[34px] md:text-[38px] leading-[1.12]">
+                <span className="block text-text-ghost text-[26px] xs:text-[28px] sm:text-[34px] md:text-[38px] leading-[1.12]">
                   I write about
                 </span>
-               <span className="block text-text-primary text-[26px] xs:text-[28px] sm:text-[34px] md:text-[38px] leading-[1.12]">
+                <span className="block text-text-primary text-[26px] xs:text-[28px] sm:text-[34px] md:text-[38px] leading-[1.12]">
                   the ideas shaping tomorrow.
                 </span>
               </h2>
@@ -191,14 +171,16 @@ export default function Blog() {
             {/* Bottom Right: Quote, Author, Link, Topics */}
             <div
               ref={contentRef}
-              className="border-t lg:border-t-0 border-[#E5E5E5] py-8 sm:py-10 lg:py-8 lg:pl-12 lg:pr-8 flex flex-col justify-between"
+              className="border-t lg:border-t-0 border-[#E5E5E5] pt-8 sm:pt-10 lg:pt-14 pb-8 sm:pb-10 lg:pb-8 lg:pl-10 lg:pr-8 flex flex-col justify-between"
             >
               {/* Quote & Author */}
               <div>
                 <blockquote className="font-display font-medium text-xl sm:text-2xl lg:text-[34px] text-text-primary tracking-tight leading-[1.18] mb-3 sm:mb-4">
                   <span className="text-text-muted">Writing</span> helps me slow
-                  down, question what&apos;s changing, and share the ideas worth
-                  thinking about.
+                  <br className="hidden sm:inline" /> down, question what&apos;s
+                  <br className="hidden sm:inline" /> changing, and share
+                  <br className="hidden sm:inline" /> the ideas worth
+                  <br className="hidden sm:inline" /> thinking about.
                 </blockquote>
                 <p className="font-body text-sm sm:text-[15px] text-[#8A8882] mt-4 sm:mt-5 font-normal tracking-wide">
                   &mdash;&nbsp;Ishara Udayanga
@@ -211,15 +193,13 @@ export default function Blog() {
                   href="https://blog.ishara.live"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="group inline-flex items-baseline text-sm sm:text-[15px] font-medium text-[#000000] hover:text-black transition-colors w-fit"
+                  className="group inline-flex items-center gap-1.5 text-sm sm:text-[15px] font-medium text-[#000000] hover:text-black transition-colors w-fit border-b-[1.5px] border-[#A855F7] pb-1"
                   aria-label="Read my latest writing on blog.ishara.live (opens in a new tab)"
                 >
-                  <span className="underline decoration-1 underline-offset-4 group-hover:text-black">
-                    Read my latest writing
-                  </span>
+                  <span>Read my latest writing</span>
                   <span
                     aria-hidden="true"
-                    className="text-[#7C3AED] no-underline text-base font-normal inline-block ml-1.5 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+                    className="text-[#A855F7] no-underline text-base font-normal inline-block transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
                   >
                     ↗
                   </span>
@@ -229,9 +209,12 @@ export default function Blog() {
                 <div className="h-px bg-[#E5E5E5] w-full my-6 sm:my-7" />
 
                 {/* Topics List */}
-                <div className="font-mono text-[10px] sm:text-[11px] tracking-[0.2em] text-[#8A8882] uppercase flex flex-wrap items-center gap-x-3 gap-y-2 select-none">
+                <div className="font-mono text-[10px] sm:text-[11px] tracking-[0.14em] sm:tracking-[0.18em] text-[#8A8882] uppercase flex flex-wrap lg:flex-nowrap items-center gap-x-2.5 sm:gap-x-3 gap-y-2 select-none whitespace-nowrap">
                   {BLOG_TAGS.map((tag, idx) => (
-                    <span key={tag} className="flex items-center gap-3">
+                    <span
+                      key={tag}
+                      className="flex items-center gap-2.5 sm:gap-3"
+                    >
                       <span>{tag}</span>
                       {idx < BLOG_TAGS.length - 1 && (
                         <span className="text-[#D4D2CD] text-xs font-sans">
