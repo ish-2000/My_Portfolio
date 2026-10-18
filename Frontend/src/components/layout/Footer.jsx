@@ -73,20 +73,16 @@ export default function Footer() {
 
   return (
     <footer id="footer" className="w-full bg-dark overflow-hidden">
-      <div className="max-w-6xl mx-auto px-10 pt-20 pb-0">
+      <div className="max-w-6xl mx-auto px-5 sm:px-8 md:px-10 pt-14 sm:pt-16 md:pt-20 pb-0">
         {/* ── Headline with rotating text ── */}
-        <div className="mb-16">
+        <div className="mb-10 sm:mb-14 md:mb-16">
           <h2 className="font-display font-medium tracking-tighter">
-            <span
-              className="block text-surface"
-              style={{ fontSize: "48px", lineHeight: "54px" }}
-            >
+            <span className="block text-surface text-[30px] xs:text-[34px] sm:text-[40px] md:text-[48px] leading-[1.12] sm:leading-[1.15]">
               Lets design
             </span>
             <span
               ref={textRef}
-              className="block text-text-muted"
-              style={{ fontSize: "48px", lineHeight: "54px" }}
+              className="block text-text-muted text-[30px] xs:text-[34px] sm:text-[40px] md:text-[48px] leading-[1.12] sm:leading-[1.15]"
             >
               {HEADLINES[activeIndex]}
             </span>

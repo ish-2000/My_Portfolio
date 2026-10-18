@@ -1,7 +1,7 @@
 import { useEffect, useRef, Fragment } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import MeImage from "../../assets/images/Me_dark.webp";
+import MeImage from "../../assets/images/Professional Portrait in Black Knit Sweater(1) 1.png";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -174,35 +174,17 @@ export default function VisionSection() {
           lg:gap-20
         "
       >
-        {/* Profile area — order-2 on mobile (below text), order-1 on desktop (left column) */}
-        <div className="order-2 lg:order-1 w-full lg:translate-x-4 xl:translate-x-8 lg:translate-y-8 mt-10 sm:mt-12 lg:mt-0">
-          <div ref={profileRef} className="w-full max-w-[420px] mx-auto lg:max-w-[280px] lg:mx-0">
+        {/* Profile area — order-2 on mobile (below text, centered), order-1 on desktop (left column) */}
+        <div className="order-2 lg:order-1 w-full flex justify-center lg:block lg:translate-x-4 xl:translate-x-8 lg:translate-y-8 mt-12 sm:mt-14 lg:mt-0">
+          <div ref={profileRef} className="w-full max-w-[280px] mx-auto">
             <div
               className="
-                group relative aspect-[4/5] sm:aspect-square w-full
+                group relative aspect-square w-full
                 overflow-hidden rounded-[22px]
                 border border-white/10
-                bg-dark-card shadow-2xl
+                bg-dark-card
               "
             >
-              {/* Viewfinder corner bracket accents matching reference screenshot */}
-              <div
-                className="absolute top-3.5 left-3.5 w-5 h-5 border-t border-l border-white/25 rounded-tl-md pointer-events-none z-10"
-                aria-hidden="true"
-              />
-              <div
-                className="absolute top-3.5 right-3.5 w-5 h-5 border-t border-r border-white/25 rounded-tr-md pointer-events-none z-10"
-                aria-hidden="true"
-              />
-              <div
-                className="absolute bottom-3.5 left-3.5 w-5 h-5 border-b border-l border-white/20 rounded-bl-md pointer-events-none z-10"
-                aria-hidden="true"
-              />
-              <div
-                className="absolute bottom-3.5 right-3.5 w-5 h-5 border-b border-r border-white/20 rounded-br-md pointer-events-none z-10"
-                aria-hidden="true"
-              />
-
               <img
                 src={PROFILE.image}
                 alt={`${PROFILE.name} portrait`}
@@ -226,7 +208,7 @@ export default function VisionSection() {
               />
             </div>
 
-            <div className="mt-6 text-center">
+            <div className="mt-8 text-center">
               <p
                 className="
                   font-body text-[14px] font-medium
@@ -250,9 +232,15 @@ export default function VisionSection() {
         </div>
 
         {/* Vision content — order-1 on mobile (above image), order-2 on desktop (right column) */}
-        <div ref={contentRef} className="order-1 lg:order-2 w-full max-w-[620px]">
+        <div
+          ref={contentRef}
+          className="order-1 lg:order-2 w-full max-w-[620px]"
+        >
           {/* Section label */}
-          <div ref={labelRef} className="mb-8 sm:mb-14 flex w-full items-center gap-5">
+          <div
+            ref={labelRef}
+            className="mb-8 sm:mb-14 flex w-full items-center gap-5"
+          >
             <span
               className="
                 shrink-0 font-body text-[11px]
@@ -296,7 +284,11 @@ export default function VisionSection() {
                           </span>
                         ))}
                       </span>
-                      {wordIndex < words.length - 1 ? " " : lineIndex < HEADING_LINES.length - 1 ? " " : ""}
+                      {wordIndex < words.length - 1
+                        ? " "
+                        : lineIndex < HEADING_LINES.length - 1
+                          ? " "
+                          : ""}
                     </Fragment>
                   ))}
                 </span>

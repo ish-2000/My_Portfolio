@@ -399,8 +399,7 @@ export default function HeroTem({ preloaderDone = true }) {
         {/* Hero body */}
         <div className="flex-1 flex items-start md:items-center pt-[210px] xs:pt-[240px] sm:pt-[270px] pb-5 md:py-4 lg:py-6">
           <div className="flex flex-col w-full max-w-full md:max-w-[580px] lg:max-w-[700px] xl:max-w-[780px] ml-0 md:ml-5 lg:ml-[75px]">
-            {/* Status pill */}
-            <div
+            {/* <div
               ref={pillRef}
               className="inline-flex items-center gap-2 border border-white/12 rounded-full px-3 py-1.5 mb-4 sm:mb-6 w-fit bg-white/[0.03]"
             >
@@ -411,7 +410,7 @@ export default function HeroTem({ preloaderDone = true }) {
               <span className="font-display text-[10px] font-normal text-white/60 tracking-[0.12em] uppercase">
                 ENGINEERED FOR EXCELLENCE
               </span>
-            </div>
+            </div> */}
 
             {/* Main heading — strictly 2 lines on desktop */}
             <h1

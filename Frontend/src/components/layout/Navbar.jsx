@@ -8,7 +8,7 @@ export default function Navbar() {
   const isHome = location.pathname === "/";
 
   return (
-    <nav className="flex justify-center px-6 pt-6">
+    <nav className="flex justify-center px-4 sm:px-6 pt-3 sm:pt-6">
       <div className="flex items-center bg-[#fdfdfd] border border-surface-border rounded-pill py-2 pr-2 pl-2">
         <div className="flex items-center gap-3 pl-1 pr-16">
           <Link to="/" className="flex items-center gap-3 hover:opacity-95 transition-opacity">

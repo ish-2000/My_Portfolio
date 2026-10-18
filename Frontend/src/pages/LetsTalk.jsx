@@ -129,6 +129,7 @@ export default function LetsTalk() {
   const [email, setEmail] = useState("");
   const [isReserved, setIsReserved] = useState(false);
   const [isFocused, setIsFocused] = useState(false);
+  const [isFocusedMobile, setIsFocusedMobile] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [submitError, setSubmitError] = useState(null);
 
@@ -231,7 +232,7 @@ export default function LetsTalk() {
         <Navbar />
 
         {/* Page body */}
-        <div className="flex-1 px-6 sm:px-10 py-16">
+        <div className="flex-1 px-4 sm:px-10 pt-4 sm:pt-8 md:pt-12 pb-12 sm:pb-16">
           {/* ── PART 1 — Headline ─────────────────────────────── */}
           {/* <h1 className="font-display font-medium tracking-tighter mb-12">
             <span
@@ -258,7 +259,7 @@ export default function LetsTalk() {
           <div className="border border-surface-border rounded-2xl overflow-hidden bg-surface">
             <div className="grid grid-cols-1 lg:grid-cols-[320px_1fr]">
               {/* ── LEFT — info panel ──────────────────────────── */}
-              <div className="border-b lg:border-b-0 lg:border-r border-surface-border px-8 py-8 flex flex-col">
+              <div className="border-b lg:border-b-0 lg:border-r border-surface-border px-5 sm:px-8 py-6 sm:py-8 flex flex-col">
                 {/* Profile photo */}
                 <img
                   src={ProfileImg}
@@ -358,87 +359,90 @@ export default function LetsTalk() {
                   </span>
                 </div>
 
-                {/* Selected Date Summary & Email input panel */}
-                {selectedDate && (
-                  <div className="mb-6 pt-5 border-t border-surface-border">
-                    <p className="font-body text-xs font-semibold text-text-muted mb-3">
-                      Selected Date:{" "}
-                      <span className="text-text-primary">
-                        {new Date(selectedDate).toLocaleDateString("en-US", {
-                          weekday: "long",
-                          month: "long",
-                          day: "numeric",
-                        })}
-                      </span>
-                    </p>
-                    {/* <label
-                      htmlFor="email"
-                      className="block font-body text-xs font-semibold text-text-muted mb-2"
-                    >
-                      Enter your email Address
-                    </label> */}
-                    <div className="relative">
-                      <input
-                        id="email"
-                        type="email"
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                        onFocus={() => setIsFocused(true)}
-                        onBlur={() => setIsFocused(false)}
-                        className="w-full py-2 bg-transparent border-b border-surface-border text-text-primary font-body text-xs outline-none focus:border-dark transition-all duration-200"
-                        required
-                      />
-                      {!email && (
-                        <span className="absolute left-0 top-1/2 -translate-y-1/2 pointer-events-none text-text-placeholder font-body text-xs flex items-center">
-                          {!isFocused && (
-                            <span className="mr-1 w-[1px] h-3.5 bg-text-placeholder animate-cursor-blink" />
-                          )}
-                          Enter your email Address
+                {/* ── DESKTOP ONLY: Email input, Submit button & Inline error ── */}
+                <div className="hidden lg:block mt-auto">
+                  {/* Selected Date Summary & Email input panel */}
+                  {selectedDate && (
+                    <div className="mb-6 pt-5 border-t border-surface-border">
+                      <p className="font-body text-xs font-semibold text-text-muted mb-3">
+                        Selected Date:{" "}
+                        <span className="text-text-primary">
+                          {new Date(selectedDate).toLocaleDateString("en-US", {
+                            weekday: "long",
+                            month: "long",
+                            day: "numeric",
+                          })}
                         </span>
-                      )}
+                      </p>
+                      {/* <label
+                        htmlFor="email"
+                        className="block font-body text-xs font-semibold text-text-muted mb-2"
+                      >
+                        Enter your email Address
+                      </label> */}
+                      <div className="relative">
+                        <input
+                          id="email"
+                          type="email"
+                          value={email}
+                          onChange={(e) => setEmail(e.target.value)}
+                          onFocus={() => setIsFocused(true)}
+                          onBlur={() => setIsFocused(false)}
+                          className="w-full py-2 bg-transparent border-b border-surface-border text-text-primary font-body text-xs outline-none focus:border-dark transition-all duration-200"
+                          required
+                        />
+                        {!email && (
+                          <span className="absolute left-0 top-1/2 -translate-y-1/2 pointer-events-none text-text-placeholder font-body text-xs flex items-center">
+                            {!isFocused && (
+                              <span className="mr-1 w-[1px] h-3.5 bg-text-placeholder animate-cursor-blink" />
+                            )}
+                            Enter your email Address
+                          </span>
+                        )}
+                      </div>
+                      {/* <p className="font-body text-[11px] text-text-muted mt-2 leading-relaxed">
+                        Enter your email address so I can send you the meeting
+                        details.
+                      </p> */}
                     </div>
-                    {/* <p className="font-body text-[11px] text-text-muted mt-2 leading-relaxed">
-                      Enter your email address so I can send you the meeting
-                      details.
-                    </p> */}
-                  </div>
-                )}
+                  )}
 
-                {/* Submit button */}
-                <button
-                  onClick={handleSubmit}
-                  disabled={
-                    !selectedDate || !email.trim() || isLoading || isReserved
-                  }
-                  className={`
-                    w-full py-3 rounded-full font-display text-sm font-semibold
-                    transition-all duration-300
-                    ${
-                      isReserved
-                        ? "bg-white text-dark border border-surface-border cursor-default"
-                        : selectedDate && email.trim() && !isLoading
-                          ? "bg-dark text-dark-text hover:opacity-90 cursor-pointer shadow-[0_4px_24px_rgba(0,0,0,0.08)] animate-shimmer"
-                          : "bg-surface-subtle text-text-muted cursor-not-allowed"
+                  {/* Submit button */}
+                  <button
+                    onClick={handleSubmit}
+                    disabled={
+                      !selectedDate || !email.trim() || isLoading || isReserved
                     }
-                  `}
-                >
-                  {isReserved
-                    ? "Request Sent Successfully "
-                    : isLoading
-                      ? "Sending…"
-                      : "Confirm Discussion"}
-                </button>
+                    className={`
+                      w-full py-3 rounded-full font-display text-sm font-semibold
+                      transition-all duration-300
+                      ${
+                        isReserved
+                          ? "bg-white text-dark border border-surface-border cursor-default"
+                          : selectedDate && email.trim() && !isLoading
+                            ? "bg-dark text-dark-text hover:opacity-90 cursor-pointer shadow-[0_4px_24px_rgba(0,0,0,0.08)] animate-shimmer"
+                            : "bg-surface-subtle text-text-muted cursor-not-allowed"
+                      }
+                    `}
+                  >
+                    {isReserved
+                      ? "Request Sent Successfully "
+                      : isLoading
+                        ? "Sending…"
+                        : "Confirm Discussion"}
+                  </button>
 
-                {/* Inline error */}
-                {submitError && (
-                  <p className="font-body text-[11px] text-red-500 mt-2 text-center">
-                    {submitError}
-                  </p>
-                )}
+                  {/* Inline error */}
+                  {submitError && (
+                    <p className="font-body text-[11px] text-red-500 mt-2 text-center">
+                      {submitError}
+                    </p>
+                  )}
+                </div>
               </div>
 
               {/* ── RIGHT — calendar ───────────────────────────── */}
-              <div className="px-8 py-8">
+              <div className="px-5 sm:px-8 py-6 sm:py-8">
                 {/* Month navigation */}
                 <div className="flex items-center justify-between mb-5 text-xl">
                   <button
@@ -563,6 +567,76 @@ export default function LetsTalk() {
                       </button>
                     );
                   })}
+                </div>
+
+                {/* ── MOBILE ONLY: Selected Date, Email input & Confirm Discussion ── */}
+                <div className="lg:hidden mt-6 pt-6 border-t border-surface-border">
+                  {selectedDate && (
+                    <div className="mb-5">
+                      <p className="font-body text-xs font-semibold text-text-muted mb-3">
+                        Selected Date:{" "}
+                        <span className="text-text-primary">
+                          {new Date(selectedDate).toLocaleDateString("en-US", {
+                            weekday: "long",
+                            month: "long",
+                            day: "numeric",
+                          })}
+                        </span>
+                      </p>
+                      <div className="relative">
+                        <input
+                          id="email-mobile"
+                          type="email"
+                          value={email}
+                          onChange={(e) => setEmail(e.target.value)}
+                          onFocus={() => setIsFocusedMobile(true)}
+                          onBlur={() => setIsFocusedMobile(false)}
+                          className="w-full py-2 bg-transparent border-b border-surface-border text-text-primary font-body text-xs outline-none focus:border-dark transition-all duration-200"
+                          required
+                        />
+                        {!email && (
+                          <span className="absolute left-0 top-1/2 -translate-y-1/2 pointer-events-none text-text-placeholder font-body text-xs flex items-center">
+                            {!isFocusedMobile && (
+                              <span className="mr-1 w-[1px] h-3.5 bg-text-placeholder animate-cursor-blink" />
+                            )}
+                            Enter your email Address
+                          </span>
+                        )}
+                      </div>
+                    </div>
+                  )}
+
+                  {/* Submit button (Mobile) */}
+                  <button
+                    onClick={handleSubmit}
+                    disabled={
+                      !selectedDate || !email.trim() || isLoading || isReserved
+                    }
+                    className={`
+                      w-full py-3 rounded-full font-display text-sm font-semibold
+                      transition-all duration-300
+                      ${
+                        isReserved
+                          ? "bg-white text-dark border border-surface-border cursor-default"
+                          : selectedDate && email.trim() && !isLoading
+                            ? "bg-dark text-dark-text hover:opacity-90 cursor-pointer shadow-[0_4px_24px_rgba(0,0,0,0.08)] animate-shimmer"
+                            : "bg-surface-subtle text-text-muted cursor-not-allowed"
+                      }
+                    `}
+                  >
+                    {isReserved
+                      ? "Request Sent Successfully "
+                      : isLoading
+                        ? "Sending…"
+                        : "Confirm Discussion"}
+                  </button>
+
+                  {/* Inline error */}
+                  {submitError && (
+                    <p className="font-body text-[11px] text-red-500 mt-2 text-center">
+                      {submitError}
+                    </p>
+                  )}
                 </div>
               </div>
             </div>
