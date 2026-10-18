@@ -1,7 +1,7 @@
 import { useEffect, useRef, Fragment } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import MeImage from "../../assets/images/Professional Portrait in Black Knit Sweater(1) 1.png";
+import MeImage from "../../assets/images/Me_proffesinal.png";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -309,7 +309,7 @@ export default function VisionSection() {
             "
           >
             By merging technical rigor with intuitive design, we build systems
-            that don&apos;t just solve problems—they create entirely new
+            that don&apos;t just solve problems. They create entirely new
             opportunities for growth.
           </p>
         </div>
