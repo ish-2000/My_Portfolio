@@ -1,7 +1,7 @@
 import { useEffect, useRef, Fragment } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import MeImage from "../../assets/images/Me_dark.webp";
+import MeImage from "../../assets/images/Professional Portrait in Black Knit Sweater(1) 1.png";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -232,9 +232,15 @@ export default function VisionSection() {
         </div>
 
         {/* Vision content — order-1 on mobile (above image), order-2 on desktop (right column) */}
-        <div ref={contentRef} className="order-1 lg:order-2 w-full max-w-[620px]">
+        <div
+          ref={contentRef}
+          className="order-1 lg:order-2 w-full max-w-[620px]"
+        >
           {/* Section label */}
-          <div ref={labelRef} className="mb-8 sm:mb-14 flex w-full items-center gap-5">
+          <div
+            ref={labelRef}
+            className="mb-8 sm:mb-14 flex w-full items-center gap-5"
+          >
             <span
               className="
                 shrink-0 font-body text-[11px]
@@ -278,7 +284,11 @@ export default function VisionSection() {
                           </span>
                         ))}
                       </span>
-                      {wordIndex < words.length - 1 ? " " : lineIndex < HEADING_LINES.length - 1 ? " " : ""}
+                      {wordIndex < words.length - 1
+                        ? " "
+                        : lineIndex < HEADING_LINES.length - 1
+                          ? " "
+                          : ""}
                     </Fragment>
                   ))}
                 </span>
