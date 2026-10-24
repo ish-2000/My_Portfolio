@@ -196,7 +196,7 @@ export default function Blog() {
                   className="group inline-flex items-center gap-1.5 text-sm sm:text-[15px] font-medium text-[#000000] hover:text-black transition-colors w-fit border-b-[1.5px] border-[#A855F7] pb-1"
                   aria-label="Read my latest writing on blog.ishara.live (opens in a new tab)"
                 >
-                  <span>Read my latest writing</span>
+                  <span>Read my blogs</span>
                   <span
                     aria-hidden="true"
                     className="text-[#A855F7] no-underline text-base font-normal inline-block transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
