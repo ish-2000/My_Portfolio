@@ -5,8 +5,7 @@ import { Link } from "react-router-dom";
 // ─── Social icons from Simple Icons ───────────────────────
 import XIcon from "/icons/x.svg";
 import InstaIcon from "/icons/instagram.svg";
-import DribbbleIcon from "/icons/dribbble.svg";
-import BehanceIcon from "/icons/behance.svg";
+import GitHubIcon from "/icons/github.svg";
 import LinkedInIcon from "/icons/linkedin.svg";
 
 // ─── Rotating headlines ───────────────────────────────────
@@ -32,10 +31,21 @@ const LEGAL_LINKS = [
 
 const SOCIALS = [
   { icon: XIcon, label: "X", href: "https://x.com", count: "1,214" },
-  { icon: InstaIcon, label: "Instagram", href: "https://instagram.com" },
-  { icon: DribbbleIcon, label: "Dribbble", href: "https://dribbble.com" },
-  { icon: BehanceIcon, label: "Behance", href: "https://behance.net" },
-  { icon: LinkedInIcon, label: "LinkedIn", href: "https://linkedin.com" },
+  {
+    icon: InstaIcon,
+    label: "Instagram",
+    href: "https://www.instagram.com/ish_ar_a?vrfl=cjBkN2JhbXlqdnAw",
+  },
+  {
+    icon: GitHubIcon,
+    label: "GitHub",
+    href: "https://github.com/ish-2000",
+  },
+  {
+    icon: LinkedInIcon,
+    label: "LinkedIn",
+    href: "https://www.linkedin.com/in/ishara-athapaththu-548840320?utm_source=share_via&utm_content=profile&utm_medium=member_android",
+  },
 ];
 
 export default function Footer() {
