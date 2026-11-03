@@ -19,10 +19,17 @@ import Trustsection from "../components/sections/Trustsection";
 import BeyondWork from "../components/sections/BeyondWork";
 import VisionSection from "../components/sections/VisionSection";
 import Darkhero from "../components/sections/Darkhero";
+import usePageSEO from "../hooks/usePageSEO";
 
 let preloaderHasPlayed = false;
 
 export default function Home() {
+  usePageSEO({
+    title: "Ishara Udayanga | Full Stack Developer & Designer",
+    description:
+      "Explore the portfolio of Ishara Udayanga, a full-stack developer and product designer based in Sri Lanka. Discover web applications, UI/UX design and projects.",
+    canonical: "https://ishara.live/",
+  });
   const [showPreloader, setShowPreloader] = useState(!preloaderHasPlayed);
 
   // Prevent scroll during loading
