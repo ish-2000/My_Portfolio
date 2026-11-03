@@ -1,6 +1,14 @@
 {
   "rewrites": [
     {
+      "source": "/lets-talk",
+      "destination": "/lets-talk/index.html"
+    },
+    {
+      "source": "/lets-talk/",
+      "destination": "/lets-talk/index.html"
+    },
+    {
       "source": "/(.*)",
       "destination": "/index.html"
     }

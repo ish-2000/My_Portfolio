@@ -3,6 +3,7 @@ import Navbar from "../components/layout/Navbar";
 import ProfileImg from "../assets/images/Me.png";
 import WhatsAppQR from "../components/lets-talk/WhatsAppQR";
 import { sendBookingEmail } from "../utils/emailService";
+import usePageSEO from "../hooks/usePageSEO";
 
 function toDateKey(year, month, day) {
   return `${year}-${String(month + 1).padStart(2, "0")}-${String(day).padStart(2, "0")}`;
@@ -113,6 +114,12 @@ const DURATIONS = [
 
 // ─── Component ───────────────────────────────────────────────
 export default function LetsTalk() {
+  usePageSEO({
+    title: "Contact Ishara Udayanga | Web Developer & Designer",
+    description:
+      "Get in touch with Ishara Udayanga for web development, digital product design and collaboration opportunities.",
+    canonical: "https://ishara.live/lets-talk",
+  });
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
