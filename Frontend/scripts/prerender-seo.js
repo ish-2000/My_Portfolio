@@ -5,12 +5,33 @@ import { fileURLToPath } from "node:url";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const projectRoot = path.resolve(__dirname, "..");
+const publicDir = path.join(projectRoot, "public");
 const distDir = path.join(projectRoot, "dist");
 const indexHtmlPath = path.join(distDir, "index.html");
+const publicOgImagePath = path.join(publicDir, "og-image.png");
+const distOgImagePath = path.join(distDir, "og-image.png");
 
 const homepageMetadata = {
   title: "Ishara Udayanga | Full Stack Developer & Designer",
+  description:
+    "Explore the portfolio of Ishara Udayanga, a full-stack developer and product designer based in Sri Lanka. Discover web applications, UI/UX design and projects.",
   canonical: "https://ishara.live/",
+  ogType: "website",
+  ogSiteName: "Ishara Udayanga",
+  ogTitle: "Ishara Udayanga | Full Stack Developer & Designer",
+  ogDescription:
+    "Explore the portfolio of Ishara Udayanga, a full-stack developer and product designer based in Sri Lanka. Discover web applications, UI/UX design and projects.",
+  ogUrl: "https://ishara.live/",
+  ogImage: "https://ishara.live/og-image.png",
+  ogImageWidth: "1200",
+  ogImageHeight: "630",
+  ogImageAlt: "Ishara Udayanga — Full Stack Developer & Designer",
+  twitterCard: "summary_large_image",
+  twitterTitle: "Ishara Udayanga | Full Stack Developer & Designer",
+  twitterDescription:
+    "Explore my full-stack development, design and digital product projects.",
+  twitterImage: "https://ishara.live/og-image.png",
+  twitterImageAlt: "Ishara Udayanga — Full Stack Developer & Designer",
 };
 
 const contactMetadata = {
@@ -18,12 +39,69 @@ const contactMetadata = {
   description:
     "Get in touch with Ishara Udayanga for web development, digital product design and collaboration opportunities.",
   canonical: "https://ishara.live/lets-talk",
+  ogType: "website",
+  ogSiteName: "Ishara Udayanga",
+  ogTitle: "Contact Ishara Udayanga | Web Developer & Designer",
+  ogDescription:
+    "Get in touch with Ishara Udayanga for web development, digital product design and collaboration opportunities.",
+  ogUrl: "https://ishara.live/lets-talk",
+  ogImage: "https://ishara.live/og-image.png",
+  ogImageWidth: "1200",
+  ogImageHeight: "630",
+  ogImageAlt: "Ishara Udayanga — Full Stack Developer & Designer",
+  twitterCard: "summary_large_image",
+  twitterTitle: "Contact Ishara Udayanga | Web Developer & Designer",
+  twitterDescription:
+    "Let's connect and discuss web development, digital products, and collaboration opportunities.",
+  twitterImage: "https://ishara.live/og-image.png",
+  twitterImageAlt: "Ishara Udayanga — Full Stack Developer & Designer",
 };
 
-function prerenderSEO() {
-  console.log("[SEO Prerender] Starting lightweight HTML shell generation...");
+function readPngDimensions(filePath) {
+  const buf = fs.readFileSync(filePath);
+  // PNG signature: 89 50 4E 47 0D 0A 1A 0A
+  const isPng =
+    buf[0] === 0x89 &&
+    buf[1] === 0x50 &&
+    buf[2] === 0x4e &&
+    buf[3] === 0x47 &&
+    buf[4] === 0x0d &&
+    buf[5] === 0x0a &&
+    buf[6] === 0x1a &&
+    buf[7] === 0x0a;
+  if (!isPng) {
+    throw new Error(`File at ${filePath} is not a valid PNG image.`);
+  }
+  // IHDR width at offset 16, height at offset 20 (big-endian 32-bit unsigned integers)
+  const width = buf.readUInt32BE(16);
+  const height = buf.readUInt32BE(20);
+  return { width, height };
+}
 
-  // 1. Verify dist/index.html exists
+function countMatches(str, regex) {
+  const matches = str.match(regex);
+  return matches ? matches.length : 0;
+}
+
+function prerenderSEO() {
+  console.log("[SEO Prerender] Starting lightweight HTML shell generation with Social Metadata...");
+
+  // 1. Verify OG preview image exists in public and dist
+  if (!fs.existsSync(publicOgImagePath)) {
+    console.error(`[SEO Prerender Error] Required OG image missing at: ${publicOgImagePath}`);
+    process.exit(1);
+  }
+
+  const { width: ogWidth, height: ogHeight } = readPngDimensions(publicOgImagePath);
+  const ogStats = fs.statSync(publicOgImagePath);
+  console.log(`[SEO Prerender] public/og-image.png verified: ${ogWidth}x${ogHeight} px, ${(ogStats.size / 1024).toFixed(1)} KB`);
+
+  if (!fs.existsSync(distOgImagePath)) {
+    console.warn(`[SEO Prerender] dist/og-image.png not found. Copying from public...`);
+    fs.copyFileSync(publicOgImagePath, distOgImagePath);
+  }
+
+  // 2. Verify dist/index.html exists
   if (!fs.existsSync(indexHtmlPath)) {
     console.error(`[SEO Prerender Error] dist/index.html not found at: ${indexHtmlPath}`);
     process.exit(1);
@@ -31,7 +109,7 @@ function prerenderSEO() {
 
   const html = fs.readFileSync(indexHtmlPath, "utf8");
 
-  // 2. Validate essential elements in the template
+  // 3. Validate essential elements in the template
   if (!html.includes('id="root"')) {
     console.error('[SEO Prerender Error] Root mounting container (<div id="root">) not found in index.html.');
     process.exit(1);
@@ -49,35 +127,57 @@ function prerenderSEO() {
     process.exit(1);
   }
 
-  // Regex patterns supporting any attribute order and whitespace/newlines
+  // Regex patterns supporting any attribute order, multiline spacing and quotes
   const titleRegex = /<title>[\s\S]*?<\/title>/i;
   const descRegex = /<meta\s+[^>]*?name=["']description["'][^>]*?>/i;
   const canonicalRegex = /<link\s+[^>]*?rel=["']canonical["'][^>]*?>/i;
 
-  if (!titleRegex.test(html)) {
-    console.error("[SEO Prerender Error] <title> tag not found in template index.html.");
-    process.exit(1);
+  const ogTypeRegex = /<meta\s+[^>]*?property=["']og:type["'][^>]*?>/i;
+  const ogSiteNameRegex = /<meta\s+[^>]*?property=["']og:site_name["'][^>]*?>/i;
+  const ogTitleRegex = /<meta\s+[^>]*?property=["']og:title["'][^>]*?>/i;
+  const ogDescRegex = /<meta\s+[^>]*?property=["']og:description["'][^>]*?>/i;
+  const ogUrlRegex = /<meta\s+[^>]*?property=["']og:url["'][^>]*?>/i;
+  const ogImageRegex = /<meta\s+[^>]*?property=["']og:image["'][^>]*?>/i;
+  const ogImageWidthRegex = /<meta\s+[^>]*?property=["']og:image:width["'][^>]*?>/i;
+  const ogImageHeightRegex = /<meta\s+[^>]*?property=["']og:image:height["'][^>]*?>/i;
+  const ogImageAltRegex = /<meta\s+[^>]*?property=["']og:image:alt["'][^>]*?>/i;
+
+  const twitterCardRegex = /<meta\s+[^>]*?name=["']twitter:card["'][^>]*?>/i;
+  const twitterTitleRegex = /<meta\s+[^>]*?name=["']twitter:title["'][^>]*?>/i;
+  const twitterDescRegex = /<meta\s+[^>]*?name=["']twitter:description["'][^>]*?>/i;
+  const twitterImageRegex = /<meta\s+[^>]*?name=["']twitter:image["'][^>]*?>/i;
+  const twitterImageAltRegex = /<meta\s+[^>]*?name=["']twitter:image:alt["'][^>]*?>/i;
+
+  const requiredRegexes = [
+    { name: "<title>", regex: titleRegex },
+    { name: "meta description", regex: descRegex },
+    { name: "link canonical", regex: canonicalRegex },
+    { name: "og:type", regex: ogTypeRegex },
+    { name: "og:site_name", regex: ogSiteNameRegex },
+    { name: "og:title", regex: ogTitleRegex },
+    { name: "og:description", regex: ogDescRegex },
+    { name: "og:url", regex: ogUrlRegex },
+    { name: "og:image", regex: ogImageRegex },
+    { name: "og:image:width", regex: ogImageWidthRegex },
+    { name: "og:image:height", regex: ogImageHeightRegex },
+    { name: "og:image:alt", regex: ogImageAltRegex },
+    { name: "twitter:card", regex: twitterCardRegex },
+    { name: "twitter:title", regex: twitterTitleRegex },
+    { name: "twitter:description", regex: twitterDescRegex },
+    { name: "twitter:image", regex: twitterImageRegex },
+    { name: "twitter:image:alt", regex: twitterImageAltRegex },
+  ];
+
+  // 4. Validate homepage template tags exist and have zero duplicates
+  for (const item of requiredRegexes) {
+    const count = countMatches(html, new RegExp(item.regex.source, "gi"));
+    if (count !== 1) {
+      console.error(`[SEO Prerender Error] Template index.html must have exactly 1 ${item.name}, found ${count}.`);
+      process.exit(1);
+    }
   }
 
-  if (!descRegex.test(html)) {
-    console.error("[SEO Prerender Error] meta description tag not found in template index.html.");
-    process.exit(1);
-  }
-
-  if (!canonicalRegex.test(html)) {
-    console.error("[SEO Prerender Error] link rel=canonical tag not found in template index.html.");
-    process.exit(1);
-  }
-
-  // 3. Verify Homepage metadata in template
-  if (!html.includes(homepageMetadata.title)) {
-    console.warn(`[SEO Prerender Warning] dist/index.html title does not match expected homepage title: "${homepageMetadata.title}"`);
-  }
-  if (!html.includes(homepageMetadata.canonical)) {
-    console.warn(`[SEO Prerender Warning] dist/index.html canonical does not match expected homepage canonical: "${homepageMetadata.canonical}"`);
-  }
-
-  // 4. Generate Contact page HTML shell
+  // 5. Generate Contact page HTML shell
   let contactHtml = html;
 
   contactHtml = contactHtml.replace(
@@ -95,35 +195,56 @@ function prerenderSEO() {
     `<link rel="canonical" href="${contactMetadata.canonical}" />`
   );
 
-  // 5. Verify no duplicate tags in generated contactHtml
-  const titleMatches = contactHtml.match(/<title>[\s\S]*?<\/title>/gi) || [];
-  const descMatches = contactHtml.match(/<meta\s+[^>]*?name=["']description["'][^>]*?>/gi) || [];
-  const canonicalMatches = contactHtml.match(/<link\s+[^>]*?rel=["']canonical["'][^>]*?>/gi) || [];
+  contactHtml = contactHtml.replace(
+    ogTitleRegex,
+    `<meta property="og:title" content="${contactMetadata.ogTitle}" />`
+  );
 
-  if (titleMatches.length !== 1) {
-    console.error(`[SEO Prerender Error] Expected exactly 1 <title>, found ${titleMatches.length}.`);
+  contactHtml = contactHtml.replace(
+    ogDescRegex,
+    `<meta property="og:description" content="${contactMetadata.ogDescription}" />`
+  );
+
+  contactHtml = contactHtml.replace(
+    ogUrlRegex,
+    `<meta property="og:url" content="${contactMetadata.ogUrl}" />`
+  );
+
+  contactHtml = contactHtml.replace(
+    twitterTitleRegex,
+    `<meta name="twitter:title" content="${contactMetadata.twitterTitle}" />`
+  );
+
+  contactHtml = contactHtml.replace(
+    twitterDescRegex,
+    `<meta name="twitter:description" content="${contactMetadata.twitterDescription}" />`
+  );
+
+  // 6. Verify Contact HTML tags exist and have zero duplicates
+  for (const item of requiredRegexes) {
+    const count = countMatches(contactHtml, new RegExp(item.regex.source, "gi"));
+    if (count !== 1) {
+      console.error(`[SEO Prerender Error] Generated contact HTML must have exactly 1 ${item.name}, found ${count}.`);
+      process.exit(1);
+    }
+  }
+
+  // 7. Verify contact metadata values are actually present in contactHtml
+  if (
+    !contactHtml.includes(contactMetadata.title) ||
+    !contactHtml.includes(contactMetadata.description) ||
+    !contactHtml.includes(contactMetadata.canonical) ||
+    !contactHtml.includes(contactMetadata.ogTitle) ||
+    !contactHtml.includes(contactMetadata.ogDescription) ||
+    !contactHtml.includes(contactMetadata.ogUrl) ||
+    !contactHtml.includes(contactMetadata.twitterTitle) ||
+    !contactHtml.includes(contactMetadata.twitterDescription)
+  ) {
+    console.error("[SEO Prerender Error] Generated contact HTML does not contain all expected metadata values.");
     process.exit(1);
   }
 
-  if (descMatches.length !== 1) {
-    console.error(`[SEO Prerender Error] Expected exactly 1 meta description, found ${descMatches.length}.`);
-    process.exit(1);
-  }
-
-  if (canonicalMatches.length !== 1) {
-    console.error(`[SEO Prerender Error] Expected exactly 1 canonical link, found ${canonicalMatches.length}.`);
-    process.exit(1);
-  }
-
-  // Verify contact metadata values are actually present in contactHtml
-  if (!contactHtml.includes(contactMetadata.title) ||
-      !contactHtml.includes(contactMetadata.description) ||
-      !contactHtml.includes(contactMetadata.canonical)) {
-    console.error("[SEO Prerender Error] Generated contact HTML does not contain expected metadata values.");
-    process.exit(1);
-  }
-
-  // 6. Write to dist/lets-talk/index.html (directory index shell)
+  // 8. Write to dist/lets-talk/index.html (directory index shell)
   const letsTalkDir = path.join(distDir, "lets-talk");
   if (!fs.existsSync(letsTalkDir)) {
     fs.mkdirSync(letsTalkDir, { recursive: true });
@@ -133,12 +254,12 @@ function prerenderSEO() {
   fs.writeFileSync(letsTalkIndexPath, contactHtml, "utf8");
   console.log(`[SEO Prerender] Successfully generated: dist/lets-talk/index.html`);
 
-  // 7. Also write to dist/lets-talk.html (clean URL direct match fallback)
+  // 9. Also write to dist/lets-talk.html (clean URL direct match fallback)
   const letsTalkCleanPath = path.join(distDir, "lets-talk.html");
   fs.writeFileSync(letsTalkCleanPath, contactHtml, "utf8");
   console.log(`[SEO Prerender] Successfully generated: dist/lets-talk.html`);
 
-  console.log("[SEO Prerender] Verification complete. Route metadata successfully emitted.");
+  console.log("[SEO Prerender] All Open Graph, Twitter Card, and route metadata successfully validated and emitted.");
 }
 
 prerenderSEO();

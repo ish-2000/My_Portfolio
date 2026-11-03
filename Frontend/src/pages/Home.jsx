@@ -29,6 +29,15 @@ export default function Home() {
     description:
       "Explore the portfolio of Ishara Udayanga, a full-stack developer and product designer based in Sri Lanka. Discover web applications, UI/UX design and projects.",
     canonical: "https://ishara.live/",
+    ogTitle: "Ishara Udayanga | Full Stack Developer & Designer",
+    ogDescription:
+      "Explore the portfolio of Ishara Udayanga, a full-stack developer and product designer based in Sri Lanka. Discover web applications, UI/UX design and projects.",
+    ogUrl: "https://ishara.live/",
+    ogImage: "https://ishara.live/og-image.png",
+    twitterTitle: "Ishara Udayanga | Full Stack Developer & Designer",
+    twitterDescription:
+      "Explore my full-stack development, design and digital product projects.",
+    twitterImage: "https://ishara.live/og-image.png",
   });
   const [showPreloader, setShowPreloader] = useState(!preloaderHasPlayed);
 
