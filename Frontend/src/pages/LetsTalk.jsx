@@ -119,6 +119,15 @@ export default function LetsTalk() {
     description:
       "Get in touch with Ishara Udayanga for web development, digital product design and collaboration opportunities.",
     canonical: "https://ishara.live/lets-talk",
+    ogTitle: "Contact Ishara Udayanga | Web Developer & Designer",
+    ogDescription:
+      "Get in touch with Ishara Udayanga for web development, digital product design and collaboration opportunities.",
+    ogUrl: "https://ishara.live/lets-talk",
+    ogImage: "https://ishara.live/og-image.png",
+    twitterTitle: "Contact Ishara Udayanga | Web Developer & Designer",
+    twitterDescription:
+      "Let's connect and discuss web development, digital products, and collaboration opportunities.",
+    twitterImage: "https://ishara.live/og-image.png",
   });
   useEffect(() => {
     window.scrollTo(0, 0);
