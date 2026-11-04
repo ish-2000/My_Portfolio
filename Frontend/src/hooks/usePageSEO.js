@@ -13,7 +13,7 @@ function setMetaTag(attrName, attrVal, content) {
 
 /**
  * Custom lightweight hook to manage route-specific metadata (title, meta description, canonical link,
- * Open Graph, and Twitter Card tags) without external dependencies.
+ * Open Graph, Twitter Card tags, and JSON-LD structured data) without external dependencies.
  *
  * It updates existing head elements in place to prevent duplicate tags during client-side navigation.
  */
@@ -28,6 +28,7 @@ export default function usePageSEO({
   twitterTitle,
   twitterDescription,
   twitterImage,
+  schema,
 }) {
   useEffect(() => {
     // Document Title
@@ -65,6 +66,20 @@ export default function usePageSEO({
     if (twitterImage || ogImage) {
       setMetaTag("name", "twitter:image", twitterImage || ogImage);
     }
+
+    // JSON-LD Structured Data
+    if (schema) {
+      let script = document.getElementById("schema-jsonld");
+      if (!script) {
+        script = document.createElement("script");
+        script.setAttribute("type", "application/ld+json");
+        script.setAttribute("id", "schema-jsonld");
+        document.head.appendChild(script);
+      }
+      const jsonString =
+        typeof schema === "string" ? schema : JSON.stringify(schema, null, 2);
+      script.textContent = jsonString;
+    }
   }, [
     title,
     description,
@@ -76,5 +91,6 @@ export default function usePageSEO({
     twitterTitle,
     twitterDescription,
     twitterImage,
+    schema,
   ]);
 }

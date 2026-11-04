@@ -4,6 +4,7 @@ import ProfileImg from "../assets/images/Me.png";
 import WhatsAppQR from "../components/lets-talk/WhatsAppQR";
 import { sendBookingEmail } from "../utils/emailService";
 import usePageSEO from "../hooks/usePageSEO";
+import { letsTalkSchema } from "../data/seoSchemas";
 
 function toDateKey(year, month, day) {
   return `${year}-${String(month + 1).padStart(2, "0")}-${String(day).padStart(2, "0")}`;
@@ -128,6 +129,7 @@ export default function LetsTalk() {
     twitterDescription:
       "Let's connect and discuss web development, digital products, and collaboration opportunities.",
     twitterImage: "https://ishara.live/og-image.png",
+    schema: letsTalkSchema,
   });
   useEffect(() => {
     window.scrollTo(0, 0);
