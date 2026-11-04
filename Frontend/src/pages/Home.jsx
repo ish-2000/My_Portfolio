@@ -20,6 +20,7 @@ import BeyondWork from "../components/sections/BeyondWork";
 import VisionSection from "../components/sections/VisionSection";
 import Darkhero from "../components/sections/Darkhero";
 import usePageSEO from "../hooks/usePageSEO";
+import { homeSchema } from "../data/seoSchemas";
 
 let preloaderHasPlayed = false;
 
@@ -38,6 +39,7 @@ export default function Home() {
     twitterDescription:
       "Explore my full-stack development, design and digital product projects.",
     twitterImage: "https://ishara.live/og-image.png",
+    schema: homeSchema,
   });
   const [showPreloader, setShowPreloader] = useState(!preloaderHasPlayed);
 
